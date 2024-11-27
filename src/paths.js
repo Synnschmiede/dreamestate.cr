@@ -4,10 +4,11 @@ export const paths = {
   contact: '/contact',
   pricing: '/pricing',
   auth: {
-    custom: {
-      signIn: '/auth/custom/sign-in',
-      signUp: '/auth/custom/sign-up',
-      resetPassword: '/auth/custom/reset-password',
+    default: {
+      signIn: '/auth/sign-in',
+      signUp: '/auth/sign-up',
+      resetPassword: '/auth/reset-password',
+      forgotPassword: '/auth/forgot-password',
     },
     auth0: {
       callback: '/auth/auth0/callback',
@@ -53,12 +54,22 @@ export const paths = {
   },
   dashboard: {
     overview: '/dashboard',
+    records: '/dashboard/records',
+
+    // settings
+    profile: '/dashboard/settings/account',
+    security: '/dashboard/settings/security',
+
+    // admin
+    users: '/dashboard/users',
+
+
+    // can be removed later on
     settings: {
       account: '/dashboard/settings/account',
       billing: '/dashboard/settings/billing',
       integrations: '/dashboard/settings/integrations',
       notifications: '/dashboard/settings/notifications',
-      security: '/dashboard/settings/security',
       team: '/dashboard/settings/team',
     },
     academy: { browse: '/dashboard/academy', details: (courseId) => `/dashboard/academy/courses/${courseId}` },
