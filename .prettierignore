@@ -1,13 +1,11 @@
-# Dependencies
-node_modules
+# Build directories
+build/*
+dist/*
+public/*
+**/out/*
+**/.next/*
+**/node_modules/*
 
-# Next.js
-.next
-build
-
-# Lock files
+yarn.lock
 package-lock.json
-
-# Misc
-dist
-public
+jsconfig.json
