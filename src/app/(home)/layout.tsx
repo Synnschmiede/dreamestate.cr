@@ -12,6 +12,7 @@ import { usePathname } from 'src/routes/hooks';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
+import { navData } from 'src/router';
 import { Main } from 'src/layouts/main';
 import { NavMobile } from 'src/layouts/main/nav/mobile';
 import { NavDesktop } from 'src/layouts/main/nav/desktop';
@@ -21,8 +22,7 @@ import { HeaderSection } from 'src/layouts/core/header-section';
 import { LayoutSection } from 'src/layouts/core/layout-section';
 
 import { Logo } from 'src/components/logo';
-
-import { navData } from './config-nav-main';
+import { ArrowRight, ArrowRightAlt } from '@mui/icons-material';
 
 // ----------------------------------------------------------------------
 
@@ -35,9 +35,9 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
 
   const homePage = pathname === '/';
 
-  const layoutQuery: Breakpoint = 'md';
+  const layoutQuery: Breakpoint = 'lg';
 
-  const navConfigData =  navData;
+  const navConfigData = navData;
 
   return (
     <LayoutSection
@@ -84,7 +84,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
                   }}
                 />
                 <Box display="flex" alignItems="center" gap={{ xs: 1, sm: 1.5 }}>
-                  
+
                   <Button
                     variant="contained"
                     rel="noopener"
@@ -94,8 +94,9 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
                       display: 'none',
                       [theme.breakpoints.up(layoutQuery)]: { display: 'inline-flex' },
                     }}
+                    endIcon={<ArrowRightAlt />}
                   >
-                    Purchase
+                    Request A Visit
                   </Button>
                 </Box>
               </>

@@ -106,6 +106,7 @@ export function HeaderSection({
       >
         <Container
           {...slotProps?.container}
+          maxWidth="xl"
           sx={{
             height: 1,
             display: 'flex',

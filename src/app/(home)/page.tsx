@@ -1,6 +1,4 @@
-
-
-import { HomeView } from "src/components/home";
+import { Hero } from "./_components/hero";
 
 // ----------------------------------------------------------------------
 export const metadata = {
@@ -10,5 +8,9 @@ export const metadata = {
 };
 
 export default function Page() {
-  return <HomeView />;
+  return (
+    <>
+      <Hero />
+    </>
+  );
 }

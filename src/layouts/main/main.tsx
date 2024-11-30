@@ -1,6 +1,7 @@
 import type { BoxProps } from '@mui/material/Box';
 
 import Box from '@mui/material/Box';
+import { Container } from '@mui/material';
 
 import { layoutClasses } from '../classes';
 
@@ -19,7 +20,9 @@ export function Main({ children, sx, ...other }: BoxProps) {
       }}
       {...other}
     >
-      {children}
+      <Container maxWidth="xl"> 
+        {children}
+      </Container>
     </Box>
   );
 }
