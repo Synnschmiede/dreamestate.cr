@@ -1,4 +1,5 @@
-import { Box, Button, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { Box, Grid, Button, Select, MenuItem, TextField, Typography } from '@mui/material';
+
 import { pxToRem } from 'src/theme/styles';
 
 export const HeroSection = () => {
@@ -19,14 +20,16 @@ export const HeroSection = () => {
                             maxWidth: '650px',
                             ml: 'auto',
                             pr: { xs: 0, md: 4 },
+                            pl: { xs: 4, md: 0 },
+                            py: { xs: 8, md: 0 }
                         }}
                     >
                         <Typography variant="inherit"
                             sx={{
                                 color: 'text.secondary',
-                                fontSize: 24,
+                                fontSize: { xs: '16px', sm: '20px', md: '24px' },
                                 fontWeight: 400,
-                                mb: -2
+                                mb: {xs: 0, md: -2}
                             }}>
                             Top-Notch Real Estate Properties
                         </Typography>
@@ -34,9 +37,9 @@ export const HeroSection = () => {
                             variant="inherit"
                             sx={{
                                 color: 'text.main',
-                                fontWeight: 600,
-                                fontSize: pxToRem(80),
-                                mb: -4
+                                fontWeight: 700,
+                                fontSize: { xs: pxToRem(40), sm: pxToRem(60), md: pxToRem(80) },
+                                mb: { xs: -2,  md: -4 }
                             }}
                         >
                             Find Your
@@ -45,8 +48,8 @@ export const HeroSection = () => {
                             variant="inherit"
                             sx={{
                                 color: 'text.main',
-                                fontWeight: 600,
-                                fontSize: pxToRem(80),
+                                fontWeight: 700,
+                                fontSize: { xs: pxToRem(40), sm: pxToRem(60), md: pxToRem(80) },
                             }}
                         >
                             Dream Home
@@ -92,13 +95,13 @@ export const HeroSection = () => {
                                 <Typography variant="h2" sx={{ fontWeight: 500 }}>
                                     65k
                                 </Typography>
-                                <Typography variant="body2" sx={{fontSize: 18}}>Satisfied Customers</Typography>
+                                <Typography variant="body2" sx={{ fontSize: 18 }}>Satisfied Customers</Typography>
                             </Box>
                             <Box>
                                 <Typography variant="h2" sx={{ fontWeight: 500 }}>
                                     15k
                                 </Typography>
-                                <Typography variant="body2" sx={{fontSize: 18}}>Verified Properties</Typography>
+                                <Typography variant="body2" sx={{ fontSize: 18 }}>Verified Properties</Typography>
                             </Box>
                         </Box>
                     </Box>
