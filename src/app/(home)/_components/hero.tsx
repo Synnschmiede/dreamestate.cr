@@ -3,18 +3,22 @@
 import React from 'react';
 
 import { useTheme } from '@mui/material/styles';
-import { Box, Grid, Button, MenuItem, Typography } from '@mui/material';
+import { Search, ArrowRightAlt } from '@mui/icons-material';
+import { Box, Grid, Button, MenuItem, Container, Typography } from '@mui/material';
 
 import { pxToRem } from 'src/theme/styles';
 
+import { SectionTitle } from 'src/components/section-title';
+import { RoundedButton } from 'src/components/rounded-button';
+import { SectionDescription } from 'src/components/section-description';
 import { CustomSelect } from 'src/components/form-components/custom-select';
 import { CustomTextField } from 'src/components/form-components/custom-textfield';
-import { Search } from '@mui/icons-material';
 
 
 export const HeroSection = () => {
 
     return (
+
         <Box
             sx={{
                 backgroundImage: 'url(assets/background/hero_bg_4_1.png)',
@@ -32,7 +36,8 @@ export const HeroSection = () => {
                             ml: 'auto',
                             pr: { xs: 2, md: 4 },
                             pl: { xs: 2, md: 0 },
-                            py: { xs: 8, md: 0 }
+                            pt: { xs: 8, md: 0 },
+                            pb: { xs: 4, md: 0 }
                         }}
                     >
                         <Typography variant="inherit"
@@ -66,7 +71,7 @@ export const HeroSection = () => {
                             Dream Home
                         </Typography>
                         <HeroSearchForm />
-                        <Box sx={{ display: 'flex', gap: 4 }}>
+                        <Box sx={{ display: "flex", gap: 4 }}>
                             <Box>
                                 <Typography variant="h2" sx={{ fontWeight: 500 }}>
                                     65k
@@ -110,11 +115,37 @@ export const HeroSection = () => {
                     />
                 </Grid>
             </Grid>
+
+
+            <Container maxWidth="xl" sx={{ pt: { xs: 0, md: 10 }, pb: { xs: 4, md: 6 } }}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} md={6}>
+                        <SectionTitle>1,230+ Companies</SectionTitle>
+                        <SectionTitle>Trust by us.</SectionTitle>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+
+                        <SectionDescription>
+                            Turning homes become dreams as your go-to real estate agent. You can rely on us to help you safely home. 745,000 houses and flats for sale, rent, or mortgage.
+                        </SectionDescription>
+
+                        <RoundedButton
+                            endIcon={<ArrowRightAlt />}
+                            variant='contained'
+                            sx={{ mt: 2 }}
+                        >
+                            Request a Visit
+                        </RoundedButton>
+                    </Grid>
+                </Grid>
+            </Container>
         </Box>
     );
 };
 
 
+
+// search form component
 const HeroSearchForm = () => {
     const [value, setValue] = React.useState('');
     const handleInputChange = (event: any) => {
@@ -126,11 +157,12 @@ const HeroSearchForm = () => {
             component="form"
             sx={{
                 display: 'flex',
-                flexDirection: { xs: 'column', md: 'row' }, // Stack items on mobile, row on larger screens
+                flexDirection: { xs: 'column', md: 'row' },
                 gap: 2,
                 mb: 4,
+                mt: { xs: 2, md: 0 },
                 background: theme.palette.custom.light_bg,
-
+                borderRadius: { xs: 0, md: '8px 0 0 8px' },
             }}
         >
             <CustomTextField
@@ -168,12 +200,9 @@ const HeroSearchForm = () => {
                     whiteSpace: 'nowrap',
                     display: 'flex',
                     alignItems: 'center',
-                    borderTopLeftRadius: { xs: 0, md: 0 }, 
-                    borderBottomLeftRadius: { xs: 0, md: 0 },
-                    borderTopRightRadius: { xs: 0, md: 1 },
-                    borderBottomRightRadius: { xs: 0, md: 1 },
+                    borderRadius: { xs: 0, md: '0 8px 8px 0' },
                     ml: "auto",
-                    width: { xs: '100%', md: '40%' }, 
+                    width: { xs: '100%', md: '30%' },
                     py: { xs: 2, md: 2 },
                 }}
                 startIcon={<Search />}

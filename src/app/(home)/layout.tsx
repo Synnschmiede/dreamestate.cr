@@ -23,6 +23,7 @@ import { LayoutSection } from 'src/layouts/core/layout-section';
 
 import { Logo } from 'src/components/logo';
 import { ArrowRight, ArrowRightAlt } from '@mui/icons-material';
+import { RoundedButton } from 'src/components/rounded-button';
 
 // ----------------------------------------------------------------------
 
@@ -83,22 +84,12 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
                     [theme.breakpoints.up(layoutQuery)]: { mr: 2.5, display: 'flex' },
                   }}
                 />
-                <Box display="flex" alignItems="center" gap={{ xs: 1, sm: 1.5 }}>
-
-                  <Button
-                    variant="contained"
-                    rel="noopener"
-                    target="_blank"
-                    href={paths.minimalStore}
-                    sx={{
-                      display: 'none',
-                      [theme.breakpoints.up(layoutQuery)]: { display: 'inline-flex' },
-                    }}
-                    endIcon={<ArrowRightAlt />}
-                  >
-                    Request A Visit
-                  </Button>
-                </Box>
+                <RoundedButton
+                  endIcon={<ArrowRightAlt />}
+                  variant='contained'
+                >
+                  Request a Visit
+                </RoundedButton>
               </>
             ),
           }}
