@@ -2,12 +2,15 @@
 
 import React from 'react';
 
-import { Box, Grid, Button, Select, MenuItem, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { Box, Grid, Button, MenuItem, Typography } from '@mui/material';
 
 import { pxToRem } from 'src/theme/styles';
 
+import { CustomSelect } from 'src/components/form-components/custom-select';
 import { CustomTextField } from 'src/components/form-components/custom-textfield';
 import { Search } from '@mui/icons-material';
+
 
 export const HeroSection = () => {
 
@@ -27,8 +30,8 @@ export const HeroSection = () => {
                         sx={{
                             maxWidth: '650px',
                             ml: 'auto',
-                            pr: { xs: 0, md: 4 },
-                            pl: { xs: 4, md: 0 },
+                            pr: { xs: 2, md: 4 },
+                            pl: { xs: 2, md: 0 },
                             py: { xs: 8, md: 0 }
                         }}
                     >
@@ -117,15 +120,17 @@ const HeroSearchForm = () => {
     const handleInputChange = (event: any) => {
         setValue(event.target.value);
     }
+    const theme = useTheme()
     return (
         <Box
             component="form"
             sx={{
                 display: 'flex',
+                flexDirection: { xs: 'column', md: 'row' }, // Stack items on mobile, row on larger screens
                 gap: 2,
-                flexWrap: 'wrap',
                 mb: 4,
-                background: 'var(--light-gray-bg)',
+                background: theme.palette.custom.light_bg,
+
             }}
         >
             <CustomTextField
@@ -133,27 +138,47 @@ const HeroSearchForm = () => {
                 value={value}
                 onChange={handleInputChange}
                 name="listing"
-                inputProps={{
-                    startAdornment: <Search color="action"  />, // Ensure styling is applied
-                }}
             />
-            <Select defaultValue="category" sx={{ minWidth: 120 }}>
-                <MenuItem value="category">Category</MenuItem>
+            <CustomSelect
+                value={value}
+                onChange={handleInputChange}
+                displayEmpty
+            >
+                <MenuItem value="">
+                    Category
+                </MenuItem>
                 <MenuItem value="luxury">Luxury</MenuItem>
                 <MenuItem value="commercial">Commercial</MenuItem>
-            </Select>
-            <Select defaultValue="offer_type" sx={{ minWidth: 120 }}>
-                <MenuItem value="offer_type">Offer Type</MenuItem>
-                <MenuItem value="popularity">Popularity</MenuItem>
-                <MenuItem value="rating">Rating</MenuItem>
-                <MenuItem value="date">Latest</MenuItem>
-            </Select>
+            </CustomSelect>
+            <CustomSelect
+                value={value}
+                onChange={handleInputChange}
+                displayEmpty
+            >
+                <MenuItem value="">
+                    Location
+                </MenuItem>
+                <MenuItem value="luxury">Luxury</MenuItem>
+                <MenuItem value="commercial">Commercial</MenuItem>
+            </CustomSelect>
             <Button
                 variant="contained"
                 type="submit"
-                sx={{ whiteSpace: 'nowrap', display: 'flex', alignItems: 'center' }}
+                sx={{
+                    whiteSpace: 'nowrap',
+                    display: 'flex',
+                    alignItems: 'center',
+                    borderTopLeftRadius: { xs: 0, md: 0 }, 
+                    borderBottomLeftRadius: { xs: 0, md: 0 },
+                    borderTopRightRadius: { xs: 0, md: 1 },
+                    borderBottomRightRadius: { xs: 0, md: 1 },
+                    ml: "auto",
+                    width: { xs: '100%', md: '40%' }, 
+                    py: { xs: 2, md: 2 },
+                }}
+                startIcon={<Search />}
             >
-                <i className="far fa-search" style={{ marginRight: 8 }} /> Search
+                Search Property
             </Button>
         </Box>
     )

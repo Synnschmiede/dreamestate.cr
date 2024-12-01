@@ -62,5 +62,8 @@
   "common": {
     "black": "#000000",
     "white": "#FFFFFF"
+  }, 
+  "custom": {
+    "light_bg": "#F1F4F5"
   }
 }

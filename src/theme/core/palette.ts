@@ -1,7 +1,7 @@
 import type { ColorSystemOptions } from '@mui/material/styles';
 
+import { createPaletteChannel, varAlpha } from '../styles';
 import COLORS from './colors.json';
-import { varAlpha, createPaletteChannel } from '../styles';
 
 // ----------------------------------------------------------------------
 
@@ -80,6 +80,8 @@ export const error = createPaletteChannel(COLORS.error);
 // Common
 export const common = createPaletteChannel(COLORS.common);
 
+export const custom = createPaletteChannel(COLORS.custom);
+
 // Text
 export const text = {
   light: createPaletteChannel({ primary: grey[800], secondary: grey[600], disabled: grey[500] }),
@@ -122,6 +124,7 @@ export const basePalette = {
   common,
   divider: varAlpha(grey['500Channel'], 0.2),
   action,
+  custom,
 };
 
 export const lightPalette = {

@@ -10,11 +10,10 @@ export const CustomTextField = styled((props: TextFieldProps) => (
 ))(({ theme }) => ({
     "& .MuiOutlinedInput-input": {
         border: "none",
+        padding: "20px",
     },
     " & .MuiOutlinedInput-notchedOutline": {
         border: "none",
     },
-    '& .MuiInputAdornment-root': {
-        marginRight: 8, // Add margin to ensure the icon isn't too close to the input text
-    },
+
 }));
