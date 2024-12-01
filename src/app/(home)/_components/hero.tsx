@@ -1,4 +1,5 @@
 import { Box, Button, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { pxToRem } from 'src/theme/styles';
 
 export const HeroSection = () => {
     return (
@@ -8,7 +9,6 @@ export const HeroSection = () => {
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 width: '100%',
-                py: 8,
             }}
         >
             <Grid container spacing={0} alignItems="center">
@@ -16,18 +16,39 @@ export const HeroSection = () => {
                 <Grid item xs={12} md={6}>
                     <Box
                         sx={{
-                            maxWidth: '650px', 
-                            ml: 'auto', 
+                            maxWidth: '650px',
+                            ml: 'auto',
                             pr: { xs: 0, md: 4 },
                         }}
                     >
-                        <Typography variant="subtitle1" sx={{ color: 'text.secondary', mb: 2 }}>
+                        <Typography variant="inherit"
+                            sx={{
+                                color: 'text.secondary',
+                                fontSize: 24,
+                                fontWeight: 400,
+                                mb: -2
+                            }}>
                             Top-Notch Real Estate Properties
                         </Typography>
-                        <Typography variant="h2" sx={{ color: 'primary.main', mb: 1 }}>
+                        <Typography
+                            variant="inherit"
+                            sx={{
+                                color: 'text.main',
+                                fontWeight: 600,
+                                fontSize: pxToRem(80),
+                                mb: -4
+                            }}
+                        >
                             Find Your
                         </Typography>
-                        <Typography variant="h2" sx={{ color: 'primary.main', mb: 4 }}>
+                        <Typography
+                            variant="inherit"
+                            sx={{
+                                color: 'text.main',
+                                fontWeight: 600,
+                                fontSize: pxToRem(80),
+                            }}
+                        >
                             Dream Home
                         </Typography>
                         <Box
@@ -66,32 +87,35 @@ export const HeroSection = () => {
                                 <i className="far fa-search" style={{ marginRight: 8 }} /> Search
                             </Button>
                         </Box>
-                        <Grid container spacing={4}>
-                            <Grid item xs={6}>
-                                <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+                        <Box sx={{ display: 'flex', gap: 4 }}>
+                            <Box>
+                                <Typography variant="h2" sx={{ fontWeight: 500 }}>
                                     65k
                                 </Typography>
-                                <Typography variant="body2">Satisfied Customers</Typography>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+                                <Typography variant="body2" sx={{fontSize: 18}}>Satisfied Customers</Typography>
+                            </Box>
+                            <Box>
+                                <Typography variant="h2" sx={{ fontWeight: 500 }}>
                                     15k
                                 </Typography>
-                                <Typography variant="body2">Verified Properties</Typography>
-                            </Grid>
-                        </Grid>
+                                <Typography variant="body2" sx={{fontSize: 18}}>Verified Properties</Typography>
+                            </Box>
+                        </Box>
                     </Box>
                 </Grid>
                 {/* Right Section */}
-                <Grid item xs={12} md={6}>
+                <Grid
+                    sx={{
+                        display: { xs: 'none', md: 'block' },
+                    }}
+                    item xs={12} md={6}>
                     <Box
                         sx={{
                             backgroundImage: 'url(assets/home/hero_thumb_4_1.png)',
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',
                             height: '100%',
-                            minHeight: '300px',
-                            borderRadius: 2,
+                            minHeight: '600px',
                             position: 'relative',
                             overflow: 'hidden',
                             '&::before': {
