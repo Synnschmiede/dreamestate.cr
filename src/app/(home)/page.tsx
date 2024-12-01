@@ -1,4 +1,4 @@
-import { Hero } from "./_components/hero";
+import { HeroSection } from "./_components/hero";
 
 // ----------------------------------------------------------------------
 export const metadata = {
@@ -9,8 +9,6 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <>
-      <Hero />
-    </>
+    <HeroSection />
   );
 }

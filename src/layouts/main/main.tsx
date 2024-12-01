@@ -20,9 +20,8 @@ export function Main({ children, sx, ...other }: BoxProps) {
       }}
       {...other}
     >
-      <Container maxWidth="xl"> 
         {children}
-      </Container>
+      
     </Box>
   );
 }

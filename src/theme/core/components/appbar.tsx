@@ -11,7 +11,7 @@ const MuiAppBar: Components<Theme>['MuiAppBar'] = {
   /** **************************************
    * STYLE
    *************************************** */
-  styleOverrides: { root: { boxShadow: 'none' } },
+  // styleOverrides: { root: { boxShadow: 'none' } },
 };
 
 // ----------------------------------------------------------------------
