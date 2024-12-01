@@ -1,8 +1,16 @@
-import { Box, Grid, Button, Select, MenuItem, TextField, Typography } from '@mui/material';
+"use client"
+
+import React from 'react';
+
+import { Box, Grid, Button, Select, MenuItem, Typography } from '@mui/material';
 
 import { pxToRem } from 'src/theme/styles';
 
+import { CustomTextField } from 'src/components/form-components/custom-textfield';
+import { Search } from '@mui/icons-material';
+
 export const HeroSection = () => {
+
     return (
         <Box
             sx={{
@@ -29,7 +37,7 @@ export const HeroSection = () => {
                                 color: 'text.secondary',
                                 fontSize: { xs: '16px', sm: '20px', md: '24px' },
                                 fontWeight: 400,
-                                mb: {xs: 0, md: -2}
+                                mb: { xs: 0, md: -2 }
                             }}>
                             Top-Notch Real Estate Properties
                         </Typography>
@@ -39,7 +47,7 @@ export const HeroSection = () => {
                                 color: 'text.main',
                                 fontWeight: 700,
                                 fontSize: { xs: pxToRem(40), sm: pxToRem(60), md: pxToRem(80) },
-                                mb: { xs: -2,  md: -4 }
+                                mb: { xs: -2, md: -4 }
                             }}
                         >
                             Find Your
@@ -54,42 +62,7 @@ export const HeroSection = () => {
                         >
                             Dream Home
                         </Typography>
-                        <Box
-                            component="form"
-                            sx={{
-                                display: 'flex',
-                                gap: 2,
-                                flexWrap: 'wrap',
-                                mb: 4,
-                            }}
-                        >
-                            <TextField
-                                placeholder="Listing ID or Location"
-                                fullWidth
-                                sx={{ flex: 1 }}
-                                InputProps={{
-                                    startAdornment: <i className="far fa-search" style={{ marginRight: 8 }} />,
-                                }}
-                            />
-                            <Select defaultValue="category" sx={{ minWidth: 120 }}>
-                                <MenuItem value="category">Category</MenuItem>
-                                <MenuItem value="luxury">Luxury</MenuItem>
-                                <MenuItem value="commercial">Commercial</MenuItem>
-                            </Select>
-                            <Select defaultValue="offer_type" sx={{ minWidth: 120 }}>
-                                <MenuItem value="offer_type">Offer Type</MenuItem>
-                                <MenuItem value="popularity">Popularity</MenuItem>
-                                <MenuItem value="rating">Rating</MenuItem>
-                                <MenuItem value="date">Latest</MenuItem>
-                            </Select>
-                            <Button
-                                variant="contained"
-                                type="submit"
-                                sx={{ whiteSpace: 'nowrap', display: 'flex', alignItems: 'center' }}
-                            >
-                                <i className="far fa-search" style={{ marginRight: 8 }} /> Search
-                            </Button>
-                        </Box>
+                        <HeroSearchForm />
                         <Box sx={{ display: 'flex', gap: 4 }}>
                             <Box>
                                 <Typography variant="h2" sx={{ fontWeight: 500 }}>
@@ -137,3 +110,51 @@ export const HeroSection = () => {
         </Box>
     );
 };
+
+
+const HeroSearchForm = () => {
+    const [value, setValue] = React.useState('');
+    const handleInputChange = (event: any) => {
+        setValue(event.target.value);
+    }
+    return (
+        <Box
+            component="form"
+            sx={{
+                display: 'flex',
+                gap: 2,
+                flexWrap: 'wrap',
+                mb: 4,
+                background: 'var(--light-gray-bg)',
+            }}
+        >
+            <CustomTextField
+                placeholder="Listing ID or Location"
+                value={value}
+                onChange={handleInputChange}
+                name="listing"
+                inputProps={{
+                    startAdornment: <Search color="action"  />, // Ensure styling is applied
+                }}
+            />
+            <Select defaultValue="category" sx={{ minWidth: 120 }}>
+                <MenuItem value="category">Category</MenuItem>
+                <MenuItem value="luxury">Luxury</MenuItem>
+                <MenuItem value="commercial">Commercial</MenuItem>
+            </Select>
+            <Select defaultValue="offer_type" sx={{ minWidth: 120 }}>
+                <MenuItem value="offer_type">Offer Type</MenuItem>
+                <MenuItem value="popularity">Popularity</MenuItem>
+                <MenuItem value="rating">Rating</MenuItem>
+                <MenuItem value="date">Latest</MenuItem>
+            </Select>
+            <Button
+                variant="contained"
+                type="submit"
+                sx={{ whiteSpace: 'nowrap', display: 'flex', alignItems: 'center' }}
+            >
+                <i className="far fa-search" style={{ marginRight: 8 }} /> Search
+            </Button>
+        </Box>
+    )
+}
