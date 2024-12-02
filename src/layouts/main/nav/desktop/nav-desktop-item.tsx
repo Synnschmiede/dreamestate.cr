@@ -69,6 +69,7 @@ const StyledNavItem = styled(ButtonBase, {
       backgroundColor: theme.vars.palette.text.disabled,
       ...(active && { opacity: 1, backgroundColor: theme.vars.palette.primary.main }),
     },
+    
   };
 
   return {
@@ -81,9 +82,10 @@ const StyledNavItem = styled(ButtonBase, {
       '&:hover': { opacity: 0.64, '&::before': baseStyles.dot },
       ...(active && {
         color: theme.vars.palette.primary.main,
-        fontWeight: theme.typography.fontWeightSemiBold,
+        fontWeight: theme.typography.fontWeightRegular,
         '&::before': baseStyles.dot,
       }),
+      fontSize: theme.typography.pxToRem(17),
       ...(open && { opacity: 0.64, '&::before': baseStyles.dot }),
     }),
 
@@ -94,7 +96,7 @@ const StyledNavItem = styled(ButtonBase, {
       ...baseStyles.item,
       justifyContent: 'flex-start',
       color: theme.vars.palette.text.secondary,
-      fontSize: theme.typography.pxToRem(13),
+      fontSize: theme.typography.pxToRem(18),
       '&:hover': { color: theme.vars.palette.text.primary, '&::before': baseStyles.dot },
       ...(active && {
         color: theme.vars.palette.text.primary,

@@ -202,7 +202,7 @@ const HeroSearchForm = () => {
                     alignItems: 'center',
                     borderRadius: { xs: 0, md: '0 8px 8px 0' },
                     ml: "auto",
-                    width: { xs: '100%', md: '30%' },
+                    width: { xs: '100%', md: '40%' },
                     py: { xs: 2, md: 2 },
                 }}
                 startIcon={<Search />}
