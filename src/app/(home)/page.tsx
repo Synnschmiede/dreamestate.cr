@@ -1,4 +1,7 @@
+import React from "react";
+
 import { HeroSection } from "./_components/hero";
+import { FeaturedListings } from "./_components/featured-listings";
 
 // ----------------------------------------------------------------------
 export const metadata = {
@@ -9,6 +12,9 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <HeroSection />
+    <>
+      <HeroSection />
+      <FeaturedListings />
+    </>
   );
 }
