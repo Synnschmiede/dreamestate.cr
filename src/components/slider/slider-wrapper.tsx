@@ -27,7 +27,9 @@ export const SliderWrapper: React.FC<SliderWrapperProps> = ({
     navigation = false,
     ...restProps }) => {
     return (
-        <Box>
+        <Box sx={{
+            overflow: "hidden"
+        }}>
             <Swiper
                 loop={loop}
                 autoplay={autoplay}

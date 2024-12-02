@@ -2,14 +2,13 @@ import { Typography } from "@mui/material";
 
 import { pxToRem } from "src/theme/styles";
 
-export const SectionDescription = ({ children }: { children: string }) => {
+export const SectionDescription = ({ children, sx }: { children: string , sx?: object}) => {
     return (
         <Typography variant="inherit"
             sx={{
-                color: 'text.secondary',
-                fontSize: { xs: pxToRem(16), sm: pxToRem(18), md: pxToRem(20) },
+                fontSize: { xs: pxToRem(16), sm: pxToRem(18), md: pxToRem(18) },
                 fontWeight: 400,
-                // mb: { xs: 0, md: -2 }
+                ...sx
             }}>
             {children}
         </Typography>

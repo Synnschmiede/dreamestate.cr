@@ -42,7 +42,7 @@ export const HeroSection = () => {
                     >
                         <Typography variant="inherit"
                             sx={{
-                                color: 'text.secondary',
+                                color: 'text.disabled',
                                 fontSize: { xs: '16px', sm: '20px', md: '24px' },
                                 fontWeight: 400,
                                 mb: { xs: 0, md: -2 }
@@ -52,7 +52,7 @@ export const HeroSection = () => {
                         <Typography
                             variant="inherit"
                             sx={{
-                                color: 'text.main',
+                                color: 'text.secondary',
                                 fontWeight: 700,
                                 fontSize: { xs: pxToRem(40), sm: pxToRem(60), md: pxToRem(80) },
                                 mb: { xs: -2, md: -4 }
@@ -76,13 +76,25 @@ export const HeroSection = () => {
                                 <Typography variant="h2" sx={{ fontWeight: 500 }}>
                                     65k
                                 </Typography>
-                                <Typography variant="body2" sx={{ fontSize: 18 }}>Satisfied Customers</Typography>
+                                <Typography
+                                    variant="body2"
+                                    sx={{ fontSize: 18 }}
+                                    color="text.secondary">
+                                    Satisfied Customers
+                                </Typography>
                             </Box>
                             <Box>
-                                <Typography variant="h2" sx={{ fontWeight: 500 }}>
+                                <Typography
+                                    variant="h2"
+                                    sx={{ fontWeight: 500 }}>
                                     15k
                                 </Typography>
-                                <Typography variant="body2" sx={{ fontSize: 18 }}>Verified Properties</Typography>
+                                <Typography
+                                    variant="body2"
+                                    sx={{ fontSize: 18 }}
+                                    color="text.secondary">
+                                    Verified Properties
+                                </Typography>
                             </Box>
                         </Box>
                     </Box>
@@ -120,12 +132,20 @@ export const HeroSection = () => {
             <Container maxWidth="xl" sx={{ pt: { xs: 0, md: 10 }, pb: { xs: 4, md: 6 } }}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
-                        <SectionTitle>1,230+ Companies</SectionTitle>
-                        <SectionTitle>Trust by us.</SectionTitle>
+                        <SectionTitle sx={{
+                            color: 'text.secondary',
+                        }}>1,230+ Companies</SectionTitle>
+                        <SectionTitle sx={{
+                            color: 'text.secondary',
+                        }}>Trust by us.</SectionTitle>
                     </Grid>
                     <Grid item xs={12} md={6}>
 
-                        <SectionDescription>
+                        <SectionDescription
+                            sx={{
+                                color: 'text.disabled',
+                            }}
+                        >
                             Turning homes become dreams as your go-to real estate agent. You can rely on us to help you safely home. 745,000 houses and flats for sale, rent, or mortgage.
                         </SectionDescription>
 
@@ -202,7 +222,7 @@ const HeroSearchForm = () => {
                     alignItems: 'center',
                     borderRadius: { xs: 0, md: '0 8px 8px 0' },
                     ml: "auto",
-                    width: { xs: '100%', md: '40%' },
+                    width: { xs: '100%', md: '34%' },
                     py: { xs: 2, md: 2 },
                 }}
                 startIcon={<Search />}
