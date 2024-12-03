@@ -76,7 +76,7 @@ export const AboutUs = () => {
                                 <RoundedButton
                                     endIcon={<Iconify width={22} icon="guidance:left-2-short-arrow" />}
                                     variant='contained'
-                                    sx={{mt: 4}}
+                                    sx={{ mt: 4 }}
                                 >
                                     More About Dreamesate
                                 </RoundedButton>
@@ -105,7 +105,8 @@ export const AboutUs = () => {
                             <AnimatedShape
                                 shape="\assets\core\shape_1.png"
                                 animationType="topToBottom"
-                                parentSize={{ width: 400, height: 100 }}
+                                size={{ width: 60, height: 40 }}
+                                duration={3}
                             />
                         </Grid>
                     </Grid>
@@ -121,7 +122,7 @@ export const AboutUs = () => {
                         />
                     </Grid>
                 </Grid>
-                
+
             </Container>
         </Box>
     );

@@ -5,39 +5,44 @@ import React from "react";
 import { Box } from "@mui/material";
 import { keyframes } from "@mui/system";
 
+import { pxToRem } from "src/theme/styles";
+
 interface AnimatedShapeProps {
     shape: string; // Image URL or path
     animationType: "leftToRight" | "topToBottom" | "spin";
-    parentSize: { width: number; height: number }; // Parent container dimensions
+    size: { width: number; height: number }; 
+    duration?: number;
 }
-
-const animations = {
-    leftToRight: keyframes`
-        0% { transform: translateX(0); }
-        100% { transform: translateX(100%); }
-    `,
-    topToBottom: keyframes`
-        0% { transform: translateY(0); }
-        100% { transform: translateY(100%); }
-    `,
-    spin: keyframes`
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    `,
-};
 
 export const AnimatedShape: React.FC<AnimatedShapeProps> = ({
     shape,
     animationType,
-    parentSize,
+    size: { width = 40, height = 40 },
+     duration = 3
 }) => {
+    const animations = {
+        leftToRight: keyframes`
+            0% { transform: translateX(0); }
+            100% { transform: translateX(40px); }    `,
+        topToBottom: keyframes`
+            0% { transform: translateY(0); }
+            100% { transform: translateY(40px); } 
+        `,
+        spin: keyframes`
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        `,
+    };
+
     return (
         <Box
             sx={{
                 position: "relative",
-                width: `${parentSize.width}px`,
-                height: `${parentSize.height}px`,
-                overflow: "hidden",
+                width: `${width}px`,
+                height: `${height}px`,
+                // overflow: "hidden",
+                padding: pxToRem(20),
+                zIndex: 20
             }}
         >
             <Box
@@ -46,11 +51,12 @@ export const AnimatedShape: React.FC<AnimatedShapeProps> = ({
                 alt="animated shape"
                 sx={{
                     position: "absolute",
-                    animation: `${animations[animationType]} 3s linear infinite alternate`,
-                    width: "40px", 
-                    height: "80px",
+                    animation: `${animations[animationType]} ${duration}s linear infinite ${animationType === "spin" ? "" : "alternate"} `,
+                    width: `${width}px`,
+                    height: `${height}px`,
                 }}
             />
         </Box>
     );
 };
+
