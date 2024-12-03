@@ -24,6 +24,7 @@ import { LayoutSection } from 'src/layouts/core/layout-section';
 import { Logo } from 'src/components/logo';
 import { ArrowRight, ArrowRightAlt } from '@mui/icons-material';
 import { RoundedButton } from 'src/components/rounded-button';
+import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -85,7 +86,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
                   }}
                 />
                 <RoundedButton
-                  endIcon={<ArrowRightAlt />}
+                  endIcon={<Iconify width={22} icon="guidance:left-2-short-arrow" />}
                   variant='contained'
                 >
                   Request a Visit

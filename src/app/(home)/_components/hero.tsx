@@ -2,12 +2,13 @@
 
 import React from 'react';
 
+import { Search } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
-import { Search, ArrowRightAlt } from '@mui/icons-material';
 import { Box, Grid, Button, MenuItem, Container, Typography } from '@mui/material';
 
 import { pxToRem } from 'src/theme/styles';
 
+import { Iconify } from 'src/components/iconify';
 import { SectionTitle } from 'src/components/section-title';
 import { RoundedButton } from 'src/components/rounded-button';
 import { SectionDescription } from 'src/components/section-description';
@@ -128,7 +129,6 @@ export const HeroSection = () => {
                 </Grid>
             </Grid>
 
-
             <Container maxWidth="xl" sx={{ pt: { xs: 0, md: 10 }, pb: { xs: 4, md: 6 } }}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
@@ -140,17 +140,17 @@ export const HeroSection = () => {
                         }}>Trust by us.</SectionTitle>
                     </Grid>
                     <Grid item xs={12} md={6}>
-
                         <SectionDescription
                             sx={{
                                 color: 'text.disabled',
+                                fontSize: { xs: pxToRem(16), sm: pxToRem(18), md: pxToRem(22) }
                             }}
                         >
                             Turning homes become dreams as your go-to real estate agent. You can rely on us to help you safely home. 745,000 houses and flats for sale, rent, or mortgage.
                         </SectionDescription>
 
                         <RoundedButton
-                            endIcon={<ArrowRightAlt />}
+                            endIcon={<Iconify width={22} icon="guidance:left-2-short-arrow" />}
                             variant='contained'
                             sx={{ mt: 2 }}
                         >
@@ -162,7 +162,6 @@ export const HeroSection = () => {
         </Box>
     );
 };
-
 
 
 // search form component

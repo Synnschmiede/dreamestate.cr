@@ -1,18 +1,20 @@
 "use client"
 
+import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper/modules';
 import { SwiperSlide } from 'swiper/react';
-import { A11y, Autoplay, Scrollbar, Navigation, Pagination } from 'swiper/modules';
 
-import { Box, Button, Container, Grid, Stack } from '@mui/material';
+import { Box, Container, Grid } from '@mui/material';
 
 import { pxToRem } from 'src/theme/styles';
 
+import { Iconify } from 'src/components/iconify';
+import { RoundedButton } from 'src/components/rounded-button';
+import { SectionDescription } from 'src/components/section-description';
+import { SectionTitle } from 'src/components/section-title';
 import { SectionTopText } from 'src/components/section-toptext';
 import { SliderWrapper } from 'src/components/slider/slider-wrapper';
-import { SectionTitle } from 'src/components/section-title';
-import { SectionDescription } from 'src/components/section-description';
-import { RoundedButton } from 'src/components/rounded-button';
-import { ArrowRightAlt } from '@mui/icons-material';
+
+import { FeaturedPropertyCard } from './featured-property-card';
 
 export const FeaturedListings = () => {
     const logos = [
@@ -32,7 +34,7 @@ export const FeaturedListings = () => {
                 backgroundPosition: 'center',
                 width: '100%',
                 minHeight: pxToRem(400),
-                paddingY: { xs: pxToRem(40), md: pxToRem(80)},
+                paddingY: { xs: pxToRem(40), md: pxToRem(80) },
             }}
         >
             <Container maxWidth="xl">
@@ -63,7 +65,8 @@ export const FeaturedListings = () => {
                     ))}
                 </SliderWrapper>
                 <Box sx={{
-                    marginTop: { xs: pxToRem(40), md: pxToRem(70)},
+                    marginTop: { xs: pxToRem(40), md: pxToRem(100) },
+                    marginBottom: { xs: pxToRem(20), md: pxToRem(50) },
                 }}>
                     <SectionTopText sx={{
                         color: "text.primary",
@@ -72,7 +75,7 @@ export const FeaturedListings = () => {
                     </SectionTopText>
 
                     <Grid container>
-                        <Grid item xs={12} md={6}>
+                        <Grid item xs={12} md={7}>
                             <SectionTitle sx={{
                                 color: 'text.secondary',
                             }}>
@@ -89,19 +92,47 @@ export const FeaturedListings = () => {
                                 dicta sunt explicabo.
                             </SectionDescription>
                         </Grid>
-                        <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: { xs: 'start', md: 'flex-end' }, alignItems: 'center' }}>
+                        <Grid item xs={12} md={5} sx={{ display: 'flex', justifyContent: { xs: 'start', md: 'flex-end' }, alignItems: 'center' }}>
                             <RoundedButton
-                                endIcon={<ArrowRightAlt />}
+                                endIcon={<Iconify width={22} icon="guidance:left-2-short-arrow" />}
                                 variant='contained'
-                                sx={{ mt: 2, py: { xs: 1.5, md: 2.5}, px: { xs: 3, md: 4} }}
+                                sx={{ mt: 2, py: { xs: 1.5, md: 2.5 }, px: { xs: 3, md: 4 } }}
                             >
                                 View all properties
                             </RoundedButton>
                         </Grid>
                     </Grid>
                 </Box>
+                <SliderWrapper
+                    modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+                    autoplay={{ delay: 5000, disableOnInteraction: true }}
+                    breakpoints={{
+                        0: { slidesPerView: 1 },
+                        768: { slidesPerView: 2 },
+                        1024: { slidesPerView: 3 },
+                    }}
+                    pauseOnHover
+                    speed={2000}
+                >
+                    <SwiperSlide>
+                        <FeaturedPropertyCard />
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <FeaturedPropertyCard />
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <FeaturedPropertyCard />
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <FeaturedPropertyCard />
+                    </SwiperSlide>
+
+                </SliderWrapper>
             </Container>
 
         </Box>
     );
 };
+
+
+

@@ -16,6 +16,7 @@ interface SliderWrapperProps extends SwiperProps {
     children: ReactNode;
     loop?: boolean;
     autoplay?: { delay: number; disableOnInteraction: boolean } | boolean;
+    pauseOnHover?: boolean;
 }
 
 export const SliderWrapper: React.FC<SliderWrapperProps> = ({
@@ -25,17 +26,39 @@ export const SliderWrapper: React.FC<SliderWrapperProps> = ({
     spaceBetween = 50,
     slidesPerView = 3,
     navigation = false,
+    pauseOnHover = false,
     ...restProps }) => {
+    const swiperRef = React.useRef<any>(null);
+
+    const handleMouseEnter = () => {
+        if (pauseOnHover) {
+            swiperRef.current?.autoplay.stop();
+        }
+    };
+
+    const handleMouseLeave = () => {
+        if (pauseOnHover) {
+            swiperRef.current?.autoplay.start();
+        }
+    };
+
+    const handleSwiper = (swiper: any) => {
+        swiperRef.current = swiper;
+    };
+    
     return (
-        <Box sx={{
-            overflow: "hidden"
-        }}>
+        <Box
+            sx={{ overflow: "hidden" }}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+        >
             <Swiper
                 loop={loop}
                 autoplay={autoplay}
                 spaceBetween={spaceBetween}
                 slidesPerView={slidesPerView}
                 navigation={navigation}
+                onSwiper={handleSwiper}
                 {...restProps}
             >
                 {children}
