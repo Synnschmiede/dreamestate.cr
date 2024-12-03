@@ -1,13 +1,14 @@
 import React from "react";
 
 import { HeroSection } from "./_components/hero";
+import { AboutUs } from "./_components/about-us";
 import { FeaturedListings } from "./_components/featured-listings";
 
 // ----------------------------------------------------------------------
 export const metadata = {
-  title: 'Minimals UI: The starting point for your next project',
+  title: 'Dreamestate: Real Estate Trading Website',
   description:
-    'The starting point for your next project with Minimal UI Kit, built on the newest version of Material-UI ©, ready to be customized to your style',
+    'Dreamestate is a real estate trading website that allows users to sell and buy properties.',
 };
 
 export default function Page() {
@@ -15,6 +16,7 @@ export default function Page() {
     <>
       <HeroSection />
       <FeaturedListings />
+      <AboutUs />
     </>
   );
 }

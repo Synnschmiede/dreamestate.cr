@@ -64,6 +64,7 @@
     "white": "#FFFFFF"
   }, 
   "custom": {
-    "light_bg": "#F1F4F5"
+    "light_bg": "#F1F4F5", 
+    "light_border": "#C2D6C2"
   }
 }

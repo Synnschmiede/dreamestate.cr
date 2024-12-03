@@ -1,18 +1,18 @@
 "use client"
 
-import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper/modules';
 import { SwiperSlide } from 'swiper/react';
+import { A11y, Autoplay, Scrollbar, Navigation, Pagination } from 'swiper/modules';
 
-import { Box, Container, Grid } from '@mui/material';
+import { Box, Grid, Container } from '@mui/material';
 
 import { pxToRem } from 'src/theme/styles';
 
 import { Iconify } from 'src/components/iconify';
-import { RoundedButton } from 'src/components/rounded-button';
-import { SectionDescription } from 'src/components/section-description';
 import { SectionTitle } from 'src/components/section-title';
+import { RoundedButton } from 'src/components/rounded-button';
 import { SectionTopText } from 'src/components/section-toptext';
 import { SliderWrapper } from 'src/components/slider/slider-wrapper';
+import { SectionDescription } from 'src/components/section-description';
 
 import { FeaturedPropertyCard } from './featured-property-card';
 
@@ -34,7 +34,8 @@ export const FeaturedListings = () => {
                 backgroundPosition: 'center',
                 width: '100%',
                 minHeight: pxToRem(400),
-                paddingY: { xs: pxToRem(40), md: pxToRem(80) },
+                paddingT: { xs: pxToRem(40), md: pxToRem(80) },
+                marginBottom: { xs: `-${pxToRem(60)}`, md: `-${pxToRem(120)}` },
             }}
         >
             <Container maxWidth="xl">
@@ -126,10 +127,8 @@ export const FeaturedListings = () => {
                     <SwiperSlide>
                         <FeaturedPropertyCard />
                     </SwiperSlide>
-
                 </SliderWrapper>
             </Container>
-
         </Box>
     );
 };
