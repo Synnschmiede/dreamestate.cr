@@ -16,15 +16,18 @@ import { OngoingProjectCard } from './ongoing-project-card';
 
 export const OngoingProjects = () => {
     return (
-        <Box>
+        <Box sx={{
+            minHeight: pxToRem(300),
+            py: { xs: pxToRem(40), md: pxToRem(80) },
+            px: { xs: pxToRem(15), md: pxToRem(0) },
+        }}>
             <Box
                 sx={{
-                    minHeight: pxToRem(300),
-                    py: { xs: pxToRem(40), md: pxToRem(80) },
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
-                    alignItems: "center"
+                    alignItems: "center", 
+                    marginBottom: { xs: pxToRem(20), md: pxToRem(50) },
                 }}
             >
                 <SectionTopText sx={{
@@ -51,6 +54,7 @@ export const OngoingProjects = () => {
                 </SectionDescription>
 
             </Box>
+            {/* sliders */}
             <Box>
                 <SliderWrapper
                     modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}

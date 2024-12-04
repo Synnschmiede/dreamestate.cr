@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Card, Grid, Stack, Divider, CardMedia, Typography, CardContent, Box } from "@mui/material";
+import { Box,  Card, Stack, Divider, CardMedia, Typography, CardContent } from "@mui/material";
 
 import { SectionDescription } from "src/components/section-description";
 
@@ -8,7 +8,6 @@ import { IconWithText } from "./icon-with-text";
 
 
 export const OngoingProjectCard: React.FC = () => {
-
 
     return (
         <Card
