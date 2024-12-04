@@ -30,8 +30,8 @@ export const OngoingProjects = () => {
                 sx={{
                     position: "absolute",
                     top: 20,
-                    left: 0, 
-                    m: 4, 
+                    left: 0,
+                    m: 4,
                     display: { xs: "none", md: "block" }
                 }}
             >
@@ -50,7 +50,7 @@ export const OngoingProjects = () => {
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
-                    alignItems: "center", 
+                    alignItems: "center",
                     marginBottom: { xs: pxToRem(20), md: pxToRem(50) },
                 }}
             >
@@ -104,6 +104,24 @@ export const OngoingProjects = () => {
                     </SwiperSlide>
                 </SliderWrapper>
             </Box>
+            <AnimatedShape
+                animationType="topToBottom"
+                size={{ width: 100, height: 100 }}
+                duration={3}
+                sx={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 20,
+                    m: 4,
+                    display: { xs: "none", md: "block" }
+                }}
+            >
+                <Box
+                    component="img"
+                    src="\assets\core\shape_1.png"
+                    alt="animated shape"
+                />
+            </AnimatedShape>
         </Box>
     )
 };
