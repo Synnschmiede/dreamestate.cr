@@ -1,14 +1,13 @@
+import React from "react";
+
 import { Card, Grid, Stack, Divider, CardMedia, Typography, CardContent, Box } from "@mui/material";
 
-import { Iconify } from "src/components/iconify";
-import { TitledAvatar } from "src/components/titled-avatar";
-import { RoundedButton } from "src/components/rounded-button";
 import { SectionDescription } from "src/components/section-description";
 
 import { IconWithText } from "./icon-with-text";
 
 
-export const FeaturedPropertyCard = () => {
+export const OngoingProjectCard: React.FC = () => {
 
 
     return (
@@ -20,7 +19,7 @@ export const FeaturedPropertyCard = () => {
                 boxShadow: 3,
                 overflow: 'hidden',
                 height: '100%',
-                marginBottom: 1 
+                marginBottom: 1
             }}
         >
             <CardMedia
@@ -34,25 +33,28 @@ export const FeaturedPropertyCard = () => {
                 <Typography
                     variant="h4"
                     color="text.secondary"
+                    sx={{
+                        textAlign: "center"
+                    }}
                 >
-                    Virgin Vineyard House
+                    Commercial Space
                 </Typography>
-                <IconWithText icon="carbon:location" text="Inner Circular Lamar Street, Houston, Texas" />
                 <SectionDescription
                     sx={{
                         color: 'text.disabled',
                         fontSize: 16,
-                        marginTop: 2
+                        // marginTop: 2,
+                        textAlign: "center"
                     }}>
-                    Egestas fringilla phasellus faucibus scelerisque eleifend donec. Porta nibh venenatis.
+                    California
                 </SectionDescription>
                 <Box
-                    sx={{
-                        marginTop: 2,
-                        mx: "auto",
+                    sx={{ 
+                        marginTop: 2, 
+                        mx: "auto" , 
                         display: "flex",
                         flexDirection: "row",
-                        justifyContent: "space-between",
+                        justifyContent: "space-evenly",
                         alignItems: "center"
                     }}
                 >
@@ -69,15 +71,15 @@ export const FeaturedPropertyCard = () => {
             }} />
 
             <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ padding: 3 }}>
-                <TitledAvatar path="/assets/home/avatar.jpg" title="John Doe" />
-                <RoundedButton
-                    size="small"
-                    variant="outlined"
+                <SectionDescription
                     sx={{
-                        borderColor: 'text.primary',
-                    }}
-                    endIcon={<Iconify width={18} icon="guidance:left-2-short-arrow" />}
-                > Book Now</RoundedButton>
+                        color: 'text.disabled',
+                        fontSize: 16,
+                        marginTop: 2,
+                        textAlign: "center"
+                    }}>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores, harum aliquid, porro et ab nihil ad possimus eveniet eaque pariatur doloremque incidunt odio quisquam. Magnam exercitationem at amet earum fugiat.
+                </SectionDescription>
             </Stack>
         </Card>
     )

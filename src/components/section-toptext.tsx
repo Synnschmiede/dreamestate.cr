@@ -2,13 +2,14 @@ import { Box, Divider, Typography } from "@mui/material";
 
 import { pxToRem } from "src/theme/styles";
 
-export const SectionTopText = ({ children, sx }: { children: string, sx?: object }) => {
+export const SectionTopText = ({ children, sx, dividerSx }: { children: string, sx?: object, dividerSx?: object }) => {
     return (
         <Box>
             <Divider
                 color="#1C2D37"
                 sx={{
-                    width: { xs: "10%", md: "3%"},
+                    width: { xs: "2rem", md: "4rem" },
+                    ...dividerSx
                 }} />
             <Typography
                 variant="inherit"
@@ -24,8 +25,9 @@ export const SectionTopText = ({ children, sx }: { children: string, sx?: object
             <Divider
                 color="#1C2D37"
                 sx={{
-                    width: { xs: "10%", md: "3%" },
-                    marginTop: .4
+                    width: { xs: "2rem", md: "4rem" },
+                    marginTop: .4, 
+                    ...dividerSx
                 }} />
         </Box>
     );
