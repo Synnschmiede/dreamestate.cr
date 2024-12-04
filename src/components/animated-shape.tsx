@@ -8,17 +8,19 @@ import { keyframes } from "@mui/system";
 import { pxToRem } from "src/theme/styles";
 
 interface AnimatedShapeProps {
-    shape: string; // Image URL or path
+    children: React.ReactNode;
     animationType: "leftToRight" | "topToBottom" | "spin";
-    size: { width: number; height: number }; 
+    size: { width: number; height: number };
     duration?: number;
+    sx?: object;
 }
 
 export const AnimatedShape: React.FC<AnimatedShapeProps> = ({
-    shape,
+    children,
     animationType,
     size: { width = 40, height = 40 },
-     duration = 3
+    duration = 3,
+    sx
 }) => {
     const animations = {
         leftToRight: keyframes`
@@ -37,25 +39,14 @@ export const AnimatedShape: React.FC<AnimatedShapeProps> = ({
     return (
         <Box
             sx={{
-                position: "relative",
+                position: "absolute",
+                animation: `${animations[animationType]} ${duration}s linear infinite ${animationType === "spin" ? "" : "alternate"} `,
                 width: `${width}px`,
                 height: `${height}px`,
-                // overflow: "hidden",
-                padding: pxToRem(20),
-                zIndex: 20
+                ...sx
             }}
         >
-            <Box
-                component="img"
-                src={shape}
-                alt="animated shape"
-                sx={{
-                    position: "absolute",
-                    animation: `${animations[animationType]} ${duration}s linear infinite ${animationType === "spin" ? "" : "alternate"} `,
-                    width: `${width}px`,
-                    height: `${height}px`,
-                }}
-            />
+            {children}
         </Box>
     );
 };

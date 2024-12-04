@@ -1,6 +1,6 @@
 "use client"
 
-import { Box, Grid, Container, Typography } from "@mui/material";
+import { Box, Grid, Container, Typography, Paper, AvatarGroup, Avatar } from "@mui/material";
 
 import { pxToRem } from "src/theme/styles";
 
@@ -21,6 +21,7 @@ export const AboutUs = () => {
                 minHeight: pxToRem(300),
                 pt: { xs: pxToRem(100), md: pxToRem(200) },
                 pb: { xs: pxToRem(40), md: pxToRem(80) },
+                position: "relative",
             }}
         >
             <Container maxWidth="xl">
@@ -101,29 +102,115 @@ export const AboutUs = () => {
                                 >
                                     +01 234 56789
                                 </Typography>
+                                <AnimatedShape
+                                    animationType="leftToRight"
+                                    size={{ width: 80, height: 80 }}
+                                    duration={3}
+                                    sx={{ mt: 2, display: { xs: "none", md: "block" }, }}
+                                >
+                                    <Box
+                                        component="img"
+                                        src="\assets\core\shape_1.png"
+                                        alt="animated shape"
+                                    />
+                                </AnimatedShape>
                             </Grid>
-                            <AnimatedShape
-                                shape="\assets\core\shape_1.png"
-                                animationType="topToBottom"
-                                size={{ width: 60, height: 40 }}
-                                duration={3}
-                            />
                         </Grid>
                     </Grid>
                     {/* Right Section */}
-                    <Grid item xs={12} md={6} mt={{ xs: pxToRem(20), md: 0 }}>
+                    <Grid
+                        item
+                        xs={12}
+                        md={6}
+                        mt={{ xs: pxToRem(20), md: 0 }}
+                        sx={{ position: "relative" }}
+                    >
+                        {/* Image */}
                         <Box
                             component="img"
                             src="\assets\home\hero_thumb_4_1.png"
                             sx={{
-                                maxWidth: '100%',
+                                maxWidth: "100%",
                                 borderRadius: "5%",
+                                zIndex: 10,
+                                position: "relative",
                             }}
                         />
+
+                        {/* Spinner */}
+                        <Box
+                            sx={{
+                                position: "absolute",
+                                bottom: "5%",
+                                left: "50%",
+                                transform: "translate(-50%, -50%)",
+                                zIndex: 5,
+                                display: { xs: "none", md: "block" },
+                            }}
+                        >
+                            <AnimatedShape
+                                animationType="spin"
+                                size={{ width: 100, height: 100 }}
+                                duration={16}
+                            >
+                                <Box
+                                    component="img"
+                                    src="\assets\core\shape_2.png"
+                                    alt="animated shape"
+                                    sx={{
+                                        width: "100%",
+                                        height: "100%",
+                                    }}
+                                />
+                            </AnimatedShape>
+                        </Box>
                     </Grid>
                 </Grid>
-
             </Container>
-        </Box>
+
+            <HappyClients />
+
+        </Box >
     );
 };
+
+
+const HappyClients = () => {
+    return (
+        <AnimatedShape
+            animationType="topToBottom"
+            size={{ width: 300, height: 80 }}
+            duration={3}
+            sx={{ right: 0, bottom: "40%", zIndex: 20, display: { xs: "none", md: "block" }, }}
+
+        >
+            <Box
+                sx={{
+                    backgroundColor: "text.secondary",
+                    padding: pxToRem(20),
+                    borderTopLeftRadius: pxToRem(10),
+                    borderBottomLeftRadius: pxToRem(10),
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "end",
+                    alignItems: "start",
+                    gap: pxToRem(16),
+                }}
+            >
+
+                <Typography
+                    variant="h4"
+                    color="white"
+                >
+                    128k+Happy Client
+                </Typography>
+                <AvatarGroup  >
+                    <Avatar sx={{ width: 60, height: 60 }} alt="Remy Sharp" src="assets\home\avatar.jpg" />
+                    <Avatar sx={{ width: 60, height: 60 }} alt="Travis Howard" src="assets\home\avatar.jpg" />
+                    <Avatar sx={{ width: 60, height: 60 }} alt="Agnes Walker" src="assets\home\avatar.jpg" />
+                    <Avatar sx={{ width: 60, height: 60 }} alt="Trevor Henderson" src="assets\home\avatar.jpg" />
+                </AvatarGroup>
+            </Box>
+        </AnimatedShape>
+    )
+}
