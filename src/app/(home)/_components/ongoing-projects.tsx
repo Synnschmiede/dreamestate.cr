@@ -1,13 +1,14 @@
 "use client";
 
 import { SwiperSlide } from 'swiper/react';
-import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper/modules';
+import { A11y, Autoplay, Scrollbar, Navigation, Pagination } from 'swiper/modules';
 
 import { Box } from "@mui/material";
 
 import { pxToRem } from "src/theme/styles";
 
 import { SectionTitle } from "src/components/section-title";
+import { AnimatedShape } from 'src/components/animated-shape';
 import { SectionTopText } from "src/components/section-toptext";
 import { SliderWrapper } from "src/components/slider/slider-wrapper";
 import { SectionDescription } from "src/components/section-description";
@@ -18,9 +19,32 @@ export const OngoingProjects = () => {
     return (
         <Box sx={{
             minHeight: pxToRem(300),
-            py: { xs: pxToRem(40), md: pxToRem(80) },
+            py: { xs: pxToRem(40), md: pxToRem(120) },
             px: { xs: pxToRem(15), md: pxToRem(0) },
+            position: "relative",
         }}>
+            <AnimatedShape
+                animationType="spin"
+                size={{ width: 100, height: 100 }}
+                duration={16}
+                sx={{
+                    position: "absolute",
+                    top: 20,
+                    left: 0, 
+                    m: 4, 
+                    display: { xs: "none", md: "block" }
+                }}
+            >
+                <Box
+                    component="img"
+                    src="\assets\core\shape_2.png"
+                    alt="animated shape"
+                    sx={{
+                        width: "100%",
+                        height: "100%",
+                    }}
+                />
+            </AnimatedShape>
             <Box
                 sx={{
                     display: "flex",
