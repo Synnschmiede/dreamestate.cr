@@ -2,6 +2,7 @@ import React from "react";
 
 import { HeroSection } from "./_components/hero";
 import { AboutUs } from "./_components/about-us";
+import { OurTeam } from "./_components/our-team";
 import { OurClients } from "./_components/our-clients";
 import { OngoingProjects } from "./_components/ongoing-projects";
 import { FeaturedListings } from "./_components/featured-listings";
@@ -21,6 +22,7 @@ export default function Page() {
       <AboutUs />
       <OngoingProjects />
       <OurClients />
+      <OurTeam />
     </>
   );
 }
