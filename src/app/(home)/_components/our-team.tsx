@@ -82,7 +82,7 @@ export const OurTeam = () => {
                     md={4}
                     sx={{
                         display: "flex",
-                        justifyContent: { xs: "start", md: "flex-end"},
+                        justifyContent: { xs: "start", md: "flex-end" },
                         alignItems: "center",
                     }}
                 >
@@ -122,6 +122,28 @@ export const OurTeam = () => {
                     </SwiperSlide>
                 </SliderWrapper>
             </Box>
+            <AnimatedShape
+                animationType="spin"
+                size={{ width: 150, height: 150 }}
+                duration={16}
+                sx={{
+                    position: "absolute",
+                    bottom: 2,
+                    left: 0,
+                    m: 4,
+                    display: { xs: "none", md: "block" }
+                }}
+            >
+                <Box
+                    component="img"
+                    src="\assets\core\shape_2.png"
+                    alt="animated shape"
+                    sx={{
+                        width: "100%",
+                        height: "100%",
+                    }}
+                />
+            </AnimatedShape>
         </Container>
     )
 };
