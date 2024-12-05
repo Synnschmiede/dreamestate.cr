@@ -47,6 +47,7 @@
     "autosuggest-highlight": "^3.3.4",
     "axios": "^1.7.4",
     "dayjs": "^1.11.13",
+    "formik": "^2.4.6",
     "framer-motion": "^11.3.29",
     "next": "^14.2.5",
     "nprogress": "^0.2.0",

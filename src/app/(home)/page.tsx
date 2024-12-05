@@ -8,6 +8,7 @@ import { Testimonials } from "./_components/testimonials";
 import { OngoingProjects } from "./_components/ongoing-projects";
 import { FeaturedListings } from "./_components/featured-listings";
 import { OurAwards } from "./_components/our-awards";
+import { ScheduleVisit } from "./_components/schedul-visit";
 
 // ----------------------------------------------------------------------
 export const metadata = {
@@ -27,6 +28,7 @@ export default function Page() {
       <OurTeam />
       <Testimonials />
       <OurAwards />
+      <ScheduleVisit />
     </>
   );
 }
