@@ -34,7 +34,7 @@ export const OurTeam = () => {
                     position: "absolute",
                     top: 20,
                     right: 0,
-                    m: 4,
+                    mY: 4,
                     display: { xs: "none", md: "block" }
                 }}
             >

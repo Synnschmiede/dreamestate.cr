@@ -11,13 +11,18 @@ export const TeamMemberCard: React.FC = () => {
     return (
         <Card
             sx={{
+                position: "relative",
                 display: 'flex',
                 flexDirection: 'column',
                 borderRadius: 2,
                 boxShadow: 3,
                 overflow: 'hidden',
                 height: '100%',
-                marginBottom: 1
+                marginBottom: 1,
+                "&:hover .hover-layer": {
+                    opacity: 1,
+                    visibility: "visible",
+                },
             }}
         >
             <CardMedia
@@ -32,7 +37,12 @@ export const TeamMemberCard: React.FC = () => {
                 direction="row"
                 justifyContent="space-between"
                 alignItems="center"
-                sx={{ padding: 3, background: "#A4B5BA" }}
+                minHeight="110px"
+                sx={{
+                    paddingX: 3,
+                    background: "#A4B5BA",
+                }}
+
             >
                 <Box>
                     <Typography
@@ -63,6 +73,43 @@ export const TeamMemberCard: React.FC = () => {
                     }}
                 />
             </Stack>
+            <Box
+                className="hover-layer"
+                sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "calc(100% - 110px)",
+                    backgroundColor: "rgba(0, 0, 0, 0.6)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "row",
+                    gap: 2,
+                    opacity: 0,
+                    visibility: "hidden",
+                    transition: "opacity 0.3s ease, visibility 0.3s ease",
+                    
+                }}
+            >
+                {/* Social Icons */}
+                <Iconify
+                    icon="mdi:facebook"
+                    width={32}
+                    sx={{ color: "white", cursor: "pointer" }}
+                />
+                <Iconify
+                    icon="mdi:twitter"
+                    width={32}
+                    sx={{ color: "white", cursor: "pointer" }}
+                />
+                <Iconify
+                    icon="mdi:instagram"
+                    width={32}
+                    sx={{ color: "white", cursor: "pointer" }}
+                />
+            </Box>
         </Card>
     )
 };
