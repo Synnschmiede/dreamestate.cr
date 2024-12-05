@@ -1,19 +1,19 @@
 "use client";
 
-import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper/modules';
 import { SwiperSlide } from 'swiper/react';
+import { A11y, Autoplay, Scrollbar, Navigation, Pagination } from 'swiper/modules';
 
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Grid, Container } from "@mui/material";
 
 import { pxToRem } from "src/theme/styles";
 
-import { AnimatedShape } from 'src/components/animated-shape';
 import { Iconify } from 'src/components/iconify';
-import { RoundedButton } from 'src/components/rounded-button';
-import { SectionDescription } from "src/components/section-description";
 import { SectionTitle } from "src/components/section-title";
+import { AnimatedShape } from 'src/components/animated-shape';
+import { RoundedButton } from 'src/components/rounded-button';
 import { SectionTopText } from "src/components/section-toptext";
 import { SliderWrapper } from "src/components/slider/slider-wrapper";
+import { SectionDescription } from "src/components/section-description";
 
 import { TeamMemberCard } from './team-member-card';
 
@@ -71,7 +71,7 @@ export const OurTeam = () => {
                             color: 'text.secondary',
                             marginTop: pxToRem(10),
                             fontSize: { xs: pxToRem(16), sm: pxToRem(18), md: pxToRem(20) },
-                            maxWidth: { xs: "100%", md: "50%" },
+                            maxWidth: { xs: "100%", md: "70%" },
                         }}>
                         Realar help you easily create a real estate trading website. With the function Register, Login, Post real estate news.
                     </SectionDescription>
