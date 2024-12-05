@@ -59,14 +59,14 @@ export const NewsArticles = () => {
                     <Grid item xs={12} md={8}>
 
                         <SectionTitle sx={{
-                            color: 'white',
+                            color: 'text.white',
                         }}>
                             News & Articles
                         </SectionTitle>
 
                         <SectionDescription
                             sx={{
-                                color: 'white',
+                                color: 'text.white',
                                 marginTop: pxToRem(10),
                                 fontSize: { xs: pxToRem(16), sm: pxToRem(18), md: pxToRem(20) },
                                 maxWidth: { xs: "100%", md: "70%" },

@@ -2,29 +2,26 @@
 
 import type { Breakpoint } from '@mui/material/styles';
 
-import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
-import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 
-import { paths } from 'src/routes/paths';
 import { usePathname } from 'src/routes/hooks';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
-import { navData } from 'src/router';
-import { Main } from 'src/layouts/main';
-import { NavMobile } from 'src/layouts/main/nav/mobile';
-import { NavDesktop } from 'src/layouts/main/nav/desktop';
-import { Footer, HomeFooter } from 'src/layouts/main/footer';
 import { MenuButton } from 'src/layouts/components/menu-button';
 import { HeaderSection } from 'src/layouts/core/header-section';
 import { LayoutSection } from 'src/layouts/core/layout-section';
+import { Main } from 'src/layouts/main';
+import { Footer } from 'src/layouts/main/footer';
+import { NavDesktop } from 'src/layouts/main/nav/desktop';
+import { NavMobile } from 'src/layouts/main/nav/mobile';
+import { navData } from 'src/router';
 
-import { Logo } from 'src/components/logo';
-import { ArrowRight, ArrowRightAlt } from '@mui/icons-material';
-import { RoundedButton } from 'src/components/rounded-button';
 import { Iconify } from 'src/components/iconify';
+import { Logo } from 'src/components/logo';
+import { PublicFooter } from 'src/components/public-footer';
+import { RoundedButton } from 'src/components/rounded-button';
 
 // ----------------------------------------------------------------------
 
@@ -37,7 +34,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
 
   const homePage = pathname === '/';
 
-  const layoutQuery: Breakpoint = 'lg';
+  const layoutQuery: Breakpoint = 'xl';
 
   const navConfigData = navData;
 
@@ -99,7 +96,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
       /** **************************************
        * Footer
        *************************************** */
-      footerSection={homePage ? <HomeFooter /> : <Footer layoutQuery={layoutQuery} />}
+      footerSection={homePage ? <PublicFooter /> : <Footer layoutQuery={layoutQuery} />}
       /** **************************************
        * Style
        *************************************** */    >
