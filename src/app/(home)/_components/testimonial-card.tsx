@@ -18,23 +18,23 @@ export const TestimonialCard: FC = () => {
                     src="/assets/home/hero_thumb_4_1.png"
                     alt="Modern House"
                     sx={{
-                        width: "90%",
+                        width: { xs: "100%", md: "90%" },
                         height: "100%",
                         objectFit: "cover",
-                        borderRadius: 2,
+                        borderRadius: { xs: "16px 16px 0 0", md: 2 },
                     }}
                 />
             </Box>
 
             <Box
                 sx={{
-                    position: "absolute",
-                    top: { xs: 32, lg: 48 },
-                    right: -10,
+                    position: { xs: "relative", md: "absolute" },
+                    top: { xs: 0, lg: 48 },
+                    right: { xs: 0, md: -10 },
                     backgroundColor: "background.paper",
-                    borderRadius: 2,
+                    borderRadius: { xs: "0 0 16px 16px", md: 2 },
                     boxShadow: 3,
-                    width: { xs: "90%", md: "60%" },
+                    width: { xs: "82%", md: "60%" },
                     p: 4,
                     zIndex: 2,
                 }}
