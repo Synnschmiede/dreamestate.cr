@@ -3,7 +3,7 @@
 import { SwiperSlide } from 'swiper/react';
 import { A11y, Autoplay, Scrollbar, Navigation, Pagination } from 'swiper/modules';
 
-import { Box, Grid, useTheme, Container } from "@mui/material";
+import { Box, Grid, useTheme, Container, IconButton } from "@mui/material";
 
 import { pxToRem } from "src/theme/styles";
 
@@ -18,7 +18,6 @@ import { SectionDescription } from "src/components/section-description";
 import { TestimonialCard } from './testimonial-card';
 
 export const Testimonials = () => {
-    const theme = useTheme();
     return (
         <Box sx={{
             background: "#A4B5BA",
@@ -88,16 +87,37 @@ export const Testimonials = () => {
                             display: "flex",
                             justifyContent: { xs: "start", md: "flex-end" },
                             alignItems: "center",
+                            gap: 2, 
+                            mt: 4,
                         }}
                     >
 
-                        <RoundedButton
-                            endIcon={<Iconify width={22} icon="guidance:left-2-short-arrow" />}
-                            variant='outlined'
-                            sx={{ mt: 4, borderColor: 'text.primary' }}
+                        <IconButton
+                            aria-label="navigate"
+                            size="large"
+                            title="previous slide"
+                            sx={{
+                                border: "1px solid",
+                                borderColor: "text.primary",
+                                borderRadius: "50%",
+                                p: 1,
+                            }}
                         >
-                            Browse All Project
-                        </RoundedButton>
+                            <Iconify width={22} icon="guidance:right-2-short-arrow" color="text.primary" />
+                        </IconButton>
+                        <IconButton
+                            aria-label="navigate"
+                            size="large"
+                            title="next slide"
+                            sx={{
+                                border: "1px solid",
+                                borderColor: "text.primary",
+                                borderRadius: "50%",
+                                p: 1,
+                            }}
+                        >
+                            <Iconify width={22} icon="guidance:left-2-short-arrow" color="text.primary" />
+                        </IconButton>
                     </Grid>
                 </Grid>
                 {/* sliders */}
