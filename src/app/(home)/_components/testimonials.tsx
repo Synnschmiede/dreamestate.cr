@@ -1,16 +1,18 @@
 "use client";
 
+import type { Swiper as SwiperClass } from "swiper";
+
+import React from 'react';
 import { SwiperSlide } from 'swiper/react';
 import { A11y, Autoplay, Scrollbar, Navigation, Pagination } from 'swiper/modules';
 
-import { Box, Grid, useTheme, Container, IconButton } from "@mui/material";
+import { Box, Grid, Container, IconButton } from "@mui/material";
 
 import { pxToRem } from "src/theme/styles";
 
 import { Iconify } from 'src/components/iconify';
 import { SectionTitle } from "src/components/section-title";
 import { AnimatedShape } from 'src/components/animated-shape';
-import { RoundedButton } from 'src/components/rounded-button';
 import { SectionTopText } from "src/components/section-toptext";
 import { SliderWrapper } from "src/components/slider/slider-wrapper";
 import { SectionDescription } from "src/components/section-description";
@@ -18,6 +20,20 @@ import { SectionDescription } from "src/components/section-description";
 import { TestimonialCard } from './testimonial-card';
 
 export const Testimonials = () => {
+
+    const swiperRef = React.useRef<SwiperClass | null>(null);
+
+    const handleSwiper = (swiper: any) => {
+        swiperRef.current = swiper;
+    };
+
+    const handleNext = () => {
+        swiperRef.current?.slideNext(); 
+    };
+
+    const handlePrev = () => {
+        swiperRef.current?.slidePrev(); 
+    };
     return (
         <Box sx={{
             background: "#A4B5BA",
@@ -91,11 +107,11 @@ export const Testimonials = () => {
                             mt: 4,
                         }}
                     >
-
                         <IconButton
                             aria-label="navigate"
                             size="large"
                             title="previous slide"
+                            onClick={handlePrev}
                             sx={{
                                 border: "1px solid",
                                 borderColor: "text.primary",
@@ -109,6 +125,7 @@ export const Testimonials = () => {
                             aria-label="navigate"
                             size="large"
                             title="next slide"
+                            onClick={handleNext}
                             sx={{
                                 border: "1px solid",
                                 borderColor: "text.primary",
@@ -130,6 +147,7 @@ export const Testimonials = () => {
                             768: { slidesPerView: 2 }
                         }}
                         speed={2000}
+                        onSwiper={handleSwiper}
                     >
                         <SwiperSlide>
                             <TestimonialCard />
