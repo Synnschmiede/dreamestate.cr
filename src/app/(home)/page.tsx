@@ -10,6 +10,7 @@ import { FeaturedListings } from "./_components/featured-listings";
 import { OurAwards } from "./_components/our-awards";
 import { ScheduleVisit } from "./_components/schedul-visit";
 import { NewsArticles } from "./_components/news-articles";
+import { InstagramSection } from "./_components/instagram";
 
 // ----------------------------------------------------------------------
 export const metadata = {
@@ -31,6 +32,7 @@ export default function Page() {
       <OurAwards />
       <ScheduleVisit />
       <NewsArticles />
+      <InstagramSection />
     </>
   );
 }
