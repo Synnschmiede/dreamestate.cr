@@ -65,6 +65,7 @@
   }, 
   "custom": {
     "light_bg": "#F1F4F5", 
+    "dark_bg": "#1C2D37",
     "light_border": "#C2D6C2"
   }
 }

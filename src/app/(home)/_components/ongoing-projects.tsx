@@ -1,18 +1,20 @@
 "use client";
 
+import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper/modules';
 import { SwiperSlide } from 'swiper/react';
-import { A11y, Autoplay, Scrollbar, Navigation, Pagination } from 'swiper/modules';
 
 import { Box } from "@mui/material";
 
 import { pxToRem } from "src/theme/styles";
 
-import { SectionTitle } from "src/components/section-title";
 import { AnimatedShape } from 'src/components/animated-shape';
+import { SectionDescription } from "src/components/section-description";
+import { SectionTitle } from "src/components/section-title";
 import { SectionTopText } from "src/components/section-toptext";
 import { SliderWrapper } from "src/components/slider/slider-wrapper";
-import { SectionDescription } from "src/components/section-description";
 
+import { Iconify } from 'src/components/iconify';
+import { RoundedButton } from 'src/components/rounded-button';
 import { OngoingProjectCard } from './ongoing-project-card';
 
 export const OngoingProjects = () => {
@@ -76,7 +78,13 @@ export const OngoingProjects = () => {
                     }}>
                     Quis nulla blandit vulputate morbi adipiscing sem vestibulum. Nulla turpis integer dui sed posuere sem. Id molestie mi arcu gravida lorem potenti.
                 </SectionDescription>
-
+                <RoundedButton
+                    endIcon={<Iconify width={22} icon="guidance:left-2-short-arrow" />}
+                    variant='contained'
+                    sx={{ mt: 4 }}
+                >
+                    Browse All Project
+                </RoundedButton>
             </Box>
             {/* sliders */}
             <Box>
@@ -104,6 +112,7 @@ export const OngoingProjects = () => {
                     </SwiperSlide>
                 </SliderWrapper>
             </Box>
+
             <AnimatedShape
                 animationType="topToBottom"
                 size={{ width: 100, height: 100 }}
