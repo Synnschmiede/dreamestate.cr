@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, Card, CardMedia, Stack, Typography } from "@mui/material";
+import { alpha, Box, Card, CardMedia, Stack, Typography, useTheme } from "@mui/material";
 
 import { Iconify } from "src/components/iconify";
 import { SectionDescription } from "src/components/section-description";
@@ -8,6 +8,7 @@ import { SectionDescription } from "src/components/section-description";
 
 
 export const TeamMemberCard: React.FC = () => {
+    const theme = useTheme();
     return (
         <Card
             sx={{
@@ -81,7 +82,7 @@ export const TeamMemberCard: React.FC = () => {
                     left: 0,
                     width: "100%",
                     height: "calc(100% - 110px)",
-                    backgroundColor: "rgba(0, 0, 0, 0.6)",
+                    backgroundColor: alpha(theme.palette.text.secondary, 0.6),
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
@@ -89,8 +90,14 @@ export const TeamMemberCard: React.FC = () => {
                     gap: 2,
                     opacity: 0,
                     visibility: "hidden",
-                    transition: "opacity 0.3s ease, visibility 0.3s ease",
-                    
+                    transition: "opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease",
+                    transform: "scale(1)",
+                    // transition: "opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease", 
+                    "&:hover": {
+                        transform: "scale(.95)",
+                        borderRadius: 2
+                    },
+
                 }}
             >
                 {/* Social Icons */}

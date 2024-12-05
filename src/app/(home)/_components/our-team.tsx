@@ -1,21 +1,20 @@
 "use client";
 
+import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper/modules';
 import { SwiperSlide } from 'swiper/react';
-import { A11y, Autoplay, Scrollbar, Navigation, Pagination } from 'swiper/modules';
 
 import { Box, Container, Grid } from "@mui/material";
 
 import { pxToRem } from "src/theme/styles";
 
-import { Iconify } from 'src/components/iconify';
-import { SectionTitle } from "src/components/section-title";
 import { AnimatedShape } from 'src/components/animated-shape';
+import { Iconify } from 'src/components/iconify';
 import { RoundedButton } from 'src/components/rounded-button';
+import { SectionDescription } from "src/components/section-description";
+import { SectionTitle } from "src/components/section-title";
 import { SectionTopText } from "src/components/section-toptext";
 import { SliderWrapper } from "src/components/slider/slider-wrapper";
-import { SectionDescription } from "src/components/section-description";
 
-import { OngoingProjectCard } from './ongoing-project-card';
 import { TeamMemberCard } from './team-member-card';
 
 export const OurTeam = () => {
@@ -54,7 +53,7 @@ export const OurTeam = () => {
                     marginBottom: { xs: pxToRem(20), md: pxToRem(50) },
                 }}
             >
-                <Grid item xs={8}>
+                <Grid item xs={12} md={8}>
                     <SectionTopText sx={{
                         color: "text.primary",
                         dividerSx: { mx: "auto" }
@@ -79,18 +78,19 @@ export const OurTeam = () => {
                 </Grid>
                 <Grid
                     item
-                    xs={4}
+                    xs={12}
+                    md={4}
                     sx={{
                         display: "flex",
-                        justifyContent: "flex-end",
+                        justifyContent: { xs: "start", md: "flex-end"},
                         alignItems: "center",
                     }}
                 >
 
                     <RoundedButton
                         endIcon={<Iconify width={22} icon="guidance:left-2-short-arrow" />}
-                        variant='contained'
-                        sx={{ mt: 4 }}
+                        variant='outlined'
+                        sx={{ mt: 4, borderColor: 'text.primary' }}
                     >
                         Browse All Project
                     </RoundedButton>
