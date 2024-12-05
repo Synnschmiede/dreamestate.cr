@@ -9,6 +9,7 @@ import { OngoingProjects } from "./_components/ongoing-projects";
 import { FeaturedListings } from "./_components/featured-listings";
 import { OurAwards } from "./_components/our-awards";
 import { ScheduleVisit } from "./_components/schedul-visit";
+import { NewsArticles } from "./_components/news-articles";
 
 // ----------------------------------------------------------------------
 export const metadata = {
@@ -29,6 +30,7 @@ export default function Page() {
       <Testimonials />
       <OurAwards />
       <ScheduleVisit />
+      <NewsArticles />
     </>
   );
 }

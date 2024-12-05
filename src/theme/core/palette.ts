@@ -84,7 +84,7 @@ export const custom = createPaletteChannel(COLORS.custom);
 
 // Text
 export const text = {
-  light: createPaletteChannel({ primary: '#0D0D0C', secondary: '#1C2D37', disabled: '#6E7070' }),
+  light: createPaletteChannel({ primary: '#0D0D0C', secondary: '#1C2D37', disabled: '#6E7070', white: "#FFFFFF" }),
   dark: createPaletteChannel({ primary: '#FFFFFF', secondary: grey[500], disabled: grey[600] }),
 };
 
