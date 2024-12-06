@@ -15,6 +15,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
     alignItems: "center",
     justifyContent: "space-between",
     gap: theme.spacing(1),
+    fontWeight: theme.typography.fontWeightSemiBold,
 }))
 
 
