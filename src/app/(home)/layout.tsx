@@ -85,6 +85,9 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
                 <RoundedButton
                   endIcon={<Iconify width={22} icon="guidance:left-2-short-arrow" />}
                   variant='contained'
+                  sx={{
+                    display: { xs: 'none', sm: 'flex' },
+                  }}
                 >
                   Request a Visit
                 </RoundedButton>

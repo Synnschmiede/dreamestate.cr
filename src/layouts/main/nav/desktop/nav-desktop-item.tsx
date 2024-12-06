@@ -53,7 +53,7 @@ const StyledNavItem = styled(ButtonBase, {
   const baseStyles = {
     item: {
       ...theme.typography.body2,
-      fontWeight: theme.typography.fontWeightMedium,
+      fontWeight: theme.typography.fontWeightRegular,
       transition: theme.transitions.create(['all'], {
         duration: theme.transitions.duration.shorter,
       }),
