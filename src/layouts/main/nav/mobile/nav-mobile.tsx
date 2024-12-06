@@ -68,7 +68,7 @@ export function NavMobile({ data, open, onClose, slots, sx }: NavMobileProps) {
 
       {slots?.bottomArea ?? (
         <Box gap={1.5} display="flex" sx={{ px: 2.5, py: 3 }}>
-          <SignInButton fullWidth />
+          {/* <SignInButton fullWidth /> */}
 
           <Button
             fullWidth
@@ -77,7 +77,7 @@ export function NavMobile({ data, open, onClose, slots, sx }: NavMobileProps) {
             target="_blank"
             href={paths.minimalStore}
           >
-            Purchase
+            Request a Visit
           </Button>
         </Box>
       )}

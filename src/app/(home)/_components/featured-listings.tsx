@@ -33,8 +33,6 @@ export const FeaturedListings = () => {
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 width: '100%',
-                minHeight: pxToRem(400),
-                paddingT: { xs: pxToRem(40), md: pxToRem(80) },
                 marginBottom: { xs: `-${pxToRem(60)}`, md: `-${pxToRem(120)}` },
             }}
         >
@@ -42,7 +40,7 @@ export const FeaturedListings = () => {
                 <SliderWrapper
                     modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
                     breakpoints={{
-                        0: { slidesPerView: 3 },
+                        0: { slidesPerView: 2 },
                         768: { slidesPerView: 4 },
                         1024: { slidesPerView: 6 },
                     }}

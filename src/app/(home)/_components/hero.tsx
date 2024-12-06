@@ -64,7 +64,7 @@ export const HeroSection = () => {
                         <Typography
                             variant="inherit"
                             sx={{
-                                color: 'text.main',
+                                color: 'text.secondary',
                                 fontWeight: 700,
                                 fontSize: { xs: pxToRem(40), sm: pxToRem(60), md: pxToRem(80) },
                             }}
@@ -74,7 +74,7 @@ export const HeroSection = () => {
                         <HeroSearchForm />
                         <Box sx={{ display: "flex", gap: 4 }}>
                             <Box>
-                                <Typography variant="h2" sx={{ fontWeight: 500 }}>
+                                <Typography variant="h2" sx={{ fontWeight: 500 }} color="text.secondary">
                                     65k
                                 </Typography>
                                 <Typography
@@ -87,7 +87,7 @@ export const HeroSection = () => {
                             <Box>
                                 <Typography
                                     variant="h2"
-                                    sx={{ fontWeight: 500 }}>
+                                    sx={{ fontWeight: 500 }} color="text.secondary">
                                     15k
                                 </Typography>
                                 <Typography
@@ -115,6 +115,7 @@ export const HeroSection = () => {
                             minHeight: '600px',
                             position: 'relative',
                             overflow: 'hidden',
+                            borderBottomLeftRadius: "10px",
                             '&::before': {
                                 content: '""',
                                 position: 'absolute',
@@ -129,7 +130,7 @@ export const HeroSection = () => {
                 </Grid>
             </Grid>
 
-            <Container maxWidth="xl" sx={{ pt: { xs: 0, md: 10 }, pb: { xs: 4, md: 6 } }}>
+            <Container maxWidth="xl" sx={{ pt: { xs: 2, md: 10 }, pb: { xs: 6, md: 8 } }}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
                         <SectionTitle sx={{
@@ -223,6 +224,7 @@ const HeroSearchForm = () => {
                     ml: "auto",
                     width: { xs: '100%', md: '34%' },
                     py: { xs: 2, md: 2 },
+                    backgroundColor: "text.secondary",
                 }}
                 startIcon={<Search />}
             >
