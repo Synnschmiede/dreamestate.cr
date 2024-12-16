@@ -1,28 +1,27 @@
-import { Container } from '@mui/material';
-
+// ./src/app/(home)/properties/page.tsx
+import { Box, Container } from '@mui/material';
 import { CONFIG } from 'src/config-global';
-
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs/custom-breadcrumbs';
-
-import { FilterToolbar } from './_components/filter-toolbar';
+import { ListingMainContent } from './_components/listing-main-content';
 
 export const metadata = {
   title: `${CONFIG.appName} | Properties`,
-  description:
-    'Dreamestate is a real estate trading website that allows users to sell and buy properties.',
+  description: 'Dreamestate is a real estate trading website that allows users to sell and buy properties.',
 };
 
-const PropertiesPage = () => {
+export default async function PropertiesPage() {
+  const res = await fetch('https://codemine24.github.io/test-api-server/properties.json'); 
+  const properties = await res.json();
+
   return (
-    <Container maxWidth="xl">
-      <CustomBreadcrumbs
-        heading="Our Properties"
-        links={[{ name: 'Home', href: '/' }, { name: 'Properties' }]}
-      />
-      <FilterToolbar />
-      content
-    </Container>
+    <Box sx={{ background: "#f8f8f8", py: { xs: 4, md: 6 } }}>
+      <Container maxWidth="xl">
+        <CustomBreadcrumbs
+          heading="Our Properties"
+          links={[{ name: 'Home', href: '/' }, { name: 'Properties' }]}
+        />
+        <ListingMainContent properties={properties} />
+      </Container>
+    </Box>
   );
 };
-
-export default PropertiesPage;
