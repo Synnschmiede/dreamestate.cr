@@ -1,4 +1,4 @@
-import { Card, Grid, Stack, Divider, CardMedia, Typography, CardContent, Box } from "@mui/material";
+import { Card, Grid, Stack, Divider, CardMedia, Typography, CardContent, Box, ButtonGroup, Button } from "@mui/material";
 
 import { Iconify } from "src/components/iconify";
 import { TitledAvatar } from "src/components/titled-avatar";
@@ -15,7 +15,7 @@ export const PropertyGridCard = () => {
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                borderRadius: 2,
+                borderRadius: 1,
                 boxShadow: 3,
                 overflow: 'hidden',
                 height: '100%',
@@ -31,7 +31,7 @@ export const PropertyGridCard = () => {
             />
             <CardContent sx={{ flexGrow: 1, padding: 3 }}>
                 <Typography
-                    variant="h4"
+                    variant="h5"
                     color="text.secondary"
                 >
                     Virgin Vineyard House
@@ -67,16 +67,30 @@ export const PropertyGridCard = () => {
                 width: "80%",
             }} />
 
-            <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ padding: 3 }}>
+            <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ px: 4, py: 2 }}>
                 <TitledAvatar path="/assets/home/avatar.jpg" title="John Doe" />
-                <RoundedButton
-                    size="small"
-                    variant="outlined"
+                <ButtonGroup
                     sx={{
-                        borderColor: 'text.primary',
+                        '& .MuiButton-root': {
+                            borderColor: '#DDDDDD',
+                            color: '#333',
+                            
+                        },
+
                     }}
-                    endIcon={<Iconify width={18} icon="guidance:left-2-short-arrow" />}
-                > Book Now</RoundedButton>
+                    size="small"
+
+                >
+                    <Button key="one">
+                        <Iconify icon="material-symbols:share" />
+                    </Button>
+                    <Button key="two">
+                        <Iconify icon="carbon:favorite" />
+                    </Button>
+                    <Button key="three">
+                        <Iconify icon="ic:baseline-plus" />
+                    </Button>
+                </ButtonGroup>
             </Stack>
         </Card>
     )

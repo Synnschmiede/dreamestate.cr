@@ -1,8 +1,8 @@
 // ./src/app/(home)/properties/page.tsx
 import { Box, Container } from '@mui/material';
-import { CONFIG } from 'src/config-global';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs/custom-breadcrumbs';
-import { ListingMainContent } from './_components/listing-main-content';
+import { CONFIG } from 'src/config-global';
+import { PropertiesView } from './properties-view';
 
 export const metadata = {
   title: `${CONFIG.appName} | Properties`,
@@ -20,7 +20,7 @@ export default async function PropertiesPage() {
           heading="Our Properties"
           links={[{ name: 'Home', href: '/' }, { name: 'Properties' }]}
         />
-        <ListingMainContent properties={properties} />
+        <PropertiesView properties={properties} />
       </Container>
     </Box>
   );
