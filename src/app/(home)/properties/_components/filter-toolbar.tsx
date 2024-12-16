@@ -7,20 +7,17 @@ import { Stack, Select, MenuItem, ToggleButton, ToggleButtonGroup } from '@mui/m
 
 import { Iconify } from 'src/components/iconify';
 
-export const FilterToolbar = () => {
-  const [view, setView] = useState('grid');
+interface IFilterToolbarProps {
+  view: string;
+  handleChangeView: (event: React.MouseEvent<HTMLElement>, newView: string | null) => void;
+}
+
+export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) => {
   const [categories, setCategories] = useState('ALL');
   const [city, setCity] = useState('ALL');
   const [sortBy, setSortBy] = useState('DEFAULT');
 
-  const handleChangeView = useCallback(
-    (event: React.MouseEvent<HTMLElement>, newView: string | null) => {
-      if (newView !== null) {
-        setView(newView);
-      }
-    },
-    []
-  );
+
 
   return (
     <Stack
@@ -89,11 +86,15 @@ export const FilterToolbar = () => {
         onChange={handleChangeView}
         sx={{ ml: 'auto' }}
       >
-        <ToggleButton value="list">
+        <ToggleButton
+          title="List View"
+          value="list">
           <Iconify icon="solar:list-bold" />
         </ToggleButton>
 
-        <ToggleButton value="grid">
+        <ToggleButton
+          title="Grid View"
+          value="grid">
           <Iconify icon="mingcute:dot-grid-fill" />
         </ToggleButton>
       </ToggleButtonGroup>

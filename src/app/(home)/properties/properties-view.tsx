@@ -1,18 +1,28 @@
 "use client";
 import { Grid, Pagination } from "@mui/material";
+import React from "react";
 import { FilterToolbar } from "./_components/filter-toolbar";
 import { PropertyCountByCategory } from "./_components/property-count-by-category";
 import { PropertyGridView } from "./_components/property-grid-view";
 import { PropertyListView } from "./_components/property-list-view";
 
 export const PropertiesView = ({ properties }: any) => {
+    const [propertyView, setPropertyView] = React.useState<string>("grid");
+    const handleChangeView = React.useCallback(
+        (event: React.MouseEvent<HTMLElement>, newView: string | null) => {
+            if (newView !== null) {
+                setPropertyView(newView);
+            }
+        },
+        []
+    );
     return (
         <>
-            <FilterToolbar />
+            <FilterToolbar view={propertyView} handleChangeView={handleChangeView} />
             <Grid container spacing={2} sx={{ my: { xs: 1, md: 2 } }}>
                 <Grid item xs={12} md={8} >
-                    <PropertyGridView data={properties} />
-                    <PropertyListView data={properties} />
+                    {propertyView === "list" ? <PropertyListView data={properties} /> :
+                        <PropertyGridView data={properties} />}
                     <Pagination sx={{ mt: 2 }} count={5} variant="outlined" shape="rounded" />
                 </Grid>
                 <Grid item xs={12} md={4}>
