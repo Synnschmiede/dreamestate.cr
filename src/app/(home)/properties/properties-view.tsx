@@ -13,10 +13,18 @@ export const PropertiesView = ({ properties }: { properties: IProperty[] }) => {
         (event: React.MouseEvent<HTMLElement>, newView: string | null) => {
             if (newView !== null) {
                 setPropertyView(newView);
+                localStorage.setItem("propertyView", newView);
             }
         },
         []
     );
+
+    React.useEffect(() => {
+        const view = localStorage.getItem("propertyView");
+        if (view) {
+            setPropertyView(view);
+        }
+    }, []);
     return (
         <>
             <FilterToolbar view={propertyView} handleChangeView={handleChangeView} />

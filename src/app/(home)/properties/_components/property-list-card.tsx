@@ -25,7 +25,7 @@ export const PropertyListCard = ({ data }: { data: IProperty }) => {
                 '&:hover': {
                     boxShadow: (theme) => theme.customShadows.card,
                     '& .property-image': {
-                        transform: 'scale(1.05)',  // Slight scaling effect
+                        transform: 'scale(1.05)',  
                         transition: 'transform 0.3s ease-in-out',
                     }
                 }
