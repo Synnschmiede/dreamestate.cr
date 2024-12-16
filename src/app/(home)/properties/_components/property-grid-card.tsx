@@ -1,11 +1,10 @@
-import { Card, Grid, Stack, Divider, CardMedia, Typography, CardContent, Box, ButtonGroup, Button } from "@mui/material";
+import { Box, Button, ButtonGroup, Card, CardContent, CardMedia, Divider, Stack, Typography } from "@mui/material";
 
-import { Iconify } from "src/components/iconify";
-import { TitledAvatar } from "src/components/titled-avatar";
-import { RoundedButton } from "src/components/rounded-button";
-import { SectionDescription } from "src/components/section-description";
-import { IconWithText } from "../../_components/icon-with-text";
 import { CustomChip } from "src/components/custom-chip";
+import { Iconify } from "src/components/iconify";
+import { SectionDescription } from "src/components/section-description";
+import { TitledAvatar } from "src/components/titled-avatar";
+import { IconWithText } from "../../_components/icon-with-text";
 
 
 export const PropertyGridCard = () => {
@@ -23,7 +22,6 @@ export const PropertyGridCard = () => {
                 marginBottom: 1
             }}
         >
-            {/* CardMedia Wrapper */}
             <Box sx={{ position: "relative" }}>
                 <CardMedia
                     component="img"
@@ -32,33 +30,42 @@ export const PropertyGridCard = () => {
                     alt="Property image"
                     sx={{ objectFit: "cover" }}
                 />
-                {/* Chip at Top Right */}
+                <Box
+                    sx={{
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: "60px",
+                        background: "linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0))",
+                        zIndex: 1,
+                    }}
+                />
                 <CustomChip
                     label="For Sale"
                     color="primary"
                     size="small"
                     sx={{
                         position: "absolute",
-                        top: 16,
-                        right: 16,
-
+                        top: 10,
+                        right: 10
                     }}
                 />
-                {/* Icon at Bottom Right */}
                 <Box
                     sx={{
                         position: "absolute",
-                        bottom: 0,
-                        right: 6,
-                        padding: 0.5,
+                        bottom: 10,
+                        right: 10,
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         boxShadow: 2,
                         color: "common.white",
+                        zIndex: 2,
+                        gap: .5
                     }}
                 >
-                    <Iconify icon="mdi:camera" width={18} height={18} /> 6
+                    <Iconify icon="mdi:camera" width={18} height={18} /> {6}
                 </Box>
             </Box>
             <CardContent sx={{ flexGrow: 1, padding: 3 }}>
@@ -67,6 +74,14 @@ export const PropertyGridCard = () => {
                     color="text.secondary"
                 >
                     Virgin Vineyard House
+                </Typography>
+                <Typography
+                    variant="h6"
+                    color="primary"
+                    sx={{ mt: 1 }}
+                // gutterBottom
+                >
+                    $860,000
                 </Typography>
                 <IconWithText icon="carbon:location" text="Inner Circular Lamar Street, Houston, Texas" />
                 <SectionDescription
@@ -90,7 +105,6 @@ export const PropertyGridCard = () => {
                     <IconWithText icon="fluent:bed-16-regular" text="Bed 7" />
                     <IconWithText icon="tabler:bath" text="Bath 5" />
                     <IconWithText icon="hugeicons:square-arrow-expand-02" text="1690 sqft" />
-
                 </Box>
             </CardContent>
 
@@ -105,13 +119,10 @@ export const PropertyGridCard = () => {
                     sx={{
                         '& .MuiButton-root': {
                             borderColor: '#DDDDDD',
-                            color: '#333',
-
+                            color: '#333'
                         },
-
                     }}
                     size="small"
-
                 >
                     <Button key="one">
                         <Iconify icon="material-symbols:share" />

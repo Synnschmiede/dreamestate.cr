@@ -3,6 +3,7 @@ import { Grid, Pagination } from "@mui/material";
 import { FilterToolbar } from "./_components/filter-toolbar";
 import { PropertyCountByCategory } from "./_components/property-count-by-category";
 import { PropertyGridView } from "./_components/property-grid-view";
+import { PropertyListView } from "./_components/property-list-view";
 
 export const PropertiesView = ({ properties }: any) => {
     return (
@@ -10,8 +11,9 @@ export const PropertiesView = ({ properties }: any) => {
             <FilterToolbar />
             <Grid container spacing={2} sx={{ my: { xs: 1, md: 2 } }}>
                 <Grid item xs={12} md={8} >
-                    <PropertyGridView list={properties} />
-                    <Pagination sx={{ mt: 2 }}  count={10} variant="outlined" shape="rounded" />
+                    <PropertyGridView data={properties} />
+                    <PropertyListView data={properties} />
+                    <Pagination sx={{ mt: 2 }} count={5} variant="outlined" shape="rounded" />
                 </Grid>
                 <Grid item xs={12} md={4}>
                     <PropertyCountByCategory
@@ -38,7 +40,6 @@ export const PropertiesView = ({ properties }: any) => {
                                 value: 21
                             }
                         ]}
-
                     />
                     <PropertyCountByCategory
                         title="List by Types"
