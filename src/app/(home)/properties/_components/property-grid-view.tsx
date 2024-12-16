@@ -7,7 +7,6 @@ import { PropertyGridCard } from './property-grid-card';
 
 export const PropertyGridView = ({ list }: any) => {
 
-
     return (
         <Grid container spacing={2}>
             {list.length > 0 && (

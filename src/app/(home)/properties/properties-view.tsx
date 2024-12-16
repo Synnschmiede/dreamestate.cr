@@ -1,22 +1,97 @@
 "use client";
-import { Grid } from "@mui/material";
+import { Grid, Pagination } from "@mui/material";
 import { FilterToolbar } from "./_components/filter-toolbar";
-import { PropertyGridCard } from "./_components/property-grid-card";
+import { PropertyCountByCategory } from "./_components/property-count-by-category";
 import { PropertyGridView } from "./_components/property-grid-view";
 
 export const PropertiesView = ({ properties }: any) => {
     return (
         <>
             <FilterToolbar />
-            <Grid container spacing={2} sx={{ mt: { xs: 1, md: 2 }}}>
-                <Grid item xs={12} md={8}>
+            <Grid container spacing={2} sx={{ my: { xs: 1, md: 2 } }}>
+                <Grid item xs={12} md={8} >
                     <PropertyGridView list={properties} />
+                    <Pagination sx={{ mt: 2 }}  count={10} variant="outlined" shape="rounded" />
                 </Grid>
                 <Grid item xs={12} md={4}>
-                    sidebar
+                    <PropertyCountByCategory
+                        title="List by Categories"
+                        dataArr={[
+                            {
+                                key: "Apartments",
+                                value: 30
+                            },
+                            {
+                                key: "Villas",
+                                value: 30
+                            },
+                            {
+                                key: "Retail",
+                                value: 30
+                            },
+                            {
+                                key: "Houses",
+                                value: 10
+                            },
+                            {
+                                key: "Condos",
+                                value: 21
+                            }
+                        ]}
+
+                    />
+                    <PropertyCountByCategory
+                        title="List by Types"
+                        dataArr={[
+                            {
+                                key: "Sales",
+                                value: 30
+                            },
+                            {
+                                key: "Rentals",
+                                value: 30
+                            },
+                            {
+                                key: "Invest",
+                                value: 30
+                            }
+                        ]}
+
+                    />
+                    <PropertyCountByCategory
+                        title="List by Cities"
+                        dataArr={[
+                            {
+                                key: "Jersey City",
+                                value: 30
+                            },
+                            {
+                                key: "New York",
+                                value: 30
+                            }
+                        ]}
+
+                    />
+                    <PropertyCountByCategory
+                        title="List by Areas"
+                        dataArr={[
+                            {
+                                key: "Bayonne",
+                                value: 30
+                            },
+                            {
+                                key: "Greenwich Village",
+                                value: 30
+                            },
+                            {
+                                key: "Manhattan",
+                                value: 30
+                            }
+                        ]}
+
+                    />
                 </Grid>
             </Grid>
-
         </>
     )
 };
