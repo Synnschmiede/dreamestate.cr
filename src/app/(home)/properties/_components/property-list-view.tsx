@@ -3,9 +3,8 @@
 
 import { Grid } from '@mui/material';
 
-import { PropertyGridCard } from './property-grid-card';
-import { PropertyListCard } from './property-list-card';
 import { IProperty } from '../_lib/property.interface';
+import { PropertyListCard } from './property-list-card';
 
 export const PropertyListView = ({ data }: { data: IProperty[] }) => {
 

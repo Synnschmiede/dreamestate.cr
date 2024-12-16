@@ -57,7 +57,7 @@ export function customShadows(colorScheme: ThemeColorScheme) {
     z24: `0 24px 48px 0 ${varAlpha(colorChannel, 0.16)}`,
     //
     dialog: `-40px 40px 80px -8px ${varAlpha(common.blackChannel, 0.24)}`,
-    card: `0 0 2px 0 ${varAlpha(colorChannel, 0.2)}, 0 12px 24px -4px ${varAlpha(colorChannel, 0.12)}`,
+    card: `0 4px 8px 0 rgba(0, 167, 111, 0.1), 0 6px 12px 0 rgba(0, 167, 111, 0.15)`,
     dropdown: `0 0 2px 0 ${varAlpha(colorChannel, 0.24)}, -20px 20px 40px -4px ${varAlpha(colorChannel, 0.24)}`,
     //
     primary: createShadowColor(primary.mainChannel),

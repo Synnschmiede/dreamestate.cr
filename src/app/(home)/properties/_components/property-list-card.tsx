@@ -18,7 +18,14 @@ import { currencyFormatter } from "src/utils/currency-view";
 
 export const PropertyListCard = ({ data }: { data: IProperty }) => {
     return (
-        <Grid container
+        <Grid
+            container
+            sx={{
+                borderRadius: "4px",
+                '&:hover': {
+                    boxShadow: (theme) => theme.customShadows.card,
+                }
+            }}
         >
             {/* IMAGE SECTION */}
             <Grid item xs={12} md={5} sx={{ position: "relative", }}>
@@ -28,7 +35,7 @@ export const PropertyListCard = ({ data }: { data: IProperty }) => {
                     width="100%"
                     src="https://picsum.photos/600/300?random=1"
                     alt="Property image"
-                    sx={{ objectFit: "cover" }}
+                    sx={{ objectFit: "cover", borderRadius: { xs: "4px 4px 0 0", md: "4px 0 0 4px" } }}
                 />
 
                 <Box
@@ -69,7 +76,7 @@ export const PropertyListCard = ({ data }: { data: IProperty }) => {
                 item
                 xs={12}
                 md={7}
-                sx={{ backgroundColor: "common.white", px: { xs: 2, md: 3 }, pt: { xs: 2, md: 3 } }}
+                sx={{ backgroundColor: "common.white", px: { xs: 2, md: 3 }, pt: { xs: 2, md: 3 }, borderRadius: { xs: "0 0 4px 4px", md: "0 4px 4px 0" } }}
             >
                 <Typography variant="h6" fontWeight="bold" gutterBottom>
                     {data?.title}

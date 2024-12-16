@@ -20,7 +20,10 @@ export const PropertyGridCard = ({ data }: { data: IProperty }) => {
                 boxShadow: 3,
                 overflow: 'hidden',
                 height: '100%',
-                marginBottom: 1
+                marginBottom: 1, 
+                '&:hover': {
+                    boxShadow: (theme) => theme.customShadows.card,
+                }
             }}
         >
             <Box sx={{ position: "relative" }}>
