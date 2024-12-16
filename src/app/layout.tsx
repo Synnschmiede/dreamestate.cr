@@ -16,6 +16,9 @@ import { MotionLazy } from 'src/components/animate/motion-lazy';
 import { SettingsDrawer, defaultSettings, SettingsProvider } from 'src/components/settings';
 
 import { AuthProvider } from 'src/auth/context/jwt';
+import { Toaster } from 'sonner';
+
+// import { Toaster } from "src/components/core/toaster"
 
 // ----------------------------------------------------------------------
 
@@ -54,6 +57,7 @@ export default async function RootLayout({ children }: Props) {
                 <ProgressBar />
                 <SettingsDrawer />
                 {children}
+                <Toaster position="top-right" />
               </MotionLazy>
             </ThemeProvider>
           </SettingsProvider>

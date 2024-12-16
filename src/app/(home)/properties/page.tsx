@@ -4,7 +4,7 @@ import { CONFIG } from 'src/config-global';
 
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs/custom-breadcrumbs';
 
-import { FilterToolbar } from './components/filter-toolbar';
+import { FilterToolbar } from './_components/filter-toolbar';
 
 export const metadata = {
   title: `${CONFIG.appName} | Properties`,
@@ -20,6 +20,7 @@ const PropertiesPage = () => {
         links={[{ name: 'Home', href: '/' }, { name: 'Properties' }]}
       />
       <FilterToolbar />
+      content
     </Container>
   );
 };

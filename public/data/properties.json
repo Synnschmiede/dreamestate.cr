@@ -1,0 +1,223 @@
+[
+    {
+        "title": "Modern Apartment in Downtown",
+        "description": "A beautiful and modern apartment located in the heart of the city.",
+        "price": 1200000,
+        "property_type": "APARTMENT",
+        "status": "AVAILABLE",
+        "images": [
+            "https://via.placeholder.com/400x300?text=Apartment+Image+1",
+            "https://via.placeholder.com/400x300?text=Apartment+Image+2"
+        ],
+        "tags": [
+            "Modern",
+            "City Center",
+            "Convenient Location"
+        ],
+        "overview": {
+            "updated_on": "2024-12-14",
+            "bedrooms": 3,
+            "bathrooms": 2,
+            "area_size": 1500,
+            "garage": 1
+        },
+        "contactInfo": {
+            "name": "Jane Doe",
+            "email": "jane.doe@example.com",
+            "phone": "+1-555-123-4567"
+        },
+        "documents": [
+            "https://example.com/documents/sample-lease-agreement.pdf"
+        ],
+        "location": {
+            "city": "New York",
+            "state": "NY",
+            "country": "USA",
+            "postalCode": "10001",
+            "addressLine1": "123 Main Street",
+            "latitude": 40.7128,
+            "longitude": -74.006
+        },
+        "property_details": {
+            "id": "a1b2c3d4",
+            "size": 1500,
+            "bedrooms": 3,
+            "garage": 1,
+            "available_from": "2024-01-01",
+            "price": 1200000,
+            "property_lot_size": "2000 sqft",
+            "bathrooms": "2",
+            "year_build": "2020",
+            "structure_type": "High-rise",
+            "price_info": "Negotiable",
+            "rooms": 5,
+            "garage_size": "300 sqft"
+        },
+        "features": {
+            "interior_details": [
+                "Hardwood floors",
+                "Open kitchen",
+                "Walk-in closets"
+            ],
+            "outdoor_details": [
+                "Balcony",
+                "Swimming pool"
+            ],
+            "utilities": [
+                "Water",
+                "Electricity",
+                "Internet"
+            ],
+            "other_features": [
+                "24-hour security",
+                "Elevator access"
+            ]
+        }
+    },
+    {
+        "title": "Luxury Villa with Ocean View",
+        "description": "A stunning villa with panoramic ocean views, perfect for a serene lifestyle.",
+        "price": 3500000,
+        "property_type": "VILLA",
+        "status": "AVAILABLE",
+        "images": [
+            "https://via.placeholder.com/400x300?text=Villa+Image+1",
+            "https://via.placeholder.com/400x300?text=Villa+Image+2"
+        ],
+        "tags": [
+            "Luxury",
+            "Ocean View",
+            "Private Pool"
+        ],
+        "overview": {
+            "updated_on": "2024-11-30",
+            "bedrooms": 5,
+            "bathrooms": 4,
+            "area_size": 5000,
+            "garage": 2
+        },
+        "contactInfo": {
+            "name": "John Smith",
+            "email": "john.smith@example.com",
+            "phone": "+1-555-987-6543"
+        },
+        "documents": [
+            "https://example.com/documents/sample-deed.pdf"
+        ],
+        "location": {
+            "city": "Miami",
+            "state": "FL",
+            "country": "USA",
+            "postalCode": "33139",
+            "addressLine1": "456 Ocean Drive"
+        },
+        "property_details": {
+            "id": "e4f5g6h7",
+            "size": 5000,
+            "bedrooms": 5,
+            "garage": 2,
+            "available_from": "2024-02-01",
+            "price": 3500000,
+            "property_lot_size": "10000 sqft",
+            "bathrooms": "4",
+            "year_build": "2015",
+            "structure_type": "Detached",
+            "price_info": "Firm",
+            "rooms": 8,
+            "garage_size": "400 sqft"
+        },
+        "features": {
+            "interior_details": [
+                "Modern kitchen",
+                "Home theater",
+                "Spa"
+            ],
+            "outdoor_details": [
+                "Private pool",
+                "Garden",
+                "Outdoor kitchen"
+            ],
+            "utilities": [
+                "Solar panels",
+                "Central heating"
+            ],
+            "other_features": [
+                "Gated community",
+                "Private beach access"
+            ]
+        }
+    },
+    {
+        "title": "Spacious Family Home in Suburbs",
+        "description": "A cozy and spacious home ideal for family living in a quiet neighborhood.",
+        "price": 800000,
+        "property_type": "HOUSE",
+        "status": "RENTED",
+        "images": [
+            "https://via.placeholder.com/400x300?text=House+Image+1",
+            "https://via.placeholder.com/400x300?text=House+Image+2"
+        ],
+        "tags": [
+            "Family",
+            "Suburbs",
+            "Large Backyard"
+        ],
+        "overview": {
+            "updated_on": "2024-10-01",
+            "bedrooms": 4,
+            "bathrooms": 3,
+            "area_size": 3500,
+            "garage": 2
+        },
+        "contactInfo": {
+            "name": "Emma Johnson",
+            "email": "emma.johnson@example.com"
+        },
+        "documents": [
+            "https://example.com/documents/sample-inspection-report.pdf"
+        ],
+        "location": {
+            "city": "Austin",
+            "state": "TX",
+            "country": "USA",
+            "postalCode": "73301",
+            "addressLine1": "789 Hilltop Avenue"
+        },
+        "property_details": {
+            "id": "i8j9k1l2",
+            "size": 3500,
+            "bedrooms": 4,
+            "garage": 2,
+            "available_from": "2023-12-15",
+            "price": 800000,
+            "property_lot_size": "6000 sqft",
+            "bathrooms": "3",
+            "year_build": "2010",
+            "structure_type": "Two-story",
+            "price_info": "Fixed",
+            "rooms": 6,
+            "garage_size": "350 sqft"
+        },
+        "features": {
+            "interior_details": [
+                "Fireplace",
+                "Walk-in pantry",
+                "Hardwood floors"
+            ],
+            "outdoor_details": [
+                "Deck",
+                "Playground",
+                "Patio"
+            ],
+            "utilities": [
+                "Gas",
+                "Electricity",
+                "Fiber internet"
+            ],
+            "other_features": [
+                "Nearby parks",
+                "Top-rated schools"
+            ]
+        }
+    }
+]
