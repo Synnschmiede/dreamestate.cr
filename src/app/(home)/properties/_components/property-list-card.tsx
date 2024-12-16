@@ -2,33 +2,31 @@ import {
     Box,
     Button,
     ButtonGroup,
-    Card,
-    CardContent,
-    CardMedia,
-    Chip,
     Divider,
     Grid,
     Stack,
-    Typography,
+    Typography
 } from "@mui/material";
 
+import { CustomChip } from "src/components/custom-chip";
 import { Iconify } from "src/components/iconify";
 import { SectionDescription } from "src/components/section-description";
 import { TitledAvatar } from "src/components/titled-avatar";
 import { IconWithText } from "../../_components/icon-with-text";
-import { CustomChip } from "src/components/custom-chip";
+import { IProperty } from "../_lib/property.interface";
+import { currencyFormatter } from "src/utils/currency-view";
 
-export const PropertyListCard = () => {
+export const PropertyListCard = ({ data }: { data: IProperty }) => {
     return (
         <Grid container
         >
             {/* IMAGE SECTION */}
-            <Grid item xs={12} md={5} sx={{ position: "relative",  }}>
+            <Grid item xs={12} md={5} sx={{ position: "relative", }}>
                 <Box
                     component="img"
                     height="100%"
                     width="100%"
-                    src="/assets/home/card_1.png"
+                    src="https://picsum.photos/600/300?random=1"
                     alt="Property image"
                     sx={{ objectFit: "cover" }}
                 />
@@ -74,7 +72,7 @@ export const PropertyListCard = () => {
                 sx={{ backgroundColor: "common.white", px: { xs: 2, md: 3 }, pt: { xs: 2, md: 3 } }}
             >
                 <Typography variant="h6" fontWeight="bold" gutterBottom>
-                    Luxury House in Greenville
+                    {data?.title}
                 </Typography>
 
                 <Typography
@@ -82,7 +80,7 @@ export const PropertyListCard = () => {
                     color="primary"
                     gutterBottom
                 >
-                    $860,000
+                    {currencyFormatter(data?.price)}
                 </Typography>
 
                 <SectionDescription
@@ -92,17 +90,14 @@ export const PropertyListCard = () => {
                         marginTop: 1,
                     }}
                 >
-                    This property is mostly wooded and sits high on a hilltop overlooking
-                    the Mohawk River Valley. Located right in the heart of Upstate NYs
-                    Amish farm Country.
+                    {data?.description}
                 </SectionDescription>
 
                 {/* Icons Row */}
                 <Box
                     sx={{
-                        // marginTop: 2,    
                         display: "flex",
-                        justifyContent: { xs: "space-between", md: "start"},
+                        justifyContent: { xs: "space-between", md: "start" },
                         gap: 4
                     }}
                 >
@@ -118,7 +113,7 @@ export const PropertyListCard = () => {
                     direction="row"
                     justifyContent="space-between"
                     alignItems="center"
-                    sx={{  pb: 2}}
+                    sx={{ pb: 2 }}
                 >
                     <TitledAvatar path="/assets/home/avatar.jpg" title="John Collins" />
 

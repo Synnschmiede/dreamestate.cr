@@ -3,6 +3,7 @@ import { Box, Container } from '@mui/material';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs/custom-breadcrumbs';
 import { CONFIG } from 'src/config-global';
 import { PropertiesView } from './properties-view';
+import { IProperty } from './_lib/property.interface';
 
 export const metadata = {
   title: `${CONFIG.appName} | Properties`,
@@ -11,7 +12,7 @@ export const metadata = {
 
 export default async function PropertiesPage() {
   const res = await fetch('https://codemine24.github.io/test-api-server/properties.json'); 
-  const properties = await res.json();
+  const properties: IProperty[] = await res.json();
 
   return (
     <Box sx={{ background: "#f8f8f8", py: { xs: 4, md: 6 } }}>

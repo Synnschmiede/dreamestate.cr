@@ -5,10 +5,11 @@ import { Iconify } from "src/components/iconify";
 import { SectionDescription } from "src/components/section-description";
 import { TitledAvatar } from "src/components/titled-avatar";
 import { IconWithText } from "../../_components/icon-with-text";
+import { IProperty } from "../_lib/property.interface";
+import { currencyFormatter } from "src/utils/currency-view";
 
 
-export const PropertyGridCard = () => {
-
+export const PropertyGridCard = ({ data }: { data: IProperty }) => {
 
     return (
         <Card
@@ -26,7 +27,7 @@ export const PropertyGridCard = () => {
                 <CardMedia
                     component="img"
                     height="250"
-                    image="/assets/home/card_1.png"
+                    image="https://picsum.photos/600/300?random=1"
                     alt="Property image"
                     sx={{ objectFit: "cover" }}
                 />
@@ -73,15 +74,14 @@ export const PropertyGridCard = () => {
                     variant="h5"
                     color="text.secondary"
                 >
-                    Virgin Vineyard House
+                    {data?.title}
                 </Typography>
                 <Typography
                     variant="h6"
                     color="primary"
                     sx={{ mt: 1 }}
-                // gutterBottom
                 >
-                    $860,000
+                    {currencyFormatter(data?.price)}
                 </Typography>
                 <IconWithText icon="carbon:location" text="Inner Circular Lamar Street, Houston, Texas" />
                 <SectionDescription
@@ -90,7 +90,7 @@ export const PropertyGridCard = () => {
                         fontSize: 16,
                         marginTop: 2
                     }}>
-                    Egestas fringilla phasellus faucibus scelerisque eleifend donec. Porta nibh venenatis.
+                   {data?.description}
                 </SectionDescription>
                 <Box
                     sx={{
