@@ -20,13 +20,17 @@ export const PropertyGridCard = ({ data }: { data: IProperty }) => {
                 boxShadow: 3,
                 overflow: 'hidden',
                 height: '100%',
-                marginBottom: 1, 
+                marginBottom: 1,
                 '&:hover': {
                     boxShadow: (theme) => theme.customShadows.card,
+                    '& .MuiCardMedia-root': {
+                        transform: 'scale(1.05)', 
+                        transition: 'transform 0.3s ease-in-out',
+                    }
                 }
             }}
         >
-            <Box sx={{ position: "relative" }}>
+            <Box sx={{ position: "relative", overflow: "hidden", cursor: "pointer" }}>
                 <CardMedia
                     component="img"
                     height="250"
@@ -93,7 +97,7 @@ export const PropertyGridCard = ({ data }: { data: IProperty }) => {
                         fontSize: 16,
                         marginTop: 2
                     }}>
-                   {data?.description}
+                    {data?.description}
                 </SectionDescription>
                 <Box
                     sx={{

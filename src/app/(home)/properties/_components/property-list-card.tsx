@@ -24,12 +24,17 @@ export const PropertyListCard = ({ data }: { data: IProperty }) => {
                 borderRadius: "4px",
                 '&:hover': {
                     boxShadow: (theme) => theme.customShadows.card,
+                    '& .property-image': {
+                        transform: 'scale(1.05)',  // Slight scaling effect
+                        transition: 'transform 0.3s ease-in-out',
+                    }
                 }
             }}
         >
             {/* IMAGE SECTION */}
-            <Grid item xs={12} md={5} sx={{ position: "relative", }}>
+            <Grid item xs={12} md={5} sx={{ position: "relative", overflow: "hidden", cursor: "pointer" }}>
                 <Box
+                    className="property-image"
                     component="img"
                     height="100%"
                     width="100%"
@@ -41,11 +46,10 @@ export const PropertyListCard = ({ data }: { data: IProperty }) => {
                 <Box
                     sx={{
                         position: "absolute",
-                        bottom: 0,
-                        right: 0,
-                        height: "50px",
-                        background:
-                            "linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0))",
+                        bottom: 10,
+                        right: 10,
+                        // height: "150px",
+                        background: "linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0))",
                         zIndex: 1,
                     }}
                 />
