@@ -22,7 +22,7 @@ export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) =
     <Stack
       direction="row"
       gap={2}
-      sx={{ boxShadow: (theme) => theme.customShadows.card, borderRadius: '8px', px: 4, py: 1, width: '100%' }}
+      sx={{ boxShadow: (theme) => theme.customShadows.card, borderRadius: '8px',  p: 2, width: '100%' }}
     >
       <CustomFilterPopover
         title="Search by Cities"

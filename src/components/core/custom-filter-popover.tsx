@@ -1,5 +1,6 @@
 import { Box, Button, Popover } from "@mui/material";
 import React, { ReactNode } from "react";
+import { Iconify } from "../iconify";
 
 interface ICustomFilterButtonProps {
     title: string;
@@ -20,10 +21,10 @@ export const CustomFilterPopover: React.FC<ICustomFilterButtonProps> = ({ title,
     return (
         <>
             <Button
-                variant="outlined"
+                variant="text"
                 color="primary"
                 onClick={handleOpen}
-                endIcon={"minus Icon"}
+                endIcon={open ? <Iconify icon="pixelarticons:chevron-up" /> : <Iconify icon="pixelarticons:chevron-down" />}
             >
                 {title}
             </Button>
