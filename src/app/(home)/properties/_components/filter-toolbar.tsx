@@ -22,18 +22,26 @@ export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) =
     <Stack
       direction="row"
       gap={2}
-      sx={{ boxShadow: (theme) => theme.customShadows.card, borderRadius: '8px',  p: 2, width: '100%' }}
+      sx={{
+        boxShadow: (theme) => theme.customShadows.card,
+        borderRadius: '8px',
+        p: 2,
+        width: '100%',
+      }}
     >
       <CustomFilterPopover
-        title="Search by Cities"
-        popoverComponent={
-          <CitiesSelector
-            value={city}
-            onApply={(newCity) => setCity(newCity)}
-          />
-        }
+        title="Search by Category"
+        popoverComponent={<CitiesSelector value={city} onApply={(newCity) => setCity(newCity)} />}
       />
-      <Select
+      <CustomFilterPopover
+        title="Search by Cities"
+        popoverComponent={<CitiesSelector value={city} onApply={(newCity) => setCity(newCity)} />}
+      />
+      <CustomFilterPopover
+        title="Default"
+        popoverComponent={<CitiesSelector value={city} onApply={(newCity) => setCity(newCity)} />}
+      />
+      {/* <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
         value={categories}
@@ -86,7 +94,7 @@ export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) =
         <MenuItem value="price-low-to-high">Price (Low to High)</MenuItem>
         <MenuItem value="newest-first">Newest first</MenuItem>
         <MenuItem value="oldest-first">Oldest first</MenuItem>
-      </Select>
+      </Select> */}
       <ToggleButtonGroup
         size="small"
         value={view}
@@ -94,15 +102,11 @@ export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) =
         onChange={handleChangeView}
         sx={{ ml: 'auto' }}
       >
-        <ToggleButton
-          title="List View"
-          value="list">
+        <ToggleButton title="List View" value="list">
           <Iconify icon="solar:list-bold" />
         </ToggleButton>
 
-        <ToggleButton
-          title="Grid View"
-          value="grid">
+        <ToggleButton title="Grid View" value="grid">
           <Iconify icon="mingcute:dot-grid-fill" />
         </ToggleButton>
       </ToggleButtonGroup>
