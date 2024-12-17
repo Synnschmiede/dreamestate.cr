@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 
-import { grey } from '@mui/material/colors';
-import { Stack, Select, MenuItem, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { MenuItem, Select, Stack, ToggleButton, ToggleButtonGroup } from '@mui/material';
 
+import { CustomFilterPopover } from 'src/components/core/custom-filter-popover';
+import { CitiesSelector } from './filter-by-cities';
 import { Iconify } from 'src/components/iconify';
 
 interface IFilterToolbarProps {
@@ -17,14 +18,21 @@ export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) =
   const [city, setCity] = useState('ALL');
   const [sortBy, setSortBy] = useState('DEFAULT');
 
-
-
   return (
     <Stack
       direction="row"
       gap={2}
-      sx={{ border: `1px solid ${grey[300]}`, borderRadius: '8px', px: 4, py: 1, width: '100%' }}
+      sx={{ boxShadow: (theme) => theme.customShadows.card, borderRadius: '8px', px: 4, py: 1, width: '100%' }}
     >
+      <CustomFilterPopover
+        title="Search by Cities"
+        popoverComponent={
+          <CitiesSelector
+            value={city}
+            onApply={(newCity) => setCity(newCity)}
+          />
+        }
+      />
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
