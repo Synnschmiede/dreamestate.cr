@@ -87,6 +87,7 @@ export default async function PropertyDetailsPage({ params: { slug } }: { params
             ]
         }
     }
+    
     return (
         <Box sx={{ background: "#f8f8f8", py: { xs: 4, md: 6 } }}>
             <PropertyDetailsView data={data} slug={slug} />
