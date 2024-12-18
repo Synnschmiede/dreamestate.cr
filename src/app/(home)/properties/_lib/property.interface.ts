@@ -42,6 +42,7 @@ interface IPropertyDetails {
 
 export interface IProperty {
     title: string;
+    slug: string;
     description: string;
     price: number;
     feature_image: string;

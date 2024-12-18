@@ -11,7 +11,7 @@ export const metadata = {
 };
 
 export default async function PropertiesPage() {
-  const res = await fetch('https://codemine24.github.io/test-api-server/properties.json'); 
+  const res = await fetch('https://codemine24.github.io/test-api-server/properties.json', { cache: 'no-cache' });
   const properties: IProperty[] = await res.json();
 
   return (
@@ -20,6 +20,7 @@ export default async function PropertiesPage() {
         <CustomBreadcrumbs
           heading="Our Properties"
           links={[{ name: 'Home', href: '/' }, { name: 'Properties' }]}
+          sx={{ mb: 2 }}
         />
         <PropertiesView properties={properties} />
       </Container>

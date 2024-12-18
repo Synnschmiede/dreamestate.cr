@@ -99,7 +99,8 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
       /** **************************************
        * Footer
        *************************************** */
-      footerSection={homePage ? <PublicFooter /> : <Footer layoutQuery={layoutQuery} />}
+      // footerSection={homePage ? <PublicFooter /> : <Footer layoutQuery={layoutQuery} />}
+      footerSection={<PublicFooter />}
       /** **************************************
        * Style
        *************************************** */    >
