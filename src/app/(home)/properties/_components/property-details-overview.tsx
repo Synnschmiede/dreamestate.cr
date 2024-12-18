@@ -4,7 +4,6 @@ import { IPropertyOverview } from "../_lib/property.interface"
 import { PropertyDetailsContainer } from "./property-details-container"
 
 export const PropertyDetailsOverview = ({ data }: { data: IPropertyOverview }) => {
-    console.log(data, "overview")
     return (
         <PropertyDetailsContainer>
             <Typography variant="h6">Overview</Typography>

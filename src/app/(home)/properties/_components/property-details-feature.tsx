@@ -29,7 +29,7 @@ export const PropertyDetailsFeature = ({ data }: {
                     {
                         data.interior_details.length > 0 && (
                             data.interior_details.map((item: string) => (
-                                <Grid item xs={12} md={4}>
+                                <Grid item xs={12} md={4} key={item}>
                                     <PropertyDetailsCheckbox value={item || "-"} />
                                 </Grid>
                             ))
@@ -41,7 +41,7 @@ export const PropertyDetailsFeature = ({ data }: {
                     {
                         data.outdoor_details.length > 0 && (
                             data.outdoor_details.map((item: string) => (
-                                <Grid item xs={12} md={4}>
+                                <Grid item xs={12} md={4} key={item}>
                                     <PropertyDetailsCheckbox value={item || "-"} />
                                 </Grid>
                             ))
@@ -53,7 +53,7 @@ export const PropertyDetailsFeature = ({ data }: {
                     {
                         data.utilities.length > 0 && (
                             data.utilities.map((item: string) => (
-                                <Grid item xs={12} md={4}>
+                                <Grid item xs={12} md={4} key={item}>
                                     <PropertyDetailsCheckbox value={item || "-"} />
                                 </Grid>
                             ))
@@ -65,7 +65,7 @@ export const PropertyDetailsFeature = ({ data }: {
                     {
                         data.other_features.length > 0 && (
                             data.other_features.map((item: string) => (
-                                <Grid item xs={12} md={4}>
+                                <Grid item xs={12} md={4} key={item}>
                                     <PropertyDetailsCheckbox value={item || "-"} />
                                 </Grid>
                             ))

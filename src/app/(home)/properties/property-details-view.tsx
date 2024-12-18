@@ -8,9 +8,9 @@ import { PropertyDetailsDescription } from "./_components/property-details-descr
 import { PropertyDetailsAddress } from "./_components/property-details-address"
 import { PropertyDetailsDetails } from "./_components/property-details-details"
 import { PropertyDetailsFeature } from "./_components/property-details-feature"
+import { PropertyDetailsSidebar } from "./_components/property-details-sidebar"
 
 export const PropertyDetailsView = ({ data, slug }: { data: IProperty, slug: string }) => {
-    console.log(data, "property...........")
     return (
         <Container maxWidth="xl">
             <Grid container spacing={2}>
@@ -60,7 +60,7 @@ export const PropertyDetailsView = ({ data, slug }: { data: IProperty, slug: str
                 </Grid>
                 {/* sidebar */}
                 <Grid item xs={12} md={4}>
-                    sidebar
+                    <PropertyDetailsSidebar />
                 </Grid>
             </Grid>
         </Container>
