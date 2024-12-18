@@ -6,6 +6,7 @@ import { PropertyDetailsImageCarousel } from "./_components/property-details-ima
 import { PropertyDetailsOverview } from "./_components/property-details-overview"
 import { PropertyDetailsDescription } from "./_components/property-details-description"
 import { PropertyDetailsAddress } from "./_components/property-details-address"
+import { PropertyDetailsDetails } from "./_components/property-details-details"
 
 export const PropertyDetailsView = ({ data, slug }: { data: IProperty, slug: string }) => {
     console.log(data, "property...........")
@@ -53,6 +54,7 @@ export const PropertyDetailsView = ({ data, slug }: { data: IProperty, slug: str
                     <PropertyDetailsOverview data={data?.overview} />
                     <PropertyDetailsDescription data={data?.description} />
                     <PropertyDetailsAddress data={data?.location} />
+                    <PropertyDetailsDetails data={data?.property_details} />
                 </Grid>
                 {/* sidebar */}
                 <Grid item xs={12} md={4}>

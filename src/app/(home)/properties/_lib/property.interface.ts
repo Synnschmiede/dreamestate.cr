@@ -24,7 +24,7 @@ export interface IPropertyOverview {
     garage: number;
 }
 
-interface IPropertyDetails {
+export interface IPropertyDetails {
     id: string;
     size: number;
     bedrooms: number;
@@ -54,7 +54,7 @@ export interface IProperty {
     contactInfo: PropertyContactInfo;
     documents?: string[];
     location: IPropertyLocation;
-    property_details?: IPropertyDetails;
+    property_details: IPropertyDetails;
     features?: {
         interior_details: string[];
         outdoor_details: string[];
