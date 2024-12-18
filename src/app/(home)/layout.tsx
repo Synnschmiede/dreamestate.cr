@@ -34,7 +34,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
 
   const homePage = pathname === '/';
 
-  const layoutQuery: Breakpoint = 'xl';
+  const layoutQuery: Breakpoint = 'md';
 
   const navConfigData = navData;
 
@@ -99,7 +99,8 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
       /** **************************************
        * Footer
        *************************************** */
-      footerSection={homePage ? <PublicFooter /> : <Footer layoutQuery={layoutQuery} />}
+      // footerSection={homePage ? <PublicFooter /> : <Footer layoutQuery={layoutQuery} />}
+      footerSection={<PublicFooter />}
       /** **************************************
        * Style
        *************************************** */    >

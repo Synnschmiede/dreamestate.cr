@@ -10,7 +10,7 @@ module.exports = {
     sourceType: 'module',
     ecmaVersion: 'latest',
     ecmaFeatures: { jsx: true },
-    project: './tsconfig.json',
+    // project: './tsconfig.json',
   },
   settings: {
     'import/resolver': {
