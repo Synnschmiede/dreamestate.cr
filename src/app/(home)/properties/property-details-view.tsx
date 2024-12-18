@@ -7,6 +7,7 @@ import { PropertyDetailsOverview } from "./_components/property-details-overview
 import { PropertyDetailsDescription } from "./_components/property-details-description"
 import { PropertyDetailsAddress } from "./_components/property-details-address"
 import { PropertyDetailsDetails } from "./_components/property-details-details"
+import { PropertyDetailsFeature } from "./_components/property-details-feature"
 
 export const PropertyDetailsView = ({ data, slug }: { data: IProperty, slug: string }) => {
     console.log(data, "property...........")
@@ -55,6 +56,7 @@ export const PropertyDetailsView = ({ data, slug }: { data: IProperty, slug: str
                     <PropertyDetailsDescription data={data?.description} />
                     <PropertyDetailsAddress data={data?.location} />
                     <PropertyDetailsDetails data={data?.property_details} />
+                    <PropertyDetailsFeature data={data?.features} />
                 </Grid>
                 {/* sidebar */}
                 <Grid item xs={12} md={4}>

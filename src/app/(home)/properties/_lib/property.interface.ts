@@ -55,7 +55,7 @@ export interface IProperty {
     documents?: string[];
     location: IPropertyLocation;
     property_details: IPropertyDetails;
-    features?: {
+    features: {
         interior_details: string[];
         outdoor_details: string[];
         utilities: string[];
