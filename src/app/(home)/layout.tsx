@@ -34,7 +34,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
 
   const homePage = pathname === '/';
 
-  const layoutQuery: Breakpoint = 'xl';
+  const layoutQuery: Breakpoint = 'md';
 
   const navConfigData = navData;
 
