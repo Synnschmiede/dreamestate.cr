@@ -1,5 +1,4 @@
 "use client"
-import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { Box, IconButton } from "@mui/material";
 import React from "react";
 import { Iconify } from "src/components/iconify";

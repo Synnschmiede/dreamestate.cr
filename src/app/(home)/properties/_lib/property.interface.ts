@@ -1,4 +1,4 @@
-interface IPropertyLocation {
+export interface IPropertyLocation {
     city: string;
     state: string;
     country: string;
@@ -16,7 +16,7 @@ interface PropertyContactInfo {
 
 }
 
-interface IPropertyOverview {
+export interface IPropertyOverview {
     updated_on: string;
     bedrooms: number;
     bathrooms: number;
@@ -50,10 +50,10 @@ export interface IProperty {
     status: "AVAILABLE" | "SOLD" | "RENTED";
     images?: string[];
     tags?: string[];
-    overview?: IPropertyOverview;
+    overview: IPropertyOverview;
     contactInfo: PropertyContactInfo;
     documents?: string[];
-    location?: IPropertyLocation;
+    location: IPropertyLocation;
     property_details?: IPropertyDetails;
     features?: {
         interior_details: string[];

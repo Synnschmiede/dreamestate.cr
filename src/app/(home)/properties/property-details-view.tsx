@@ -3,6 +3,9 @@ import { IProperty } from "./_lib/property.interface"
 import { CustomBreadcrumbs } from "src/components/custom-breadcrumbs/custom-breadcrumbs"
 import { currencyFormatter } from "src/utils/currency-view"
 import { PropertyDetailsImageCarousel } from "./_components/property-details-image-carousel"
+import { PropertyDetailsOverview } from "./_components/property-details-overview"
+import { PropertyDetailsDescription } from "./_components/property-details-description"
+import { PropertyDetailsAddress } from "./_components/property-details-address"
 
 export const PropertyDetailsView = ({ data, slug }: { data: IProperty, slug: string }) => {
     console.log(data, "property...........")
@@ -47,6 +50,9 @@ export const PropertyDetailsView = ({ data, slug }: { data: IProperty, slug: str
                 {/* property details */}
                 <Grid item xs={12} md={8}>
                     <PropertyDetailsImageCarousel images={data.images || []} />
+                    <PropertyDetailsOverview data={data?.overview} />
+                    <PropertyDetailsDescription data={data?.description} />
+                    <PropertyDetailsAddress data={data?.location} />
                 </Grid>
                 {/* sidebar */}
                 <Grid item xs={12} md={4}>
