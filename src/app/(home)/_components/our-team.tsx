@@ -87,13 +87,13 @@ export const OurTeam = () => {
                     }}
                 >
 
-                    <RoundedButton
+                    {/* <RoundedButton
                         endIcon={<Iconify width={22} icon="guidance:left-2-short-arrow" />}
                         variant='outlined'
                         sx={{ mt: 4, borderColor: 'text.primary' }}
                     >
                         Browse All Project
-                    </RoundedButton>
+                    </RoundedButton> */}
                 </Grid>
             </Grid>
             {/* sliders */}
@@ -114,12 +114,12 @@ export const OurTeam = () => {
                     <SwiperSlide>
                         <TeamMemberCard />
                     </SwiperSlide>
-                    <SwiperSlide>
+                    {/* <SwiperSlide>
                         <TeamMemberCard />
                     </SwiperSlide>
                     <SwiperSlide>
                         <TeamMemberCard />
-                    </SwiperSlide>
+                    </SwiperSlide> */}
                 </SliderWrapper>
             </Box>
             <AnimatedShape
