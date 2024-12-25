@@ -1,6 +1,5 @@
 "use client";
-import axios from "axios";
-import { jwtDecode, JwtPayload } from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import React, { createContext, useEffect, useState } from "react";
 import { api, server_base_api } from "src/utils/axios";

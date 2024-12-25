@@ -15,6 +15,7 @@ import { Button, CircularProgress, FormControl, FormHelperText, Stack, TextField
 import { useFormik } from 'formik';
 import { FormHead } from 'src/auth/components/form-head';
 import { CustomPasswordInput } from 'src/components/form-fields/custom-password-fields';
+import useAuth from 'src/hooks/useAuth';
 
 
 // ----------------------------------------------------------------------
@@ -36,6 +37,12 @@ export const SignInSchema = zod.object({
 
 export const SignInView = () => {
   const router = useRouter();
+  const { login } = useAuth()
+
+
+  // ******************************
+  //             states
+  // ******************************
   const [error, setError] = React.useState('');
   const [loading, setLoading] = React.useState(false);
 
@@ -44,7 +51,6 @@ export const SignInView = () => {
     password: '@demo1',
   };
 
-  // const { login } = useAuth()
 
   const {
     values,
@@ -72,10 +78,11 @@ export const SignInView = () => {
       return errors;
     },
     onSubmit: async (values) => {
+      console.log(values, 'values');
       setLoading(true)
-      // await login(values.email, values.password, (error) => {
-      //   setError(error)
-      // })
+      await login(values.email, values.password, (error) => {
+        setError(error)
+      })
       setLoading(false)
     }
   })
