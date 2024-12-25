@@ -53,7 +53,7 @@ export interface IProperty {
   location: IPropertyLocation;
   created_at: string;
   updated_at: string;
-  user: {
+  uploaded_by: {
     first_name: string;
     last_name: string;
     email: string;
