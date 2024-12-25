@@ -25,7 +25,6 @@ import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
 import { AnimateAvatar } from 'src/components/animate';
 
-import { useMockedUser } from 'src/auth/hooks';
 
 import { UpgradeBlock } from './nav-upgrade';
 import { AccountButton } from './account-button';
@@ -49,7 +48,12 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
 
   const pathname = usePathname();
 
-  const { user } = useMockedUser();
+  // const { user } = useMockedUser();
+  const user = {
+    displayName: 'John Doe',
+    email: '2lZnD@example.com',
+    photoURL: '/assets/images/avatars/avatar_default.jpg',
+  }
 
   const [open, setOpen] = useState(false);
 
