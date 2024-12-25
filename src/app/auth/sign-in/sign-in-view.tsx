@@ -1,28 +1,20 @@
 'use client';
 
+import React from 'react';
 import { z as zod } from 'zod';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 
-import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
 import Alert from '@mui/material/Alert';
-import IconButton from '@mui/material/IconButton';
-import LoadingButton from '@mui/lab/LoadingButton';
-import InputAdornment from '@mui/material/InputAdornment';
+import Link from '@mui/material/Link';
 
-import { paths } from 'src/routes/paths';
-import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
+import { useRouter } from 'src/routes/hooks';
+import { paths } from 'src/routes/paths';
 
-import { useBoolean } from 'src/hooks/use-boolean';
 
-import { Iconify } from 'src/components/iconify';
-import { Form, Field } from 'src/components/hook-form';
-import { useAuthContext } from 'src/auth/hooks';
-import { signInWithPassword } from 'src/auth/context/jwt';
+import { Button, CircularProgress, FormControl, FormHelperText, Stack, TextField } from '@mui/material';
+import { useFormik } from 'formik';
 import { FormHead } from 'src/auth/components/form-head';
+import { CustomPasswordInput } from 'src/components/form-fields/custom-password-fields';
 
 
 // ----------------------------------------------------------------------
@@ -42,88 +34,51 @@ export const SignInSchema = zod.object({
 
 // ----------------------------------------------------------------------
 
-export function SignInView() {
+export const SignInView = () => {
   const router = useRouter();
-
-  const { checkUserSession } = useAuthContext();
-
-  const [errorMsg, setErrorMsg] = useState('');
-
-  const password = useBoolean();
+  const [error, setError] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
 
   const defaultValues = {
     email: 'demo@minimals.cc',
     password: '@demo1',
   };
 
-  const methods = useForm<SignInSchemaType>({
-    resolver: zodResolver(SignInSchema),
-    defaultValues,
-  });
+  // const { login } = useAuth()
 
   const {
+    values,
+    errors,
+    handleChange,
     handleSubmit,
-    formState: { isSubmitting },
-  } = methods;
-
-  const onSubmit = handleSubmit(async (data) => {
-    try {
-      await signInWithPassword({ email: data.email, password: data.password });
-      await checkUserSession?.();
-
-      router.refresh();
-    } catch (error) {
-      console.error(error);
-      setErrorMsg(typeof error === 'string' ? error : error.message);
+    handleBlur,
+    setValues,
+    setFieldValue,
+    isValid,
+    resetForm,
+  } = useFormik({
+    initialValues: defaultValues,
+    validate: (values) => {
+      const errors: any = {};
+      // if (values.recipient_emails.length <= 0) {
+      //   errors.recipient_emails = "*Email is required.";
+      // }
+      // if (!values.subject) {
+      //   errors.subject = "*This Field is required";
+      // }
+      // if (!values.body) {
+      //   errors.body = "*This Field is required";
+      // }
+      return errors;
+    },
+    onSubmit: async (values) => {
+      setLoading(true)
+      // await login(values.email, values.password, (error) => {
+      //   setError(error)
+      // })
+      setLoading(false)
     }
-  });
-
-  const renderForm = (
-    <Box gap={3} display="flex" flexDirection="column">
-      <Field.Text name="email" label="Email address" InputLabelProps={{ shrink: true }} />
-
-      <Box gap={1.5} display="flex" flexDirection="column">
-        <Link
-          component={RouterLink}
-          href="#"
-          variant="body2"
-          color="inherit"
-          sx={{ alignSelf: 'flex-end' }}
-        >
-          Forgot password?
-        </Link>
-
-        <Field.Text
-          name="password"
-          label="Password"
-          placeholder="6+ characters"
-          type={password.value ? 'text' : 'password'}
-          InputLabelProps={{ shrink: true }}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={password.onToggle} edge="end">
-                  <Iconify icon={password.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Box>
-
-      <LoadingButton
-        fullWidth
-        color="inherit"
-        size="large"
-        type="submit"
-        variant="contained"
-        loading={isSubmitting}
-        loadingIndicator="Sign in..."
-      >
-        Sign in
-      </LoadingButton>
-    </Box>
-  );
+  })
 
   return (
     <>
@@ -133,28 +88,47 @@ export function SignInView() {
           <>
             {`Don’t have an account? `}
             <Link component={RouterLink} href={paths.auth.jwt.signUp} variant="subtitle2">
-              Get started
+              Sign up
             </Link>
           </>
         }
         sx={{ textAlign: { xs: 'center', md: 'left' } }}
       />
 
-      <Alert severity="info" sx={{ mb: 3 }}>
-        Use <strong>{defaultValues.email}</strong>
-        {' with password '}
-        <strong>{defaultValues.password}</strong>
-      </Alert>
-
-      {!!errorMsg && (
+      {!!error && (
         <Alert severity="error" sx={{ mb: 3 }}>
-          {errorMsg}
+          {error}
         </Alert>
       )}
 
-      <Form methods={methods} onSubmit={onSubmit}>
-        {renderForm}
-      </Form>
+      <form onSubmit={handleSubmit}>
+        <Stack spacing={2}>
+          <FormControl error={Boolean(errors.email)}>
+            <TextField
+              id="email"
+              type="email"
+              label="Email"
+              variant="outlined"
+            />
+            {errors.email ? <FormHelperText>{errors.email}</FormHelperText> : null}
+          </FormControl>
+          <FormControl error={Boolean(errors.password)}>
+            <CustomPasswordInput
+              name="password"
+              value={values.password}
+              onChange={handleChange}
+            />
+            {errors.password ? <FormHelperText>{errors.password}</FormHelperText> : null}
+          </FormControl>
+          <Button
+            type={loading ? 'button' : 'submit'}
+            variant="contained"
+            startIcon={loading ? <CircularProgress size={20} color="inherit" /> : null}
+          >
+            {loading ? 'Signing in...' : "Sign in"}
+          </Button>
+        </Stack>
+      </form>
     </>
   );
 }
