@@ -38,6 +38,9 @@ export const CustomPasswordInput: React.FC<TextFieldProps> = ({
                         </InputAdornment>
                     ),
                 }}
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
                 {...props}
             />
             {error && <FormHelperText>{helperText}</FormHelperText>}

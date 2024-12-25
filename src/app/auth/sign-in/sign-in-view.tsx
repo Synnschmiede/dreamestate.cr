@@ -47,8 +47,8 @@ export const SignInView = () => {
   const [loading, setLoading] = React.useState(false);
 
   const defaultValues = {
-    email: 'demo@minimals.cc',
-    password: '@demo1',
+    email: '',
+    password: '',
   };
 
 
@@ -87,6 +87,8 @@ export const SignInView = () => {
     }
   })
 
+  console.log(values, 'values.....');
+
   return (
     <>
       <FormHead
@@ -116,11 +118,14 @@ export const SignInView = () => {
               type="email"
               label="Email"
               variant="outlined"
+              value={values.email}
+              onChange={handleChange}
             />
             {errors.email ? <FormHelperText>{errors.email}</FormHelperText> : null}
           </FormControl>
           <FormControl error={Boolean(errors.password)}>
             <CustomPasswordInput
+              id="password"
               name="password"
               value={values.password}
               onChange={handleChange}
