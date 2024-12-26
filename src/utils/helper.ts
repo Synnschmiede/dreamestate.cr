@@ -128,3 +128,47 @@ export const merge = (target: any, ...sources: any[]): any => {
 
   return merge(target, ...sources);
 };
+
+export const validateEmail = (email: string) => {
+  return (
+    email !== '' &&
+    !/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
+      email
+    )
+  );
+};
+
+export const isNavItemActive = ({
+  disabled,
+  external,
+  href,
+  matcher,
+  pathname,
+}: {
+  disabled?: boolean;
+  external?: boolean;
+  href: string;
+  matcher?: {
+    href: string;
+    type: 'startsWith' | 'equals';
+  };
+  pathname: string;
+}) => {
+  if (disabled || !href || external) {
+    return false;
+  }
+
+  if (matcher) {
+    if (matcher.type === 'startsWith') {
+      return pathname.startsWith(matcher.href);
+    }
+
+    if (matcher.type === 'equals') {
+      return pathname === matcher.href;
+    }
+
+    return false;
+  }
+
+  return pathname === href;
+};

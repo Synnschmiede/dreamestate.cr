@@ -8,10 +8,17 @@ const ROOTS = {
 // ----------------------------------------------------------------------
 
 export const paths = {
+  home: '/',
   faqs: '/faqs',
   minimalStore: 'https://mui.com/store/items/minimal-dashboard/',
   // AUTH
   auth: {
+    signIn: `${ROOTS.AUTH}/sign-in`,
+    signUp: `${ROOTS.AUTH}/sign-up`,
+    forgotPassword: `${ROOTS.AUTH}/forgot-password`,
+
+
+    // will be removed
     amplify: {
       signIn: `${ROOTS.AUTH}/amplify/sign-in`,
       verify: `${ROOTS.AUTH}/amplify/verify`,
@@ -22,6 +29,7 @@ export const paths = {
     jwt: {
       signIn: `${ROOTS.AUTH}/jwt/sign-in`,
       signUp: `${ROOTS.AUTH}/jwt/sign-up`,
+      forgotPassword: `${ROOTS.AUTH}/jwt/forgot-password`,
     },
     firebase: {
       signIn: `${ROOTS.AUTH}/firebase/sign-in`,
@@ -44,6 +52,8 @@ export const paths = {
   dashboard: {
     root: ROOTS.DASHBOARD,
     profile: `${ROOTS.DASHBOARD}/profile`,
+    myAccount: `${ROOTS.DASHBOARD}/profile/my-account`,
+    security: `${ROOTS.DASHBOARD}/profile/security`,
     settings: `${ROOTS.DASHBOARD}/settings`,
 
     // will be removed

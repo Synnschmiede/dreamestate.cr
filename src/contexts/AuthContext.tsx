@@ -2,6 +2,7 @@
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import React, { createContext, useEffect, useState } from "react";
+import { paths } from "src/routes/paths";
 import { api, server_base_api } from "src/utils/axios";
 import { removeTokenFromCookies, setTokenInCookies } from "src/utils/axios-api.helpers";
 
@@ -124,7 +125,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = (
         setUserInfo(INITIAL_AUTH_STATE);
         delete api.defaults.headers.common["Authorization"];
         removeTokenFromCookies()
-        router.push("/login");
+        router.push(paths.auth.signIn);
     };
 
     return (

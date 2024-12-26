@@ -10,13 +10,21 @@ import { RouterLink } from 'src/routes/components';
 import { useRouter } from 'src/routes/hooks';
 import { paths } from 'src/routes/paths';
 
-
-import { Button, CircularProgress, FormControl, FormHelperText, Stack, TextField } from '@mui/material';
+import {
+  Button,
+  CircularProgress,
+  FormControl,
+  FormHelperText,
+  Stack,
+  TextField,
+} from '@mui/material';
 import { useFormik } from 'formik';
 import { FormHead } from 'src/auth/components/form-head';
 import { CustomPasswordInput } from 'src/components/form-fields/custom-password-fields';
 import useAuth from 'src/hooks/useAuth';
-
+import { defaultSignInUser } from '../_lib/types';
+import { formConstants } from 'src/constants/form-constants';
+import { validateEmail } from 'src/utils/helper';
 
 // ----------------------------------------------------------------------
 
@@ -35,22 +43,15 @@ export const SignInSchema = zod.object({
 
 // ----------------------------------------------------------------------
 
-export const SignInView = () => {
+export const SignInForm = () => {
   const router = useRouter();
-  const { login } = useAuth()
-
+  const { login } = useAuth();
 
   // ******************************
   //             states
   // ******************************
   const [error, setError] = React.useState('');
   const [loading, setLoading] = React.useState(false);
-
-  const defaultValues = {
-    email: '',
-    password: '',
-  };
-
 
   const {
     values,
@@ -63,31 +64,29 @@ export const SignInView = () => {
     isValid,
     resetForm,
   } = useFormik({
-    initialValues: defaultValues,
+    initialValues: defaultSignInUser,
     validate: (values) => {
       const errors: any = {};
-      // if (values.recipient_emails.length <= 0) {
-      //   errors.recipient_emails = "*Email is required.";
-      // }
-      // if (!values.subject) {
-      //   errors.subject = "*This Field is required";
-      // }
-      // if (!values.body) {
-      //   errors.body = "*This Field is required";
-      // }
+      if (!values.email) {
+        errors.email = formConstants.required;
+      } else if (validateEmail(values.email)) {
+        errors.email = formConstants.invalidEmail;
+      }
+
+      if (!values.password) {
+        errors.password = formConstants.required;
+      }
+
       return errors;
     },
     onSubmit: async (values) => {
-      console.log(values, 'values');
-      setLoading(true)
+      setLoading(true);
       await login(values.email, values.password, (error) => {
-        setError(error)
-      })
-      setLoading(false)
-    }
-  })
-
-  console.log(values, 'values.....');
+        setError(error);
+      });
+      setLoading(false);
+    },
+  });
 
   return (
     <>
@@ -96,7 +95,7 @@ export const SignInView = () => {
         description={
           <>
             {`Don’t have an account? `}
-            <Link component={RouterLink} href={paths.auth.jwt.signUp} variant="subtitle2">
+            <Link component={RouterLink} href={paths.auth.signUp} variant="subtitle2">
               Sign up
             </Link>
           </>
@@ -137,10 +136,14 @@ export const SignInView = () => {
             variant="contained"
             startIcon={loading ? <CircularProgress size={20} color="inherit" /> : null}
           >
-            {loading ? 'Signing in...' : "Sign in"}
+            {loading ? 'Signing in...' : 'Sign in'}
           </Button>
+
+          <Link component={RouterLink} href={paths.auth.forgotPassword} variant="subtitle2">
+            Forgot Password?
+          </Link>
         </Stack>
       </form>
     </>
   );
-}
+};
