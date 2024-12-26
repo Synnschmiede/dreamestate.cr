@@ -5,7 +5,6 @@ import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import Link from '@mui/material/Link';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useFormik } from 'formik';
@@ -16,6 +15,8 @@ import { CustomPasswordInput } from 'src/components/form-fields/custom-password-
 import { paths } from 'src/routes/paths';
 import { createUser } from '../_lib/actions';
 import { defaultUser } from '../_lib/types';
+import { formConstants } from 'src/constants/form-constants';
+import { validateEmail } from 'src/utils/helper';
 const oAuthProviders = [{ id: 'google', name: 'Google', logo: '/assets/logo-google.svg' }];
 const defaultValues = { email: '', password: '' };
 
@@ -37,17 +38,26 @@ export function SignupForm() {
     initialValues: defaultUser,
     validate: (values) => {
       const errors = {} as any;
+
+      if (!values.first_name) {
+        errors.first_name = formConstants.required;
+      }
+
       if (!values.email) {
-        errors.email = 'Required';
-      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-        errors.email = 'Invalid email address';
+        errors.email = formConstants.required;
+      } else if (validateEmail(values.email)) {
+        errors.email = formConstants.invalidEmail;
+      }
+
+      if (!values.password) {
+        errors.password = formConstants.required;
       }
       return errors;
     },
     onSubmit: async (values) => {
       setLoading(true);
       const res = await createUser(values, true);
-      if(res?.success) {
+      if (res?.success) {
         router.push(paths.auth.signIn);
       }
       setLoading(false);
@@ -76,6 +86,7 @@ export function SignupForm() {
                 value={values.first_name}
                 onChange={handleChange}
               />
+              {errors.first_name ? <FormHelperText>{errors.first_name}</FormHelperText> : null}
             </FormControl>
             <FormControl error={Boolean(errors.last_name)}>
               <TextField

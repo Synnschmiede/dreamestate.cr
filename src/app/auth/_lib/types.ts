@@ -1,6 +1,12 @@
-export const defaultForgotPassword = {
+export interface IForgotPassword {
+  email: string;
+  otp?: number;
+  new_password?: string;
+}
+
+export const defaultForgotPassword: IForgotPassword = {
   email: '',
-  otp: '',
+  otp: 0,
   new_password: '',
 };
 
@@ -24,4 +30,14 @@ export const defaultUser: IRegisterUser = {
   password: '',
   confirm_password: '',
   status: 'ACTIVE',
+};
+
+export interface ILoginUser {
+  email: string;
+  password: string;
+}
+
+export const defaultSignInUser: ILoginUser = {
+  email: '',
+  password: '',
 };
