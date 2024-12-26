@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import { DashboardSidebar } from 'src/components/dashboard-sidebar/dashboard-sidebar';
 import { paths } from 'src/routes/paths';
+import { Container } from '@mui/material';
 
 const navItems = [
   {
@@ -12,11 +13,10 @@ const navItems = [
       {
         key: 'account',
         title: 'Account',
-        href: paths.home,
-        icon: 'user-circle',
+        href: paths.dashboard.myAccount,
+        icon: 'mingcute:user-4-line',
       },
-      { key: 'security', title: 'Security', href: paths.home, icon: 'lock-key' },
-      // { key: 'notifications', title: 'Notifications', href: paths.dashboard.settings.notifications, icon: 'bell' },
+      { key: 'security', title: 'Security', href: paths.dashboard.security, icon: 'hugeicons:security-lock' },
     ],
   },
   {
@@ -24,18 +24,11 @@ const navItems = [
     title: 'Organization',
     items: [
       {
-        key: 'billing',
-        title: 'Billing & plans',
+        key: 'notification',
+        title: 'Notificaitons',
         href: paths.home,
-        icon: 'credit-card',
-      },
-      { key: 'team', title: 'Team', href: paths.home, icon: 'users-three' },
-      {
-        key: 'integrations',
-        title: 'Integrations',
-        href: paths.home,
-        icon: 'plugs-connected',
-      },
+        icon: 'si:notifications-thick-line',
+      }
     ],
   },
 ];
@@ -46,11 +39,11 @@ interface IProps {
 
 export default function Layout({ children }: IProps) {
   return (
-    // <PageContainer>
-    <Stack direction={{ xs: 'column', md: 'row' }} spacing={4} sx={{ position: 'relative' }}>
-      <DashboardSidebar navItems={navItems} />
-      <Box sx={{ flex: '1 1 auto', minWidth: 0 }}>{children}</Box>
-    </Stack>
-    // </PageContainer>
+    <Container maxWidth="xl">
+      <Stack direction={{ xs: 'column', md: 'row' }} spacing={4} sx={{ position: 'relative' }}>
+        <DashboardSidebar navItems={navItems} />
+        <Box sx={{ flex: '1 1 auto', minWidth: 0 }}>{children}</Box>
+      </Stack>
+    </Container>
   );
 }

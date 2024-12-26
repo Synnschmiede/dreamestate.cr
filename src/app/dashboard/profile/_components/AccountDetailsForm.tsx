@@ -74,7 +74,7 @@ export function AccountDetailsForm() {
           avatar={
             <Avatar>
               <Iconify
-                icon="material-symbols-light:phone-in-talk-outline"
+                icon="prime:user"
                 width={44}
                 sx={{
                   color: 'white',

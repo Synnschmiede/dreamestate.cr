@@ -1,24 +1,23 @@
-import { Box, Icon, Stack, Typography } from '@mui/material';
-import { usePathname } from 'next/navigation';
-import { Iconify } from '../iconify';
-import { paths } from 'src/routes/paths';
-import { isNavItemActive } from 'src/utils/helper';
-import { RouterLink } from 'src/routes/components';
+'use client';
 
+import { Box, Stack, Typography } from '@mui/material';
+import { usePathname } from 'next/navigation';
+import { RouterLink } from 'src/routes/components';
+import { isNavItemActive } from 'src/utils/helper';
+import { Iconify } from '../iconify';
 
 interface INavItem {
+  key: string;
+  title: string;
+  items: {
     key: string;
     title: string;
-    items?: {
-      key: string;
-      title: string;
-      href: string;
-      icon: string;
-    }[];
-  }
-  
+    href: string;
+    icon: string;
+  }[];
+}
 
-export const DashboardSidebar = ({ INavItems }: { INavItems: INavItem[] }) => {
+export const DashboardSidebar = ({ navItems }: { navItems: INavItem[] }) => {
   const pathname = usePathname();
   return (
     <div>
@@ -33,7 +32,7 @@ export const DashboardSidebar = ({ INavItems }: { INavItems: INavItem[] }) => {
         }}
       >
         <Stack component="ul" spacing={3} sx={{ listStyle: 'none', m: 0, p: 0 }}>
-          {INavItems.map((group: INavItem) => (
+          {navItems.map((group: INavItem) => (
             <Stack component="li" key={group.key} spacing={2}>
               {group.title ? (
                 <div>
@@ -55,7 +54,7 @@ export const DashboardSidebar = ({ INavItems }: { INavItems: INavItem[] }) => {
   );
 };
 
-function NavItem({
+const NavItem = ({
   disabled,
   external,
   href,
@@ -66,10 +65,10 @@ function NavItem({
   disabled?: boolean;
   external?: boolean;
   href: string;
-  icon?: string;
+  icon: string;
   pathname: string;
   title: string;
-}) {
+}) => {
   const active = isNavItemActive({ disabled, external, href, pathname });
 
   return (
@@ -96,14 +95,14 @@ function NavItem({
           whiteSpace: 'nowrap',
           ...(disabled && { color: 'var(--mui-palette-text-disabled)', cursor: 'not-allowed' }),
           ...(active && {
-            bgcolor: 'var(--mui-palette-action-selected)',
-            color: 'var(--mui-palette-text-primary)',
+            bgcolor: (theme) => theme.vars.palette.action.selected,
+            color: (theme) => theme.vars.palette.text.primary,
           }),
           '&:hover': {
             ...(!active &&
               !disabled && {
-                bgcolor: 'var(--mui-palette-action-hover)',
-                color: 'var(---mui-palette-text-primary)',
+                bgcolor: (theme) => theme.vars.palette.action.hover,
+                color: (theme) => theme.vars.palette.text.primary,
               }),
           },
         }}
@@ -117,12 +116,7 @@ function NavItem({
             flex: '0 0 auto',
           }}
         >
-          <Iconify
-            title="View Post"
-            icon="mdi:instagram"
-            width={32}
-            sx={{ color: 'white', cursor: 'pointer' }}
-          />
+          <Iconify title="View Post" icon={icon} width={22} />
         </Box>
 
         <Box sx={{ flex: '1 1 auto' }}>
@@ -136,4 +130,4 @@ function NavItem({
       </Box>
     </Box>
   );
-}
+};

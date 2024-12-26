@@ -40,14 +40,14 @@ export const ImageUploader: React.FC<IImageUploaderProps> = ({
   return (
     <Box sx={{ position: 'relative', display: 'inline-block' }}>
       <Image
-        src={previewUrl || '/assets/default_avatar.png'}
+        src={previewUrl || '/assets/images/default_avatar.png'}
         alt="Uploaded Image"
         width={200}
         height={200}
         style={{
           objectFit: 'cover',
           borderRadius: '10px',
-          border: '1px solid var(--mui-palette-divider)',
+          border: '1px solid #333',
         }}
       />
 

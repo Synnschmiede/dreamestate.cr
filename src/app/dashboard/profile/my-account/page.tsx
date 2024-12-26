@@ -14,9 +14,6 @@ export default function Page() {
       </div>
       <Stack spacing={4}>
         <AccountDetailsForm />
-        {/* <ThemeSwitch /> */}
-        {/* <Privacy /> */}
-        {/* <DeleteAccount /> */}
       </Stack>
     </Stack>
   );

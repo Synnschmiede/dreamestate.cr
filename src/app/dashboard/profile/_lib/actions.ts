@@ -1,5 +1,6 @@
-import { api } from "@/utils/api";
 import { toast } from "sonner";
+import { api } from "src/utils/axios";
+import { IProfile, IResetPassword } from "./types";
 
 export const getProfileData = async () => {
     try {
@@ -11,7 +12,7 @@ export const getProfileData = async () => {
     }
 };
 
-export const updateProfileData = async (data) => {
+export const updateProfileData = async (data: IProfile) => {
     let formData = new FormData();
     formData.append("first_name", data.first_name);
     formData.append("last_name", data.last_name);
@@ -32,7 +33,7 @@ export const updateProfileData = async (data) => {
     }
 };
 
-export const resetPasswordAsync = async (data) => {
+export const resetPasswordAsync = async (data: IResetPassword) => {
     try {
         const { confirmPassword, ...rest } = data
         const res = await api.post(`/auth/reset-password`, rest);
