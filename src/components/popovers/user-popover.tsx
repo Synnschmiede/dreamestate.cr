@@ -44,7 +44,7 @@ export const UserPopover = ({ anchorEl, onClose, open }: {anchorEl: HTMLElement 
       <List sx={{ p: 1 }}>
         <MenuItem
           component={RouterLink}
-          href={paths.dashboard.profile}
+          href={paths.dashboard.myAccount}
           onClick={onClose}
         >
           <ListItemIcon>

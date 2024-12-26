@@ -52,6 +52,8 @@ export const paths = {
   dashboard: {
     root: ROOTS.DASHBOARD,
     profile: `${ROOTS.DASHBOARD}/profile`,
+    myAccount: `${ROOTS.DASHBOARD}/profile/my-account`,
+    security: `${ROOTS.DASHBOARD}/profile/security`,
     settings: `${ROOTS.DASHBOARD}/settings`,
 
     // will be removed
