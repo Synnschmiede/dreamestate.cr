@@ -1,5 +1,5 @@
 import { CONFIG } from 'src/config-global';
-import { SignInView } from './sign-in-view';
+import { SignInView } from '../_components/signin-form';
 
 // ----------------------------------------------------------------------
 

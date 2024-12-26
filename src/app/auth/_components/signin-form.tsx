@@ -10,13 +10,18 @@ import { RouterLink } from 'src/routes/components';
 import { useRouter } from 'src/routes/hooks';
 import { paths } from 'src/routes/paths';
 
-
-import { Button, CircularProgress, FormControl, FormHelperText, Stack, TextField } from '@mui/material';
+import {
+  Button,
+  CircularProgress,
+  FormControl,
+  FormHelperText,
+  Stack,
+  TextField,
+} from '@mui/material';
 import { useFormik } from 'formik';
 import { FormHead } from 'src/auth/components/form-head';
 import { CustomPasswordInput } from 'src/components/form-fields/custom-password-fields';
 import useAuth from 'src/hooks/useAuth';
-
 
 // ----------------------------------------------------------------------
 
@@ -35,10 +40,9 @@ export const SignInSchema = zod.object({
 
 // ----------------------------------------------------------------------
 
-export const SignInView = () => {
+export const SignInForm = () => {
   const router = useRouter();
-  const { login } = useAuth()
-
+  const { login } = useAuth();
 
   // ******************************
   //             states
@@ -50,7 +54,6 @@ export const SignInView = () => {
     email: '',
     password: '',
   };
-
 
   const {
     values,
@@ -79,13 +82,13 @@ export const SignInView = () => {
     },
     onSubmit: async (values) => {
       console.log(values, 'values');
-      setLoading(true)
+      setLoading(true);
       await login(values.email, values.password, (error) => {
-        setError(error)
-      })
-      setLoading(false)
-    }
-  })
+        setError(error);
+      });
+      setLoading(false);
+    },
+  });
 
   console.log(values, 'values.....');
 
@@ -137,10 +140,14 @@ export const SignInView = () => {
             variant="contained"
             startIcon={loading ? <CircularProgress size={20} color="inherit" /> : null}
           >
-            {loading ? 'Signing in...' : "Sign in"}
+            {loading ? 'Signing in...' : 'Sign in'}
           </Button>
+
+          <Link component={RouterLink} href={paths.auth.forgotPassword} variant="subtitle2">
+            Forgot Password?
+          </Link>
         </Stack>
       </form>
     </>
   );
-}
+};
