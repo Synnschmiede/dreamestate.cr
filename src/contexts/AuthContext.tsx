@@ -124,7 +124,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = (
         setUserInfo(INITIAL_AUTH_STATE);
         delete api.defaults.headers.common["Authorization"];
         removeTokenFromCookies()
-        router.push("/login");
+        router.push("/auth/sign-in");
     };
 
     return (

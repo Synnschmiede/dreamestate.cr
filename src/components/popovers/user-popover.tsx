@@ -11,6 +11,7 @@ import RouterLink from 'next/link';
 import { Lock, VerifiedUser } from '@mui/icons-material';
 import { paths } from 'src/routes/paths';
 import useAuth from 'src/hooks/useAuth';
+import { Button } from '@mui/material';
 
 const user = {
   id: 'USR-000',
@@ -19,8 +20,8 @@ const user = {
   email: 'sofia@devias.io',
 };
 
-export const UserPopover = ({ anchorEl, onClose, open }) => {
-  const { userInfo } = useAuth();
+export const UserPopover = ({ anchorEl, onClose, open }: {anchorEl: HTMLElement | null, onClose: () => void, open: boolean}) => {
+  const { userInfo , logout } = useAuth();
   return (
     <Popover
       anchorEl={anchorEl}
@@ -65,12 +66,17 @@ export const UserPopover = ({ anchorEl, onClose, open }) => {
       </List>
       <Divider />
       <Box sx={{ p: 1 }}>
-        Sign out
-        {/* {config.auth.strategy === AuthStrategy.CUSTOM ? <CustomSignOut onClose={onClose} /> : null}
-        {config.auth.strategy === AuthStrategy.AUTH0 ? <Auth0SignOut /> : null}
-        {config.auth.strategy === AuthStrategy.COGNITO ? <CognitoSignOut /> : null}
-        {config.auth.strategy === AuthStrategy.FIREBASE ? <FirebaseSignOut /> : null}
-        {config.auth.strategy === AuthStrategy.SUPABASE ? <SupabaseSignOut /> : null} */}
+        <Button 
+        variant='contained'
+        fullWidth
+        color='inherit'
+        onClick={() => {
+          localStorage.removeItem('token')
+          logout();
+        }}
+        >
+          Signout
+        </Button>
       </Box>
     </Popover>
   );
