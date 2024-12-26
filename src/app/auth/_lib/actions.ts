@@ -42,7 +42,7 @@ export const createUser = async (data: IRegisterUser, isPublicRegistration = fal
     toast.success(res.data.message);
     return { success: true, data: res.data.data };
   } catch (error) {
-    toast.error(error.message);
+    toast.error(error.response.data.message);
     return {
       success: false,
       error: error.response ? error.response.data : 'An unknown error occurred',
