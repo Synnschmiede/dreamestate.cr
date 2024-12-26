@@ -7,20 +7,19 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import Stack from '@mui/material/Stack';
 import * as React from 'react';
 
 import { useFormik } from 'formik';
 
 import BorderColorIcon from '@mui/icons-material/BorderColor';
-import { Grid, IconButton, Typography } from '@mui/material';
-import { getProfileData, updateProfileData } from '../_lib/actions';
-import { defaultProfile } from '../_lib/types';
+import { Box, Grid, IconButton, TextField, Typography } from '@mui/material';
 import PageLoader from 'src/components/PageLoader/PageLoader';
 import { Iconify } from 'src/components/iconify';
 import { ImageUploader } from 'src/components/uploaders/ImageUploader';
+import { pxToRem } from 'src/theme/styles';
+import { getProfileData, updateProfileData } from '../_lib/actions';
+import { defaultProfile } from '../_lib/types';
 
 export function AccountDetailsForm() {
   const [loading, setLoading] = React.useState(false);
@@ -106,40 +105,61 @@ export function AccountDetailsForm() {
               </Stack>
               <Stack spacing={2}>
                 <Grid container spacing={2}>
-                  <Grid xs={12}>
+                  <Grid item xs={12}>
                     <FormControl fullWidth error={Boolean(errors.first_name)}>
-                      <InputLabel>First Name</InputLabel>
                       {isEditing ? (
-                        <OutlinedInput
+                        <TextField
                           name="first_name"
+                          label="First Name"
                           value={values.first_name}
                           onChange={handleChange}
                         />
                       ) : (
-                        <Typography color="text.secondary">{values.first_name || 'N/A'}</Typography>
+                        <Box>
+                          <Typography
+                            color="text.primary"
+                            sx={{ mb: 0.5, fontSize: pxToRem(17), fontWeight: 600 }}
+                          >
+                            {' '}
+                            First Name
+                          </Typography>
+                          <Typography color="text.secondary">
+                            {values.first_name || 'N/A'}
+                          </Typography>
+                        </Box>
                       )}
                     </FormControl>
                   </Grid>
-                  <Grid xs={12}>
+                  <Grid item xs={12}>
                     <FormControl fullWidth error={Boolean(errors.email)}>
-                      <InputLabel>Last Name</InputLabel>
                       {isEditing ? (
-                        <OutlinedInput
+                        <TextField
                           name="last_name"
+                          label="Last Name"
                           value={values.last_name}
                           onChange={handleChange}
                         />
                       ) : (
-                        <Typography color="text.secondary">{values.last_name || 'N/A'}</Typography>
+                        <Box>
+                          <Typography
+                            color="text.primary"
+                            sx={{ mb: 0.5, fontSize: pxToRem(17), fontWeight: 600 }}
+                          >
+                            {' '}
+                            Last Name
+                          </Typography>
+                          <Typography color="text.secondary">
+                            {values.last_name || 'N/A'}
+                          </Typography>
+                        </Box>
                       )}
                     </FormControl>
                   </Grid>
 
-                  {/* <Grid xs={12}>
+                  {/* <Grid item xs={12}>
                     <FormControl fullWidth error={Boolean(errors.email)}>
-                      <InputLabel>Contact No.</InputLabel>
                       {isEditing ? (
-                        <OutlinedInput
+                        <TextField
                           name="contact_no"
                           value={values.contact_no}
                           onChange={handleChange}
@@ -150,34 +170,52 @@ export function AccountDetailsForm() {
                     </FormControl>
                   </Grid> */}
 
-                  <Grid xs={12}>
+                  <Grid item xs={12}>
                     <FormControl fullWidth error={Boolean(errors.email)}>
-                      <InputLabel>Email</InputLabel>
                       {isEditing ? (
-                        <OutlinedInput
+                        <TextField
                           name="email"
+                          label="Email"
                           value={values.email}
                           onChange={handleChange}
                           disabled
                         />
                       ) : (
-                        <Typography color="text.secondary">{values.email || 'N/A'}</Typography>
+                        <Box>
+                          <Typography
+                            color="text.primary"
+                            sx={{ mb: 0.5, fontSize: pxToRem(17), fontWeight: 600 }}
+                          >
+                            {' '}
+                            Email
+                          </Typography>
+                          <Typography color="text.secondary">{values.email || 'N/A'}</Typography>
+                        </Box>
                       )}
                     </FormControl>
                   </Grid>
 
-                  <Grid xs={12}>
+                  <Grid item xs={12}>
                     <FormControl fullWidth error={Boolean(errors.email)}>
-                      <InputLabel>Role</InputLabel>
                       {isEditing ? (
-                        <OutlinedInput
+                        <TextField
                           name="role"
+                          label="Role"
                           value={values.role}
                           onChange={handleChange}
                           disabled
                         />
                       ) : (
-                        <Typography color="text.secondary">{values.role || 'N/A'}</Typography>
+                        <Box>
+                          <Typography
+                            color="text.primary"
+                            sx={{ mb: 0.5, fontSize: pxToRem(17), fontWeight: 600 }}
+                          >
+                            {' '}
+                            Role
+                          </Typography>
+                          <Typography color="text.secondary">{values.role || 'N/A'}</Typography>
+                        </Box>
                       )}
                     </FormControl>
                   </Grid>
@@ -187,7 +225,7 @@ export function AccountDetailsForm() {
           </CardContent>
           {isEditing && (
             <CardActions>
-              <Button color="secondary" onClick={() => setIsEditing(false)}>
+              <Button color="primary" onClick={() => setIsEditing(false)}>
                 Cancel
               </Button>
               <Button variant="contained" type="submit">

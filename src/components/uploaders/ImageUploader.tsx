@@ -67,7 +67,7 @@ export const ImageUploader: React.FC<IImageUploaderProps> = ({
             padding: '8px',
           }}
         >
-          <Iconify icon="eva:edit-fill" width={20} height={20} />
+          <Iconify icon="stash:image-light" width={20} height={20} />
           <input
             type="file"
             accept="image/*"
