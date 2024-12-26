@@ -17,6 +17,8 @@ import { SettingsDrawer, defaultSettings, SettingsProvider } from 'src/component
 import { Toaster } from 'sonner';
 import { AuthProvider } from 'src/contexts/AuthContext';
 
+// nothing
+
 // import { Toaster } from "src/components/core/toaster"
 
 // ----------------------------------------------------------------------
