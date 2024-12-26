@@ -8,7 +8,7 @@ import { CONFIG } from 'src/config-global';
 
 import { SplashScreen } from 'src/components/loading-screen';
 
-import { useAuthContext } from '../hooks';
+// import { useAuthContext } from '../hooks';
 
 // ----------------------------------------------------------------------
 
@@ -21,7 +21,9 @@ export function GuestGuard({ children }: Props) {
 
   const searchParams = useSearchParams();
 
-  const { loading, authenticated } = useAuthContext();
+  // const { loading, authenticated } = useAuthContext();
+
+  const { loading, authenticated } = { loading: false, authenticated: false };
 
   const [isChecking, setIsChecking] = useState<boolean>(true);
 

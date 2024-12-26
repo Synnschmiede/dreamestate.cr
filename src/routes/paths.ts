@@ -43,6 +43,10 @@ export const paths = {
   // DASHBOARD
   dashboard: {
     root: ROOTS.DASHBOARD,
+    profile: `${ROOTS.DASHBOARD}/profile`,
+    settings: `${ROOTS.DASHBOARD}/settings`,
+
+    // will be removed
     two: `${ROOTS.DASHBOARD}/two`,
     three: `${ROOTS.DASHBOARD}/three`,
     group: {

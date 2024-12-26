@@ -44,9 +44,7 @@ export const CustomFilterPopover: React.FC<ICustomFilterButtonProps> = ({
       >
         {title}
       </StyledButton>
-
       {/* popover */}
-
       <Popover
         open={open}
         anchorEl={anchorEl}

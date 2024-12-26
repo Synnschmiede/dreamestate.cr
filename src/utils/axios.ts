@@ -1,60 +1,51 @@
-import type { AxiosRequestConfig } from 'axios';
+import axios from "axios";
+import { clearUserSessionFromLocalStore, getTokenFromCookies } from "./axios-api.helpers";
 
-import axios from 'axios';
 
-import { CONFIG } from 'src/config-global';
+export const apiBaseurl = process.env["NEXT_PUBLIC_BACKEND_API"] || "https://wolf-studios-backend-theta.vercel.app/api/v1"
 
-// ----------------------------------------------------------------------
-
-const axiosInstance = axios.create({ baseURL: CONFIG.serverUrl });
-
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  (error) => Promise.reject((error.response && error.response.data) || 'Something went wrong!')
+export const api = axios.create({
+  baseURL: `${apiBaseurl}`,
+});
+api.interceptors.request.use(config => {
+  const token = getTokenFromCookies();
+  if (token) {
+    config.headers["Authorization"] = `${token}`;
+  }
+  return config;
+},
+  (error) => {
+    return Promise.reject(error);
+  }
 );
 
-export default axiosInstance;
+// axios instance without token (public routes)
 
-// ----------------------------------------------------------------------
+export const publicApi = axios.create({
+  baseURL: `${apiBaseurl}`,
+})
 
-export const fetcher = async (args: string | [string, AxiosRequestConfig]) => {
-  try {
-    const [url, config] = Array.isArray(args) ? args : [args];
 
-    const res = await axiosInstance.get(url, { ...config });
+//################################ server_base_api ##########################################
+export const server_base_api = axios.create({
+  baseURL: process.env["NEXT_PUBLIC_BACKEND_API"] || "https://wolf-studios-backend-theta.vercel.app/api/v1",
+});
 
-    return res.data;
-  } catch (error) {
-    console.error('Failed to fetch:', error);
-    throw error;
+server_base_api.interceptors.request.use((config) => {
+  const accessToken = getTokenFromCookies();
+  if (accessToken && config.headers) {
+    config.headers["Authorization"] = accessToken;
   }
-};
+  return config;
+});
 
-// ----------------------------------------------------------------------
-
-export const endpoints = {
-  chat: '/api/chat',
-  kanban: '/api/kanban',
-  calendar: '/api/calendar',
-  auth: {
-    me: '/api/auth/me',
-    signIn: '/api/auth/sign-in',
-    signUp: '/api/auth/sign-up',
-  },
-  mail: {
-    list: '/api/mail/list',
-    details: '/api/mail/details',
-    labels: '/api/mail/labels',
-  },
-  post: {
-    list: '/api/post/list',
-    details: '/api/post/details',
-    latest: '/api/post/latest',
-    search: '/api/post/search',
-  },
-  product: {
-    list: '/api/product/list',
-    details: '/api/product/details',
-    search: '/api/product/search',
-  },
-};
+server_base_api.interceptors.response.use((response) => response, (error) => {
+  if (error.response && error.response.status === 401) {
+    clearUserSessionFromLocalStore();
+    window.alert(
+      "Attention: Your session has expired. Please log in again to continue accessing the system. Thank you!",
+    );
+    window.location.href = "/login";
+  }
+  return Promise.reject(error);
+});

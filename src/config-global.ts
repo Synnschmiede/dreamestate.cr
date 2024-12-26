@@ -6,9 +6,11 @@ import packageJson from '../package.json';
 
 export type ConfigValue = {
   appName: string;
-  description: string; 
+  description: string;
   appVersion: string;
   serverUrl: string;
+  bucketUrl: string;
+  bucketName: string;
   assetsDir: string;
   isStaticExport: boolean;
   auth: {
@@ -35,9 +37,11 @@ export type ConfigValue = {
 
 export const CONFIG: ConfigValue = {
   appName: 'Dream Estate',
-  description: "Buy/ Rent Real Estate all over the Croatia",
+  description: 'Buy/ Rent Real Estate all over the Croatia',
   appVersion: packageJson.version,
   serverUrl: process.env.NEXT_PUBLIC_SERVER_URL ?? '',
+  bucketName: process.env.NEXT_PUBLIC_BUCKET_NAME ?? '',
+  bucketUrl: process.env.NEXT_PUBLIC_BUCKET_URL ?? '',
   assetsDir: process.env.NEXT_PUBLIC_ASSETS_DIR ?? '',
   isStaticExport: JSON.parse(`${process.env.BUILD_STATIC_EXPORT}`),
   /**
