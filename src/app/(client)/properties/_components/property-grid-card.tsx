@@ -19,6 +19,15 @@ import { IProperty } from '../_lib/property.interface';
 import { currencyFormatter } from 'src/utils/currency-view';
 
 export const PropertyGridCard = ({ data }: { data: IProperty }) => {
+  const {
+    title,
+    description,
+    location,
+    property_details,
+    uploaded_by,
+    feature_image,
+    property_type,
+  } = data;
   return (
     <Card
       sx={{
@@ -42,8 +51,8 @@ export const PropertyGridCard = ({ data }: { data: IProperty }) => {
         <CardMedia
           component="img"
           height="250"
-          image="https://picsum.photos/600/300?random=1"
-          alt="Property image"
+          image={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${process.env.NEXT_PUBLIC_BUCKET_NAME}/${feature_image}`}
+          alt={title}
           sx={{ objectFit: 'cover' }}
         />
         <Box
@@ -58,7 +67,7 @@ export const PropertyGridCard = ({ data }: { data: IProperty }) => {
           }}
         />
         <CustomChip
-          label="For Sale"
+          label={property_type}
           color="primary"
           size="small"
           sx={{
@@ -86,12 +95,17 @@ export const PropertyGridCard = ({ data }: { data: IProperty }) => {
       </Box>
       <CardContent sx={{ flexGrow: 1, padding: 3 }}>
         <Typography variant="h5" color="text.secondary">
-          {data?.title}
+          {title}
         </Typography>
         <Typography variant="h6" color="primary" sx={{ mt: 1 }}>
           {currencyFormatter(data?.price)}
         </Typography>
-        <IconWithText icon="carbon:location" text="Inner Circular Lamar Street, Houston, Texas" />
+        {location && (
+          <IconWithText
+            icon="carbon:location"
+            text={`${location.street}, ${location?.postal_code}, ${location.city}, ${location.state}, ${location.country}`}
+          />
+        )}
         <SectionDescription
           sx={{
             color: 'text.disabled',
@@ -99,22 +113,36 @@ export const PropertyGridCard = ({ data }: { data: IProperty }) => {
             marginTop: 2,
           }}
         >
-          {data.description || ''}
+          {description || ''}
         </SectionDescription>
-        <Box
-          sx={{
-            marginTop: 2,
-            mx: 'auto',
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <IconWithText icon="fluent:bed-16-regular" text="Bed 7" />
-          <IconWithText icon="tabler:bath" text="Bath 5" />
-          <IconWithText icon="hugeicons:square-arrow-expand-02" text="1690 sqft" />
-        </Box>
+        {property_details && (
+          <Box
+            sx={{
+              marginTop: 2,
+              mx: 'auto',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            {property_details?.bedroom && (
+              <IconWithText
+                icon="fluent:bed-16-regular"
+                text={`Bed ${property_details?.bedroom}`}
+              />
+            )}
+            {property_details?.bathroom && (
+              <IconWithText icon="tabler:bath" text={`Bath ${property_details?.bathroom}`} />
+            )}
+            {property_details?.area_size && (
+              <IconWithText
+                icon="hugeicons:square-arrow-expand-02"
+                text={`${property_details?.area_size} sqft`}
+              />
+            )}
+          </Box>
+        )}
       </CardContent>
 
       <Divider
@@ -130,7 +158,10 @@ export const PropertyGridCard = ({ data }: { data: IProperty }) => {
         alignItems="center"
         sx={{ px: 4, py: 2 }}
       >
-        <TitledAvatar path="/assets/home/avatar.jpg" title="John Doe" />
+        <TitledAvatar
+          path="/assets/home/avatar.jpg"
+          title={`${uploaded_by?.first_name} ${uploaded_by?.last_name}`}
+        />
         <ButtonGroup
           sx={{
             '& .MuiButton-root': {
