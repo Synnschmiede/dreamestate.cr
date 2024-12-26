@@ -99,7 +99,7 @@ export const SignInForm = () => {
         description={
           <>
             {`Don’t have an account? `}
-            <Link component={RouterLink} href={paths.auth.jwt.signUp} variant="subtitle2">
+            <Link component={RouterLink} href={paths.auth.signUp} variant="subtitle2">
               Sign up
             </Link>
           </>

@@ -1,6 +1,5 @@
 'use client';
 
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
@@ -8,20 +7,20 @@ import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import RouterLink from 'next/link';
 import * as React from 'react';
 
 import { CircularProgress, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/navigation';
 
-import { z } from 'zod';
-import { paths } from 'src/routes/paths';
 import { CustomPasswordInput } from 'src/components/form-fields/custom-password-fields';
+import { paths } from 'src/routes/paths';
+import { z } from 'zod';
 import { forgotPasswordAsync } from '../_lib/actions';
 import { defaultForgotPassword } from '../_lib/types';
 
 const getValidationSchema = (step: number) => {
+  console.log(step, 'step.....');
   return z.object({
     email: z.string().email('Invalid email address').min(1, { message: 'Email is required!' }),
     otp: step === 2 ? z.string().min(1, { message: 'OTP is required!' }) : z.string().optional(),
@@ -47,7 +46,26 @@ export const ForgotPasswordForm = () => {
     resetForm,
   } = useFormik({
     initialValues: defaultForgotPassword,
-    validationSchema: getValidationSchema(step),
+    validate: (values) => {
+      const errors: { [key: string]: string } = {};
+
+      if (!values.email) {
+        errors.email = 'Email is required!';
+      } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+        errors.email = 'Invalid email address!';
+      }
+
+      if (step === 2) {
+        if (!values.otp) {
+          errors.otp = 'OTP is required!';
+        }
+        if (!values.new_password) {
+          errors.new_password = 'Password is required!';
+        }
+      }
+
+      return errors;
+    },
     onSubmit: async (values) => {
       setLoading(true);
       const res =
