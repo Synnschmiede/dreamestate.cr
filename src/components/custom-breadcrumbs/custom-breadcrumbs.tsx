@@ -23,7 +23,7 @@ export function CustomBreadcrumbs({
   const lastLink = links[links.length - 1].name;
 
   const renderHeading = (
-    <Typography variant="h3" sx={{  ...slotProps?.heading }}>
+    <Typography variant="h3" sx={{ ...slotProps?.heading }}>
       {heading}
     </Typography>
   );
@@ -59,8 +59,8 @@ export function CustomBreadcrumbs({
     <Box gap={2} display="flex" flexDirection="column" sx={sx} {...other}>
       <Box display="flex" alignItems="center">
         <Box sx={{ flexGrow: 1 }}>
-          {!!links.length && renderLinks}
           {heading && renderHeading}
+          {!!links.length && renderLinks}
         </Box>
 
         {action && renderAction}

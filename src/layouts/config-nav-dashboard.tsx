@@ -69,6 +69,11 @@ export const navData = [
           { title: 'Six', path: paths.dashboard.group.six },
         ],
       },
+      {
+        title: 'Property',
+        path: paths.dashboard.property,
+        icon: ICONS.user,
+      },
     ],
   },
 ];
