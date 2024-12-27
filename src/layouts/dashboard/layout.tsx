@@ -259,7 +259,7 @@ function UserProfileButton() {
           }}
           variant="dot"
         >
-          <Avatar src="/assets/images/avatars/avatar_default.jpg" />
+          <Avatar src="/assets/images/default_avatar.png" />
         </Badge>
       </Box>
       <UserPopover

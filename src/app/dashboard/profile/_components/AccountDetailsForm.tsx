@@ -19,7 +19,7 @@ import { Iconify } from 'src/components/iconify';
 import { ImageUploader } from 'src/components/uploaders/ImageUploader';
 import { pxToRem } from 'src/theme/styles';
 import { getProfileData, updateProfileData } from '../_lib/actions';
-import { defaultProfile } from '../_lib/types';
+import { defaultProfile, defaultProfileUpdate } from '../_lib/types';
 
 export function AccountDetailsForm() {
   const [loading, setLoading] = React.useState(false);
@@ -36,7 +36,7 @@ export function AccountDetailsForm() {
     isValid,
     resetForm,
   } = useFormik({
-    initialValues: defaultProfile,
+    initialValues: defaultProfileUpdate,
     validate: (values) => {
       const errors = {};
 
@@ -44,7 +44,12 @@ export function AccountDetailsForm() {
     },
     onSubmit: async (values) => {
       setLoading(true);
-      await updateProfileData(values);
+      await updateProfileData({
+        first_name: values.first_name,
+        last_name: values.last_name,
+        contact_number: values.contact_number,
+        profile_pic: values.profile_pic,
+      });
       setLoading(false);
       setIsEditing(false);
     },

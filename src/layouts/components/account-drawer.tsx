@@ -52,7 +52,7 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
   const user = {
     displayName: 'John Doe',
     email: '2lZnD@example.com',
-    photoURL: '/assets/images/avatars/avatar_default.jpg',
+    photoURL: '/assets/images/default_avatar.png',
   }
 
   const [open, setOpen] = useState(false);
