@@ -17,7 +17,6 @@ export const paths = {
     signUp: `${ROOTS.AUTH}/sign-up`,
     forgotPassword: `${ROOTS.AUTH}/forgot-password`,
 
-
     // will be removed
     amplify: {
       signIn: `${ROOTS.AUTH}/amplify/sign-in`,
@@ -53,6 +52,8 @@ export const paths = {
     root: ROOTS.DASHBOARD,
     profile: `${ROOTS.DASHBOARD}/profile`,
     myAccount: `${ROOTS.DASHBOARD}/profile/my-account`,
+    property: `${ROOTS.DASHBOARD}/property`,
+    add_property: `${ROOTS.DASHBOARD}/property/add`,
     security: `${ROOTS.DASHBOARD}/profile/security`,
     settings: `${ROOTS.DASHBOARD}/settings`,
 
