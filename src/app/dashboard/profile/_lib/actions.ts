@@ -1,7 +1,6 @@
 import { toast } from 'sonner';
 import { api } from 'src/utils/axios';
-import { IProfile, IProfileUpdate, IResetPassword } from './types';
-import { RestartAlt } from '@mui/icons-material';
+import { IProfileUpdate, IResetPassword } from './types';
 
 export const getProfileData = async () => {
   try {
@@ -16,26 +15,6 @@ export const getProfileData = async () => {
   }
 };
 
-// export const updateProfileData = async (data: IProfileUpdate) => {
-//   let formData = new FormData();
-//   formData.append("first_name", data.first_name);
-//   formData.append("last_name", data.last_name);
-//   formData.append("email", data.email);
-//   formData.append("profile_pic", data.profile_pic);
-//   formData.append("contact_number", data.contact_number);
-//   formData.append("status", data.status);
-//   formData.append("role", data.role);
-
-//   try {
-//       const res = await api.patch(`/user/update-profile`, formData);
-//       toast.success(res.data.message);
-//       return { success: true, data: res.data.data };
-//   } catch (error) {
-//       console.error("Error updating profile data:", error);
-//       toast.error(error.response.data.message);
-//       return { success: false, error: error.response ? error.response.data : "An unknown error occurred" };
-//   }
-// };
 
 export const updateProfileData = async (data: Partial<IProfileUpdate>) => {
   const { profile_pic, ...rest } = data;
