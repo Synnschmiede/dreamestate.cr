@@ -9,7 +9,6 @@ import { Iconify } from '../../iconify';
 import { uploadClasses } from '../classes';
 
 import type { SingleFilePreviewProps } from '../types';
-import { config } from 'process';
 
 // ----------------------------------------------------------------------
 

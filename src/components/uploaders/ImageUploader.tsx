@@ -30,7 +30,7 @@ export const ImageUploader: React.FC<IImageUploaderProps> = ({
     if (!previewUrl) {
       if (typeof value === 'string') {
         setPreviewUrl(
-          `${process.env.NEXT_PUBLIC_BUCKET_URL}/${process.env.NEXT_PUBLIC_BUCKET_NAME}/value`
+          `${process.env.NEXT_PUBLIC_BUCKET_URL}/${process.env.NEXT_PUBLIC_BUCKET_NAME}/${value}`
         );
       } else if (value instanceof File) {
         const imageUrl = URL.createObjectURL(value);
