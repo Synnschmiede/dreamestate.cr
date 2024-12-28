@@ -26,6 +26,7 @@ import {
   LocationAutoComplete,
 } from 'src/components/form-fields/location-auto-complete';
 import { AuthContext } from 'src/contexts/AuthContext';
+import { defaultProperty } from '../../_lib/property.types';
 
 const validationSchema = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -72,52 +73,8 @@ export default function PropertyManageForm() {
     }
   };
 
-  const defaultPropertyValue = {
-    title: '',
-    property_type: null,
-    price: '',
-    description: '',
-    property_details: {
-      area_size: '',
-      property_lot_size: '',
-      price_info: '',
-      structure_type: '',
-      room: '',
-      bedroom: '',
-      bathroom: '',
-      garage: '',
-      garage_size: '',
-      available_from: null,
-      build_year: null,
-    },
-    features: {
-      interior_details: [],
-      outdoor_details: [],
-      utilities: [],
-      other_features: [],
-    },
-    feature_image: null,
-    images: [],
-    location: {
-      address: '',
-      city: '',
-      state: '',
-      country: '',
-      postal_code: '',
-      street: '',
-      latitude: '',
-      longitude: '',
-    },
-    tags: [],
-    contact_info: {
-      name: userInfo?.name || '',
-      email: userInfo?.email || '',
-      phone: userInfo?.contact_number || '',
-    },
-  };
-
   const { handleChange, handleSubmit, values, setFieldValue, errors, touched } = useFormik({
-    initialValues: defaultPropertyValue,
+    initialValues: defaultProperty,
     validate: (values) => {
       const result = validationSchema.safeParse(values);
       if (result.success) {
@@ -143,7 +100,7 @@ export default function PropertyManageForm() {
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <form onSubmit={handleSubmit}>
         <Alert variant="outlined" severity="info" sx={{ mb: 3 }}>
-          Property creation alert
+          Add new property
         </Alert>
         <Stack direction="column" gap={5}>
           <Card>
@@ -164,7 +121,7 @@ export default function PropertyManageForm() {
                 <Autocomplete
                   options={options}
                   getOptionLabel={(option) => option.label}
-                  value={values.property_type}
+                  value={{ label: values.property_type, value: values.property_type }}
                   onChange={(event, newValue) => {
                     setFieldValue('property_type', newValue);
                   }}
@@ -428,7 +385,7 @@ export default function PropertyManageForm() {
                   variant="outlined"
                   type="text"
                   fullWidth
-                  value={values.location.address}
+                  value={''}
                   onLocationChange={handleLocationChange}
                 />
               </Grid>
