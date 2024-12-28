@@ -81,6 +81,7 @@ export default function PropertyManageForm() {
   const [loading, setLoading] = useState<boolean>(false);
   const [isSubmitSuccessful, setSubmitSuccessful] = useState(false);
   const [file, setFile] = useState<File | string | null>(null);
+  const [files, setFiles] = useState<File[]>([]);
 
   const handleDropSingleFile = useCallback((acceptedFiles: File[]) => {
     console.log('acceptedFiles', acceptedFiles);
@@ -424,10 +425,13 @@ export default function PropertyManageForm() {
           <Card>
             <CardHeader title="Media Information" />
             <Grid item xs={12} sm={6} sx={{ p: 3 }}>
+              <Upload value={file} onDrop={handleDropSingleFile} onDelete={() => setFile(null)} />
+            </Grid>
+            <Grid item xs={12} sm={6} sx={{ p: 3 }}>
               <Upload
-                value={file}
-                onDrop={handleDropSingleFile}
-                onDelete={() => setFile(null)}
+                value={files}
+                onDrop={(files) => setFiles(files)}
+                onRemove={(file) => setFiles((prev) => prev.filter((f) => f !== file))}
                 multiple
               />
             </Grid>
