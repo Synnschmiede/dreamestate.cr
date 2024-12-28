@@ -79,6 +79,14 @@ export default function PropertyForm({ value }: { value?: IProperty }) {
     }
   }, [value]);
 
+  React.useEffect(() => {
+    if (userInfo) {
+      setFieldValue('contact_info.name', userInfo.name);
+      setFieldValue('contact_info.email', userInfo.email);
+      setFieldValue('contact_info.phone', userInfo.contact_number);
+    }
+  }, [userInfo]);
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <form onSubmit={handleSubmit}>
