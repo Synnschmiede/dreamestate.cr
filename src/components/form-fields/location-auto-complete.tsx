@@ -77,6 +77,7 @@ export const LocationAutoComplete = (props: ILocationAutoCompleteProps) => (
           }
         },
       }}
+      
       autocompletionRequest={{
         componentRestrictions: {
           country: ['cr'],
@@ -121,6 +122,7 @@ export const AddressAutoComplete = (props: IAddressAutoCompleteProps) => (
         country: ['in'],
       },
     }}
+    
     {...props}
   />
 );

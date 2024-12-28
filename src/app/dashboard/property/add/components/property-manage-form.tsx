@@ -388,10 +388,10 @@ export default function PropertyManageForm() {
               </Grid>
             </Grid>
           </Card>
-          <Card>
+          <Card sx={{ overflow: 'visible' , zIndex: 1000  }}>
             <CardHeader title="Location" />
             <Grid container spacing={2} sx={{ p: 3 }}>
-              <Grid item xs={12} sm={6} sx={{ height: '400px' }}>
+              <Grid item xs={12} sm={6}>
                 <LocationAutoComplete
                   id="address"
                   variant="outlined"
@@ -404,7 +404,7 @@ export default function PropertyManageForm() {
               </Grid>
             </Grid>
           </Card>
-          <Card>
+          <Card sx={{ overflow: 'visible', zIndex: 900 }}>
             <CardHeader title="Features" />
             <Grid container spacing={2} sx={{ p: 3 }}>
               <Grid item xs={12} sm={6}>
