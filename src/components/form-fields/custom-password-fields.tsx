@@ -26,6 +26,7 @@ export const CustomPasswordInput: React.FC<TextFieldProps> = ({
                 type={showPassword ? 'text' : 'password'}
                 label="Password"
                 variant="outlined"
+                fullWidth
                 InputProps={{
                     endAdornment: (
                         <InputAdornment position="end">
@@ -41,6 +42,7 @@ export const CustomPasswordInput: React.FC<TextFieldProps> = ({
                 value={value}
                 onChange={onChange}
                 onBlur={onBlur}
+                sx={{width: '100%'}}
                 {...props}
             />
             {error && <FormHelperText>{helperText}</FormHelperText>}
