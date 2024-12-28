@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { useFormik } from 'formik';
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Editor } from 'src/components/editor';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
@@ -26,12 +26,12 @@ import {
 import { Upload } from 'src/components/upload';
 import { AuthContext } from 'src/contexts/AuthContext';
 import { propertyTypeOptions } from '../_lib/property.constants';
-import { defaultProperty } from '../_lib/property.types';
+import { defaultProperty, IProperty } from '../_lib/property.types';
 import { propertyValidationSchema } from '../_lib/property.schema';
 import { createPropertyAsync } from '../_lib/property.actions';
 import { ErrorText } from 'src/components/error-text/error-text';
 
-export default function PropertyForm() {
+export default function PropertyForm({ value }: { value?: IProperty }) {
   const { userInfo } = useContext(AuthContext);
   const [loading, setLoading] = useState<boolean>(false);
   const [isSubmitSuccessful, setSubmitSuccessful] = useState(false);
@@ -49,28 +49,35 @@ export default function PropertyForm() {
     }
   };
 
-  const { handleChange, handleSubmit, values, setFieldValue, errors, touched } = useFormik({
-    initialValues: defaultProperty,
-    validate: (values) => {
-      const result = propertyValidationSchema.safeParse(values);
-      if (result.success) {
-        return {};
-      } else {
-        const fieldErrors: any = {};
-        result.error.issues.forEach((issue) => {
-          const path = issue.path.join('.');
-          fieldErrors[path] = issue.message;
-        });
-        return fieldErrors;
-      }
-    },
-    onSubmit: async (values) => {
-      setLoading(true);
-      await createPropertyAsync(values);
-      setLoading(false);
-      setSubmitSuccessful(true);
-    },
-  });
+  const { handleChange, handleSubmit, values, setFieldValue, errors, touched, setValues } =
+    useFormik({
+      initialValues: defaultProperty,
+      validate: (values) => {
+        const result = propertyValidationSchema.safeParse(values);
+        if (result.success) {
+          return {};
+        } else {
+          const fieldErrors: any = {};
+          result.error.issues.forEach((issue) => {
+            const path = issue.path.join('.');
+            fieldErrors[path] = issue.message;
+          });
+          return fieldErrors;
+        }
+      },
+      onSubmit: async (values) => {
+        setLoading(true);
+        await createPropertyAsync(values);
+        setLoading(false);
+        setSubmitSuccessful(true);
+      },
+    });
+
+  React.useEffect(() => {
+    if (value) {
+      setValues(value);
+    }
+  }, [value]);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
