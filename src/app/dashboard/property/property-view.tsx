@@ -11,17 +11,17 @@ import * as React from 'react';
 import { IconButton } from '@mui/material';
 import Chip from '@mui/material/Chip';
 import Link from '@mui/material/Link';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation';
 import PageLoader from 'src/components/PageLoader/PageLoader';
+import { CustomFilterPopover } from 'src/components/core/custom-filter-popover';
 import { DataTable } from 'src/components/data-table/data-table';
 import { Iconify } from 'src/components/iconify';
 import { RefreshPlugin } from 'src/components/plugins/RefreshPlugin';
 import { DashboardContent } from 'src/layouts/dashboard';
 import { paths } from 'src/routes/paths';
-import { IProperty } from './_lib/property.types';
 import { getProperty } from './_lib/property.actions';
-import { CustomFilterPopover } from 'src/components/core/custom-filter-popover';
+import { IProperty } from './_lib/property.types';
 
 export const PropertyView = () => {
   const [list, setList] = React.useState<IProperty[]>([]);
@@ -115,7 +115,7 @@ export const PropertyView = () => {
     },
     {
       formatter(row: IProperty) {
-        return moment(row.created_at).format('MMM D, YYYY h:mm A');
+        return dayjs(row.created_at).format('MMM D, YYYY h:mm A');
       },
       name: 'Created at',
     },

@@ -20,6 +20,7 @@ export const PropertyDetailsImageCarousel = ({ images }: { images: string[] }) =
   const handlePrev = () => {
     swiperRef.current?.slidePrev();
   };
+
   return (
     <Box
       sx={{

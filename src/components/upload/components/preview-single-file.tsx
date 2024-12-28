@@ -15,7 +15,10 @@ import type { SingleFilePreviewProps } from '../types';
 export function SingleFilePreview({ file, sx, className, ...other }: SingleFilePreviewProps) {
   const fileName = typeof file === 'string' ? file : file.name;
 
-  const previewUrl = typeof file === 'string' ? file : URL.createObjectURL(file);
+  const previewUrl =
+    typeof file === 'string'
+      ? `${process.env.NEXT_PUBLIC_BUCKET_URL}/${process.env.NEXT_PUBLIC_BUCKET_NAME}/${file}`
+      : URL.createObjectURL(file);
 
   return (
     <Box

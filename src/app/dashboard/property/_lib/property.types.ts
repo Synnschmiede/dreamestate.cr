@@ -1,7 +1,9 @@
+import dayjs from "dayjs";
+
 export interface PropertyContactInfo {
   name: string;
   email: string;
-  phone?: string;
+  phone: string;
 }
 
 export interface IPropertyLocation {
@@ -9,59 +11,106 @@ export interface IPropertyLocation {
   state: string;
   country: string;
   street: string;
-  postal_code?: string;
-  latitude?: number;
-  longitude?: number;
+  postal_code: string;
+  latitude: number;
+  longitude: number;
 }
 
 export interface IPropertyDetails {
   area_size: number;
-  bedroom?: number;
-  bathroom?: string;
-  garage?: number;
-  available_from?: string;
-  property_lot_size?: string;
-  year_build?: string;
-  structure_type?: string;
-  price_info?: string;
-  room?: number;
-  garage_size?: string;
+  bedroom: number;
+  bathroom: number;
+  garage: number;
+  available_from: string;
+  property_lot_size: string;
+  build_year: string;
+  structure_type: string;
+  price_info: string;
+  room: number;
+  garage_size: string;
 }
 
 export interface IPropertyFeatures {
-  interior_details?: string[];
-  outdoor_details?: string[];
-  utilities?: string[];
-  other_features?: string[];
+  interior_details: string[];
+  outdoor_details: string[];
+  utilities: string[];
+  other_features: string[];
 }
 
-interface IPropertyType {
-  APARTMENT: 'APARTMENT';
-  HOUSE: 'HOUSE';
-  VILLA: 'VILLA';
-  LAND: 'LAND';
+export enum PropertyType {
+  APARTMENT = 'APARTMENT',
+  HOUSE = 'HOUSE',
+  VILLA = 'VILLA',
+  LAND = 'LAND',
 }
 
-export interface IPropertyStatus {
-  AVAILABLE: 'AVAILABLE';
-  SOLD: 'SOLD';
-  RENTED: 'RENTED';
+export enum PropertyStatus {
+  AVAILABLE = 'AVAILABLE',
+  SOLD = 'SOLD',
+  RENTED = 'RENTED',
 }
 
 export interface IProperty {
   id: string;
   title: string;
-  description?: string;
+  description: string;
   price: number;
-  property_type?: IPropertyType;
-  status?: "AVAILABLE" | "SOLD" | "RENTED";
-  tags?: string[];
-  contact_info?: PropertyContactInfo;
-  location?: IPropertyLocation;
-  property_details?: IPropertyDetails;
-  features?: IPropertyFeatures;
+  feature_image: string;
+  images: string[];
+  property_type: PropertyType;
+  status: PropertyStatus;
+  tags: string[];
+  contact_info: PropertyContactInfo;
+  location: IPropertyLocation;
+  property_details: IPropertyDetails;
+  features: IPropertyFeatures;
 
-  // read only 
+  // read only
   created_at?: string;
   updated_at?: string;
 }
+
+export const defaultProperty: IProperty = {
+  id: '',
+  title: '',
+  description: '',
+  price: 0,
+  feature_image: '',
+  images: [],
+  property_type: PropertyType.APARTMENT,
+  status: PropertyStatus.AVAILABLE,
+  tags: [],
+  contact_info: {
+    name: '',
+    email: '',
+    phone: '',
+  },
+  location: {
+    city: '',
+    state: '',
+    country: '',
+    street: '',
+    postal_code: '',
+    latitude: 0,
+    longitude: 0,
+  },
+  property_details: {
+    area_size: 0,
+    bedroom: 0,
+    bathroom: 0,
+    garage: 0,
+    available_from: dayjs().format('YYYY-MM-DD'),
+    property_lot_size: '',
+    build_year: '',
+    structure_type: '',
+    price_info: '',
+    room: 0,
+    garage_size: '',
+  },
+  features: {
+    interior_details: [],
+    outdoor_details: [],
+    utilities: [],
+    other_features: [],
+  },
+};

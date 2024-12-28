@@ -43,11 +43,11 @@ const ICONS = {
 
 export const navData = [
   {
-    subheader: 'Property Management',
+    subheader: 'General',
     items: [{ title: 'Properties', path: paths.dashboard.property, icon: ICONS.dashboard }],
   },
   {
-    subheader: 'Users Management',
+    subheader: 'Admin Only',
     items: [
       // {
       //   title: 'Group',

@@ -2,7 +2,6 @@
 
 import {
   Alert,
-  Autocomplete,
   Box,
   Button,
   Card,
@@ -14,47 +13,25 @@ import {
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { useFormik } from 'formik';
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Editor } from 'src/components/editor';
-import { z } from 'zod';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
+import CustomAutocomplete from 'src/components/form-components/custom-autocomplete';
 import ListItemField from 'src/components/form-fields/list-item-field';
-import { Upload } from 'src/components/upload';
 import {
   ILocationResponsePayload,
   LocationAutoComplete,
 } from 'src/components/form-fields/location-auto-complete';
+import { Upload } from 'src/components/upload';
 import { AuthContext } from 'src/contexts/AuthContext';
+import { propertyTypeOptions } from '../_lib/property.constants';
+import { defaultProperty, IProperty } from '../_lib/property.types';
+import { propertyValidationSchema } from '../_lib/property.schema';
+import { createPropertyAsync } from '../_lib/property.actions';
+import { ErrorText } from 'src/components/error-text/error-text';
 
-const validationSchema = z.object({
-  title: z.string().min(1, 'Title is required'),
-  price: z
-    .number({ invalid_type_error: 'Price is required' })
-    .nonnegative('Price must be a positive number'),
-  description: z.string(),
-  property_details: z.object({
-    area_size: z
-      .number({ invalid_type_error: 'Area size must be a number' })
-      .min(0, 'Size cannot be negative'),
-  }),
-  location: z.object({
-    street: z.string({ required_error: 'Street is required' }).min(1, 'Street is required'),
-    city: z.string({ required_error: 'City is required' }).min(1, 'City is required'),
-  }),
-  contact_info: z.object({
-    email: z.string().min(1, 'Email is required'),
-  }),
-});
-
-const options = [
-  { label: 'Apartment', value: 'APARTMENT' },
-  { label: 'House', value: 'HOUSE' },
-  { label: 'Villa', value: 'VILLA' },
-  { label: 'Land', value: 'LAND' },
-];
-
-export default function PropertyManageForm() {
+export default function PropertyForm({ value }: { value?: IProperty }) {
   const { userInfo } = useContext(AuthContext);
   const [loading, setLoading] = useState<boolean>(false);
   const [isSubmitSuccessful, setSubmitSuccessful] = useState(false);
@@ -72,78 +49,41 @@ export default function PropertyManageForm() {
     }
   };
 
-  const defaultPropertyValue = {
-    title: '',
-    property_type: null,
-    price: '',
-    description: '',
-    property_details: {
-      area_size: '',
-      property_lot_size: '',
-      price_info: '',
-      structure_type: '',
-      room: '',
-      bedroom: '',
-      bathroom: '',
-      garage: '',
-      garage_size: '',
-      available_from: null,
-      build_year: null,
-    },
-    features: {
-      interior_details: [],
-      outdoor_details: [],
-      utilities: [],
-      other_features: [],
-    },
-    feature_image: null,
-    images: [],
-    location: {
-      address: '',
-      city: '',
-      state: '',
-      country: '',
-      postal_code: '',
-      street: '',
-      latitude: '',
-      longitude: '',
-    },
-    tags: [],
-    contact_info: {
-      name: userInfo?.name || '',
-      email: userInfo?.email || '',
-      phone: userInfo?.contact_number || '',
-    },
-  };
+  const { handleChange, handleSubmit, values, setFieldValue, errors, touched, setValues } =
+    useFormik({
+      initialValues: defaultProperty,
+      validate: (values) => {
+        const result = propertyValidationSchema.safeParse(values);
+        if (result.success) {
+          return {};
+        } else {
+          const fieldErrors: any = {};
+          result.error.issues.forEach((issue) => {
+            const path = issue.path.join('.');
+            fieldErrors[path] = issue.message;
+          });
+          return fieldErrors;
+        }
+      },
+      onSubmit: async (values) => {
+        setLoading(true);
+        await createPropertyAsync(values);
+        setLoading(false);
+        setSubmitSuccessful(true);
+      },
+    });
 
-  const { handleChange, handleSubmit, values, setFieldValue, errors, touched } = useFormik({
-    initialValues: defaultPropertyValue,
-    validate: (values) => {
-      const result = validationSchema.safeParse(values);
-      if (result.success) {
-        return {};
-      } else {
-        const fieldErrors: any = {};
-        result.error.issues.forEach((issue) => {
-          const path = issue.path.join('.');
-          fieldErrors[path] = issue.message;
-        });
-        return fieldErrors;
-      }
-    },
-    onSubmit: async (values) => {
-      setLoading(true);
-      console.log('submitted values', values);
-      setLoading(false);
-      setSubmitSuccessful(true);
-    },
-  });
+  React.useEffect(() => {
+    if (value) {
+      setValues(value);
+    }
+  }, [value]);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <form onSubmit={handleSubmit}>
         <Alert variant="outlined" severity="info" sx={{ mb: 3 }}>
-          Property creation alert
+          Add new property
         </Alert>
         <Stack direction="column" gap={5}>
           <Card>
@@ -161,26 +101,14 @@ export default function PropertyManageForm() {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Autocomplete
-                  options={options}
-                  getOptionLabel={(option) => option.label}
+                <CustomAutocomplete
+                  options={propertyTypeOptions}
+                  setFieldValue={setFieldValue}
                   value={values.property_type}
-                  onChange={(event, newValue) => {
-                    setFieldValue('property_type', newValue);
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Property Type"
-                      error={touched.property_type && Boolean(errors.property_type)}
-                      helperText={
-                        touched.property_type && errors.property_type
-                          ? errors.property_type || errors.property_type
-                          : ''
-                      }
-                    />
-                  )}
-                  fullWidth
+                  error={errors.property_type}
+                  fieldName="property_type"
+                  label="Property Type"
+                  touched={touched}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -428,7 +356,7 @@ export default function PropertyManageForm() {
                   variant="outlined"
                   type="text"
                   fullWidth
-                  value={values.location.address}
+                  value={''}
                   onLocationChange={handleLocationChange}
                 />
               </Grid>
@@ -608,6 +536,7 @@ export default function PropertyManageForm() {
                 onDrop={(files) => setFieldValue('feature_image', files[0])}
                 onDelete={() => setFieldValue('feature_image', null)}
               />
+              {errors.feature_image && <ErrorText error={errors.feature_image} />}
             </Grid>
             <Grid item xs={12} sm={6} sx={{ p: 3 }}>
               <Upload
@@ -625,7 +554,7 @@ export default function PropertyManageForm() {
           </Card>
           <Stack direction="row" justifyContent="flex-end">
             <Button type="submit" variant="contained" sx={{ mt: 3 }} disabled={loading}>
-              Add Property
+              Save
             </Button>
           </Stack>
         </Stack>
