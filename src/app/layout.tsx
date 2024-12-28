@@ -46,7 +46,6 @@ export default async function RootLayout({ children }: Props) {
           defaultMode={schemeConfig.defaultMode}
           modeStorageKey={schemeConfig.modeStorageKey}
         />
-
         <AuthProvider>
           <SettingsProvider settings={defaultSettings}>
             <ThemeProvider>

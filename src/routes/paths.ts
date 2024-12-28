@@ -56,6 +56,7 @@ export const paths = {
     add_property: `${ROOTS.DASHBOARD}/property/add`,
     security: `${ROOTS.DASHBOARD}/profile/security`,
     settings: `${ROOTS.DASHBOARD}/settings`,
+    users: `${ROOTS.DASHBOARD}/users`,
 
     // will be removed
     two: `${ROOTS.DASHBOARD}/two`,

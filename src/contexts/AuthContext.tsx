@@ -59,29 +59,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = (props) => 
     if (auth) {
       const data = JSON.parse(auth);
       setUserInfo(data);
-      // Set the token in API headers
       api.defaults.headers.common['auth-Token'] = `${data.token}`;
-
-      //   const date1 = new Date(data.date);
-      //   const date2 = new Date();
-      //   const diff = (date2.getTime() - date1.getTime()) / (1000 * 60 * 60);
-      //   if (diff <= 1) {
-      //     setUserInfo(data);
-      //     // Set the token in API headers
-      //     api.defaults.headers.common['auth-Token'] = `${data.token}`;
-      //   }
     }
     setLoading(false);
   }, []);
-
-  // React.useEffect(() => {
-  //     const accessToken = getTokenFromCookies();
-  //     if (!accessToken || !isValidToken(accessToken)) {
-  //         clearUserSessionFromLocalStore()
-  //     } else {
-  //         removeTokenFromCookies()
-  //     }
-  // }, [userInfo])
 
   const handleLogin = async (
     email: string,
