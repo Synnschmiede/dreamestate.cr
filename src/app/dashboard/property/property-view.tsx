@@ -8,21 +8,24 @@ import RouterLink from 'next/link';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 
-import { Add, PlusOne } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
 import Chip from '@mui/material/Chip';
 import Link from '@mui/material/Link';
+import moment from 'moment';
 import { useRouter } from 'next/navigation';
 import PageLoader from 'src/components/PageLoader/PageLoader';
 import { DataTable } from 'src/components/data-table/data-table';
+import { Iconify } from 'src/components/iconify';
 import { RefreshPlugin } from 'src/components/plugins/RefreshPlugin';
 import { DashboardContent } from 'src/layouts/dashboard';
 import { paths } from 'src/routes/paths';
+import { IProperty } from './_lib/property.types';
+import { getProperty } from './_lib/property.actions';
 
 export const PropertyView = () => {
   const [users, setUsers] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [openModal, setOpenModal] = React.useState(false);
-  const [modalData, setModalData] = React.useState(null);
   const [pagination, setPagination] = React.useState({ pageNo: 1, limit: 10 });
   const [totalRecords, setTotalRecords] = React.useState(0);
   const [selectedRows, setSelectedRows] = React.useState([]);
@@ -32,7 +35,7 @@ export const PropertyView = () => {
   async function fetchList() {
     try {
       setLoading(true);
-      const response = await getUsers({
+      const response = await getProperty({
         page: pagination.pageNo,
         rowsPerPage: pagination.limit,
         status: status,
@@ -48,11 +51,6 @@ export const PropertyView = () => {
     }
   }
 
-  const handleOpenModal = (data) => {
-    setOpenModal(true);
-    setModalData(data);
-  };
-
   const handleConfirm = () => {
     setOpenModal(false);
     // fetchUsersData();
@@ -65,60 +63,63 @@ export const PropertyView = () => {
 
   const columns = [
     {
-      formatter: (row) => (
-        <IconButton onClick={() => handleOpenModal(row)}>
-          <PencilSimpleIcon />
+      formatter: (row: IProperty) => (
+        <IconButton onClick={() => router.push(paths.dashboard.edit_property(row.id))}>
+          <Iconify width={18} icon="material-symbols:edit-rounded" />
         </IconButton>
       ),
       name: 'Actions',
-      // hideName: true,
-      // align: 'right',
     },
     {
-      formatter: (row) => (
+      formatter: (row: IProperty) => (
         <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
           <div>
             <Link
               color="inherit"
               component={RouterLink}
-              href={paths.dashboard.customers.details('1')}
+              href={paths.dashboard.edit_property(row.id)}
               sx={{ whiteSpace: 'nowrap' }}
               variant="subtitle2"
             >
-              {row.first_name} {row.last_name}
+              {row.title}
             </Link>
-            <Typography color="text.secondary" variant="body2">
-              {row.email}
-            </Typography>
           </div>
         </Stack>
       ),
-      name: 'Name',
+      name: 'Title',
     },
     {
-      formatter: (row) => (
+      formatter: (row: IProperty) => (
         <Typography color="text.secondary" variant="body2">
-          {row.contact_number}
+          {row.price}
         </Typography>
       ),
-      name: 'Phone',
+      name: 'Price',
     },
     {
-      formatter: (row) => (
+      formatter: (row: IProperty) => (
         <Typography color="text.secondary" variant="body2">
-          {row.role}
+          {row.location?.city}
         </Typography>
       ),
-      name: 'Phone',
+      name: 'City',
     },
     {
-      formatter(row) {
-        return dayjs(row.createdAt).format('MMM D, YYYY h:mm A');
+      formatter: (row: IProperty) => (
+        <Typography color="text.secondary" variant="body2">
+          {row.location?.country}
+        </Typography>
+      ),
+      name: 'Country',
+    },
+    {
+      formatter(row: IProperty) {
+        return moment(row.created_at).format('MMM D, YYYY h:mm A');
       },
       name: 'Created at',
     },
     {
-      formatter: (row) => {
+      formatter: (row: IProperty) => {
         return <Chip label={row.status} size="small" variant="outlined" />;
       },
       name: 'Status',
@@ -134,11 +135,11 @@ export const PropertyView = () => {
           sx={{ alignItems: 'flex-start' }}
         >
           <Box sx={{ flex: '1 1 auto' }}>
-            <Typography variant="h4">Users</Typography>
+            <Typography variant="h4">Properties</Typography>
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Button
-              startIcon={<Add />}
+              startIcon={<Iconify width={18} icon="material-symbols:add-rounded" />}
               variant="contained"
               onClick={() => router.push(paths.dashboard.add_property)}
             >
@@ -157,7 +158,7 @@ export const PropertyView = () => {
                   pageNo={pagination.pageNo}
                   columns={columns}
                   rows={users}
-                  uniqueRowId="id"
+                  uniqueRowId="id"  
                   selectionMode="multiple"
                   leftItems={
                     <>
@@ -177,7 +178,7 @@ export const PropertyView = () => {
                 {!users?.length ? (
                   <Box sx={{ p: 3 }}>
                     <Typography color="text.secondary" sx={{ textAlign: 'center' }} variant="body2">
-                      No customers found
+                      No data found
                     </Typography>
                   </Box>
                 ) : null}
