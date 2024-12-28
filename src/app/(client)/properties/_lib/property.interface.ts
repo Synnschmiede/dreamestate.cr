@@ -23,11 +23,20 @@ export interface IPropertyDetails {
   bathroom: number;
   area_size: number;
   price_info: string;
-  year_build: string;
+  build_year: string;
   garage_size: string;
   available_from: string;
   structure_type: string;
   property_lot_size: string;
+}
+
+export interface IUploader {
+  first_name: string;
+  last_name: string;
+  email: string;
+  contact_number: string;
+  profile_pic: string;
+  role: 'USER' | 'ADMIN' | 'SUPER_ADMIN';
 }
 
 export interface IProperty {
@@ -53,12 +62,5 @@ export interface IProperty {
   location: IPropertyLocation;
   created_at: string;
   updated_at: string;
-  uploaded_by: {
-    first_name: string;
-    last_name: string;
-    email: string;
-    contact_number: string;
-    profile_pic: string;
-    role: 'USER' | 'ADMIN' | 'SUPER_ADMIN';
-  };
+  uploaded_by: IUploader;
 }
