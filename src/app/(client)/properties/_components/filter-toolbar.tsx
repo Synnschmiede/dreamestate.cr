@@ -19,9 +19,6 @@ export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) =
   const [cities, setCities] = useState('');
   const [sortBy, setSortBy] = useState('');
 
-  console.log('city: ', cities);
-  console.log('categories: ', categories);
-
   const pathname = usePathname();
   const router = useRouter();
 

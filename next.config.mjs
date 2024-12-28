@@ -5,6 +5,9 @@
 const isStaticExport = 'false';
 
 const nextConfig = {
+  images: {
+    domains: ['gjygtasaqsrctiqdfxri.supabase.co'],
+  },
   trailingSlash: false,
   env: {
     BUILD_STATIC_EXPORT: isStaticExport,

@@ -1,5 +1,6 @@
 // ----------------------------------------------------------------------
 
+
 const ROOTS = {
   AUTH: '/auth',
   DASHBOARD: '/dashboard',
@@ -54,8 +55,10 @@ export const paths = {
     myAccount: `${ROOTS.DASHBOARD}/profile/my-account`,
     property: `${ROOTS.DASHBOARD}/property`,
     add_property: `${ROOTS.DASHBOARD}/property/add`,
+    edit_property: (customerId: string) => `${ROOTS.DASHBOARD}/property/${customerId}`,
     security: `${ROOTS.DASHBOARD}/profile/security`,
     settings: `${ROOTS.DASHBOARD}/settings`,
+    users: `${ROOTS.DASHBOARD}/users`,
 
     // will be removed
     two: `${ROOTS.DASHBOARD}/two`,

@@ -42,36 +42,26 @@ const ICONS = {
 // ----------------------------------------------------------------------
 
 export const navData = [
-  /**
-   * Overview
-   */
   {
-    subheader: 'Overview 6.0.0',
-    items: [
-      { title: 'One', path: paths.dashboard.root, icon: ICONS.dashboard },
-      { title: 'Two', path: paths.dashboard.two, icon: ICONS.ecommerce },
-      { title: 'Three', path: paths.dashboard.three, icon: ICONS.analytics },
-    ],
+    subheader: 'Property Management',
+    items: [{ title: 'Properties', path: paths.dashboard.property, icon: ICONS.dashboard }],
   },
-  /**
-   * Management
-   */
   {
-    subheader: 'Management',
+    subheader: 'Users Management',
     items: [
+      // {
+      //   title: 'Group',
+      //   path: paths.dashboard.group.root,
+      //   icon: ICONS.user,
+      //   children: [
+      //     { title: 'Four', path: paths.dashboard.group.root },
+      //     { title: 'Five', path: paths.dashboard.group.five },
+      //     { title: 'Six', path: paths.dashboard.group.six },
+      //   ],
+      // },
       {
-        title: 'Group',
-        path: paths.dashboard.group.root,
-        icon: ICONS.user,
-        children: [
-          { title: 'Four', path: paths.dashboard.group.root },
-          { title: 'Five', path: paths.dashboard.group.five },
-          { title: 'Six', path: paths.dashboard.group.six },
-        ],
-      },
-      {
-        title: 'Property',
-        path: paths.dashboard.property,
+        title: 'Users',
+        path: paths.dashboard.users,
         icon: ICONS.user,
       },
     ],
