@@ -21,6 +21,11 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import ListItemField from 'src/components/form-fields/list-item-field';
 import { Upload } from 'src/components/upload';
+import { set } from 'nprogress';
+import {
+  ILocationResponsePayload,
+  LocationAutoComplete,
+} from 'src/components/form-fields/location-auto-complete';
 
 const validationSchema = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -75,20 +80,18 @@ const defaultPropertyValue = {
     utilities: [],
     other_features: [],
   },
+  feature_image: null,
+  images: [],
+  street_address: '',
 };
 
 export default function PropertyManageForm() {
   const [loading, setLoading] = useState<boolean>(false);
   const [isSubmitSuccessful, setSubmitSuccessful] = useState(false);
-  const [file, setFile] = useState<File | string | null>(null);
-  const [files, setFiles] = useState<File[]>([]);
 
-  const handleDropSingleFile = useCallback((acceptedFiles: File[]) => {
-    console.log('acceptedFiles', acceptedFiles);
-    const newFile = acceptedFiles[0];
-    console.log('new file: ', newFile);
-    setFile(newFile);
-  }, []);
+  const handleLocationChange = (data: ILocationResponsePayload) => {
+    console.log('location response data: ', data);
+  };
 
   const { handleChange, handleSubmit, values, setFieldValue, errors, touched } = useFormik({
     initialValues: defaultPropertyValue,
@@ -386,6 +389,22 @@ export default function PropertyManageForm() {
             </Grid>
           </Card>
           <Card>
+            <CardHeader title="Location" />
+            <Grid container spacing={2} sx={{ p: 3 }}>
+              <Grid item xs={12} sm={6} sx={{ height: '400px' }}>
+                <LocationAutoComplete
+                  id="address"
+                  variant="outlined"
+                  size="small"
+                  type="text"
+                  fullWidth
+                  value={values.street_address}
+                  onLocationChange={handleLocationChange}
+                />
+              </Grid>
+            </Grid>
+          </Card>
+          <Card>
             <CardHeader title="Features" />
             <Grid container spacing={2} sx={{ p: 3 }}>
               <Grid item xs={12} sm={6}>
@@ -425,13 +444,22 @@ export default function PropertyManageForm() {
           <Card>
             <CardHeader title="Media Information" />
             <Grid item xs={12} sm={6} sx={{ p: 3 }}>
-              <Upload value={file} onDrop={handleDropSingleFile} onDelete={() => setFile(null)} />
+              <Upload
+                value={values.feature_image}
+                onDrop={(files) => setFieldValue('feature_image', files[0])}
+                onDelete={() => setFieldValue('feature_image', null)}
+              />
             </Grid>
             <Grid item xs={12} sm={6} sx={{ p: 3 }}>
               <Upload
-                value={files}
-                onDrop={(files) => setFiles(files)}
-                onRemove={(file) => setFiles((prev) => prev.filter((f) => f !== file))}
+                value={values.images}
+                onDrop={(files) => setFieldValue('images', files)}
+                onRemove={(file) =>
+                  setFieldValue(
+                    'images',
+                    values.images.filter((f) => f !== file)
+                  )
+                }
                 multiple
               />
             </Grid>
