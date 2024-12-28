@@ -18,7 +18,7 @@ export const propertyValidationSchema = z.object({
   contact_info: z.object({
     email: z.string().min(1, 'Email is required'),
   }),
-  feature_image: z.any({
-    required_error: 'Feature image is required',
-  }),
+  // feature_image: z.instanceof(File, { message: 'Feature image is required' }).refine((file) => {
+  //   file.size > 0, { message: 'Feature image is required' };
+  // }),
 });

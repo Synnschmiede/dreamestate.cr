@@ -12,11 +12,13 @@ import {
   TextField,
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { useFormik } from 'formik';
-import React, { useContext, useState } from 'react';
-import { Editor } from 'src/components/editor';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
+import { useFormik } from 'formik';
+import { useRouter } from 'next/navigation';
+import React, { useContext, useState } from 'react';
+import { Editor } from 'src/components/editor';
+import { ErrorText } from 'src/components/error-text/error-text';
 import CustomAutocomplete from 'src/components/form-components/custom-autocomplete';
 import ListItemField from 'src/components/form-fields/list-item-field';
 import {
@@ -25,16 +27,17 @@ import {
 } from 'src/components/form-fields/location-auto-complete';
 import { Upload } from 'src/components/upload';
 import { AuthContext } from 'src/contexts/AuthContext';
-import { propertyTypeOptions } from '../_lib/property.constants';
-import { defaultProperty, IProperty } from '../_lib/property.types';
-import { propertyValidationSchema } from '../_lib/property.schema';
+import { paths } from 'src/routes/paths';
 import { createPropertyAsync } from '../_lib/property.actions';
-import { ErrorText } from 'src/components/error-text/error-text';
+import { propertyTypeOptions } from '../_lib/property.constants';
+import { propertyValidationSchema } from '../_lib/property.schema';
+import { defaultProperty, IProperty } from '../_lib/property.types';
 
 export default function PropertyForm({ value }: { value?: IProperty }) {
   const { userInfo } = useContext(AuthContext);
   const [loading, setLoading] = useState<boolean>(false);
   const [isSubmitSuccessful, setSubmitSuccessful] = useState(false);
+  const router = useRouter();
 
   const handleLocationChange = (data: ILocationResponsePayload) => {
     if (data) {
@@ -67,7 +70,11 @@ export default function PropertyForm({ value }: { value?: IProperty }) {
       },
       onSubmit: async (values) => {
         setLoading(true);
-        await createPropertyAsync(values);
+        const res = await createPropertyAsync(values);
+        if (res?.success) {
+          router.push(paths.dashboard.property);
+          return;
+        }
         setLoading(false);
         setSubmitSuccessful(true);
       },
