@@ -29,7 +29,9 @@ export const ImageUploader: React.FC<IImageUploaderProps> = ({
   React.useEffect(() => {
     if (!previewUrl) {
       if (typeof value === 'string') {
-        setPreviewUrl(value);
+        setPreviewUrl(
+          `${process.env.NEXT_PUBLIC_BUCKET_URL}/${process.env.NEXT_PUBLIC_BUCKET_NAME}/value`
+        );
       } else if (value instanceof File) {
         const imageUrl = URL.createObjectURL(value);
         setPreviewUrl(imageUrl);

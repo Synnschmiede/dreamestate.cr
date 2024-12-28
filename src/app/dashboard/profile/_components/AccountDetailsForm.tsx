@@ -19,7 +19,7 @@ import { Iconify } from 'src/components/iconify';
 import { ImageUploader } from 'src/components/uploaders/ImageUploader';
 import { pxToRem } from 'src/theme/styles';
 import { getProfileData, updateProfileData } from '../_lib/actions';
-import { defaultProfile, defaultProfileUpdate } from '../_lib/types';
+import { defaultProfileUpdate } from '../_lib/types';
 
 export function AccountDetailsForm() {
   const [loading, setLoading] = React.useState(false);
