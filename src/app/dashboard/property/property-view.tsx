@@ -21,9 +21,10 @@ import { DashboardContent } from 'src/layouts/dashboard';
 import { paths } from 'src/routes/paths';
 import { IProperty } from './_lib/property.types';
 import { getProperty } from './_lib/property.actions';
+import { CustomFilterPopover } from 'src/components/core/custom-filter-popover';
 
 export const PropertyView = () => {
-  const [users, setUsers] = React.useState([]);
+  const [list, setList] = React.useState<IProperty[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [openModal, setOpenModal] = React.useState(false);
   const [pagination, setPagination] = React.useState({ pageNo: 1, limit: 10 });
@@ -41,7 +42,7 @@ export const PropertyView = () => {
         status: status,
       });
       if (response.success) {
-        setUsers(response.data);
+        setList(response.data);
         setTotalRecords(response.totalRecords);
       }
     } catch (error) {
@@ -64,7 +65,7 @@ export const PropertyView = () => {
   const columns = [
     {
       formatter: (row: IProperty) => (
-        <IconButton title='Edit' onClick={() => router.push(paths.dashboard.edit_property(row.id))}>
+        <IconButton title="Edit" onClick={() => router.push(paths.dashboard.edit_property(row.id))}>
           <Iconify width={18} icon="material-symbols:edit-rounded" />
         </IconButton>
       ),
@@ -157,12 +158,15 @@ export const PropertyView = () => {
                   rowsPerPageOptions={pagination.limit}
                   pageNo={pagination.pageNo}
                   columns={columns}
-                  rows={users}
-                  uniqueRowId="id"  
+                  rows={list}
+                  uniqueRowId="id"
                   selectionMode="multiple"
                   leftItems={
                     <>
-                      filter button will be here
+                      <CustomFilterPopover
+                        title="Search by Category"
+                        popoverComponent={<Box>Todo: add search by category</Box>}
+                      />
                       <RefreshPlugin onClick={fetchList} />
                     </>
                   }
@@ -175,7 +179,7 @@ export const PropertyView = () => {
                   }
                   onSelection={(selectedRows: IProperty[]) => setSelectedRows?.(selectedRows)}
                 />
-                {!users?.length ? (
+                {!list?.length ? (
                   <Box sx={{ p: 3 }}>
                     <Typography color="text.secondary" sx={{ textAlign: 'center' }} variant="body2">
                       No data found
