@@ -8,6 +8,8 @@ export interface ILocationResponsePayload {
   city: string;
   postalCode: string;
   address: string;
+  latitude: number;
+  longitude: number;
 }
 
 interface ILocationAutoCompleteProps {
@@ -37,7 +39,7 @@ export const LocationAutoComplete = (props: ILocationAutoCompleteProps) => (
           try {
             // Get the detailed place information using the placeId
             const response = await geocodeByPlaceId(placeId);
-            const { address_components } = response[0];
+            const { address_components, geometry } = response[0];
 
             let city = '';
             let state = '';
@@ -71,13 +73,14 @@ export const LocationAutoComplete = (props: ILocationAutoCompleteProps) => (
               city: city,
               state: state,
               postalCode: zipCode,
+              latitude: geometry.location.lat(),
+              longitude: geometry.location.lng(),
             });
           } catch (error) {
             console.error('Error fetching geocode data:', error);
           }
         },
       }}
-      
       autocompletionRequest={{
         componentRestrictions: {
           country: ['cr'],
@@ -122,7 +125,6 @@ export const AddressAutoComplete = (props: IAddressAutoCompleteProps) => (
         country: ['in'],
       },
     }}
-    
     {...props}
   />
 );
