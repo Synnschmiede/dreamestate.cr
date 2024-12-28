@@ -12,11 +12,19 @@ export const PropertyGridView = ({ data }: { data: IProperty[] }) => {
   const hanldeRedirect = (slug: string) => {
     router.push(`/properties/${slug}`);
   };
+
   return (
     <Grid container spacing={2}>
       {data?.length > 0 &&
         data.map((item: IProperty) => (
-          <Grid key={item.id} item xs={12} md={6} onClick={() => hanldeRedirect(item.slug)}>
+          <Grid
+            key={item.id}
+            item
+            xs={12}
+            md={6}
+            onClick={() => hanldeRedirect(item.slug)}
+            sx={{ cursor: 'pointer' }}
+          >
             <PropertyGridCard data={item} />
           </Grid>
         ))}
