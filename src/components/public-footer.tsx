@@ -128,7 +128,8 @@ export const PublicFooter = () => {
         <Divider sx={{ borderColor: 'grey.800', my: 4 }} />
 
         <Typography variant="body2" align="center" sx={{ color: 'grey.500', mt: 1 }}>
-          &copy; {new Date().getFullYear()} Dreamestate Inc. All rights reserved.
+          &copy; {new Date().getFullYear()} Dreamestate Inc. All rights reserved. | Admin?{' '}
+          <Link href="/auth/sign-in" style={{  color: 'inherit' }}>login to your account</Link>
         </Typography>
       </Container>
     </Box>
