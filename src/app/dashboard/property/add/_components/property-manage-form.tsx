@@ -90,7 +90,6 @@ export default function PropertyManageForm() {
     },
     onSubmit: async (values) => {
       setLoading(true);
-      console.log('submitted values', values);
       setLoading(false);
       setSubmitSuccessful(true);
     },
