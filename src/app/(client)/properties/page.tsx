@@ -16,7 +16,6 @@ export default async function PropertiesPage({
   searchParams: Record<string, any>;
 }) {
   const queryString = new URLSearchParams(searchParams).toString();
-  console.log(queryString);
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/property?${queryString}`, {
     cache: 'no-cache',
   });

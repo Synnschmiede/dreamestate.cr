@@ -20,7 +20,6 @@ import { forgotPasswordAsync } from '../_lib/actions';
 import { defaultForgotPassword } from '../_lib/types';
 
 const getValidationSchema = (step: number) => {
-  console.log(step, 'step.....');
   return z.object({
     email: z.string().email('Invalid email address').min(1, { message: 'Email is required!' }),
     otp: step === 2 ? z.string().min(1, { message: 'OTP is required!' }) : z.string().optional(),

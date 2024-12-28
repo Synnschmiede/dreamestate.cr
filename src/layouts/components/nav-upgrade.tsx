@@ -25,7 +25,7 @@ export function NavUpgrade({ sx, ...other }: StackProps) {
   const user = {
     displayName: 'John Doe',
     email: '2lZnD@example.com',
-    photoURL: '/assets/images/avatars/avatar_default.jpg',
+    photoURL: '/assets/images/default_avatar.png',
   }
 
   return (

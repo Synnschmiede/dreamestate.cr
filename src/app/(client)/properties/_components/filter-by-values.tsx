@@ -54,7 +54,6 @@ export const ValuesSelector: React.FC<IValuesSelectorProps> = ({
         <Button
           variant="contained"
           onClick={() => {
-            console.log(selectedValues);
             onApply(selectedValues.filter((value) => value !== '').join(','));
             handleClose?.();
           }}

@@ -2,7 +2,7 @@ import { Button, Stack } from '@mui/material';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs/custom-breadcrumbs';
 import { DashboardContent } from 'src/layouts/dashboard';
 import { paths } from 'src/routes/paths';
-import PropertyManageForm from './components/property-manage-form';
+import PropertyManageForm from './_components/property-manage-form';
 
 export default function PropertyAddView() {
   return (
