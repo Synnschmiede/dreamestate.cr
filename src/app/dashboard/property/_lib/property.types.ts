@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 export interface PropertyContactInfo {
   name: string;
   email: string;
@@ -17,7 +19,7 @@ export interface IPropertyLocation {
 export interface IPropertyDetails {
   area_size: number;
   bedroom: number;
-  bathroom: string;
+  bathroom: number;
   garage: number;
   available_from: string;
   property_lot_size: string;
@@ -95,9 +97,9 @@ export const defaultProperty: IProperty = {
   property_details: {
     area_size: 0,
     bedroom: 0,
-    bathroom: '',
+    bathroom: 0,
     garage: 0,
-    available_from: '',
+    available_from: dayjs().format('YYYY-MM-DD'),
     property_lot_size: '',
     build_year: '',
     structure_type: '',

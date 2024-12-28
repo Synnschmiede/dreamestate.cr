@@ -1,6 +1,7 @@
 import { toast } from 'sonner';
-import { api, publicApi } from 'src/utils/axios';
+import { api } from 'src/utils/axios';
 import { getSearchQuery, IQueryParamsProps } from 'src/utils/helper';
+import { IProperty } from './property.types';
 
 export const getProperty = async (queryParams: IQueryParamsProps) => {
   try {
@@ -16,26 +17,39 @@ export const getProperty = async (queryParams: IQueryParamsProps) => {
   }
 };
 
-// export const createUser = async (data, isPublicRegistration = false) => {
-//   try {
-//     const { confirm_password, status, ...rest } = data;
-//     let res = '';
-//     if (isPublicRegistration) {
-//       res = await publicApi.post(`/auth/create-user`, rest);
-//     } else {
-//       res = await api.post(`/auth/create-user`, rest);
-//     }
-//     if (!res.data.success) return;
-//     toast.success(res.data.message);
-//     return { success: true, data: res.data.data };
-//   } catch (error) {
-//     toast.error(error.message);
-//     return {
-//       success: false,
-//       error: error.response ? error.response.data : 'An unknown error occurred',
-//     };
-//   }
-// };
+export const createPropertyAsync = async (data: IProperty) => {
+  try {
+    const { created_at, updated_at, status, feature_image, images, ...rest } = data;
+    let formData = new FormData();
+
+    if (feature_image) {
+      formData.append('feature_image', feature_image);
+    }
+
+    if (images && Array.isArray(images)) {
+      images.forEach((image, index) => {
+        formData.append(`images`, image);
+      });
+    }
+
+    formData.append('data', JSON.stringify(rest));
+
+    let res = await api.post(`/property/add-property`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    if (!res.data.success) return;
+    toast.success(res.data.message);
+    return { success: true, data: res.data.data };
+  } catch (error) {
+    toast.error(error.message);
+    return {
+      success: false,
+      error: error.response ? error.response.data : 'An unknown error occurred',
+    };
+  }
+};
 
 // export const updateUserData = async (data) => {
 //   try {

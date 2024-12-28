@@ -28,6 +28,8 @@ import { AuthContext } from 'src/contexts/AuthContext';
 import { propertyTypeOptions } from '../_lib/property.constants';
 import { defaultProperty } from '../_lib/property.types';
 import { propertyValidationSchema } from '../_lib/property.schema';
+import { createPropertyAsync } from '../_lib/property.actions';
+import { ErrorText } from 'src/components/error-text/error-text';
 
 export default function PropertyForm() {
   const { userInfo } = useContext(AuthContext);
@@ -64,6 +66,7 @@ export default function PropertyForm() {
     },
     onSubmit: async (values) => {
       setLoading(true);
+      await createPropertyAsync(values);
       setLoading(false);
       setSubmitSuccessful(true);
     },
@@ -526,6 +529,7 @@ export default function PropertyForm() {
                 onDrop={(files) => setFieldValue('feature_image', files[0])}
                 onDelete={() => setFieldValue('feature_image', null)}
               />
+              {errors.feature_image && <ErrorText error={errors.feature_image} />}
             </Grid>
             <Grid item xs={12} sm={6} sx={{ p: 3 }}>
               <Upload
