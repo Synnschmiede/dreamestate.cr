@@ -1,8 +1,8 @@
-import { Button, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs/custom-breadcrumbs';
 import { DashboardContent } from 'src/layouts/dashboard';
 import { paths } from 'src/routes/paths';
-import PropertyManageForm from './_components/property-manage-form';
+import PropertyForm from '../_components/property-form';
 
 export default function PropertyAddView() {
   return (
@@ -17,7 +17,7 @@ export default function PropertyAddView() {
           ]}
         />
       </Stack>
-      <PropertyManageForm />
+      <PropertyForm />
     </DashboardContent>
   );
 }
