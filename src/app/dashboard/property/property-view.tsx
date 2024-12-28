@@ -28,7 +28,7 @@ export const PropertyView = () => {
   const [openModal, setOpenModal] = React.useState(false);
   const [pagination, setPagination] = React.useState({ pageNo: 1, limit: 10 });
   const [totalRecords, setTotalRecords] = React.useState(0);
-  const [selectedRows, setSelectedRows] = React.useState([]);
+  const [selectedRows, setSelectedRows] = React.useState<IProperty[]>([]);
   const [status, setStatus] = React.useState('');
   const router = useRouter();
 
@@ -64,7 +64,7 @@ export const PropertyView = () => {
   const columns = [
     {
       formatter: (row: IProperty) => (
-        <IconButton onClick={() => router.push(paths.dashboard.edit_property(row.id))}>
+        <IconButton title='Edit' onClick={() => router.push(paths.dashboard.edit_property(row.id))}>
           <Iconify width={18} icon="material-symbols:edit-rounded" />
         </IconButton>
       ),
@@ -167,13 +167,13 @@ export const PropertyView = () => {
                     </>
                   }
                   rightItems={<></>}
-                  onRowsPerPageChange={(pageNumber, rowsPerPage) =>
+                  onRowsPerPageChange={(pageNumber: number, rowsPerPage: number) =>
                     setPagination({ pageNo: pageNumber, limit: rowsPerPage })
                   }
                   onPageChange={(newPageNumber) =>
                     setPagination({ ...pagination, pageNo: newPageNumber })
                   }
-                  onSelection={(selectedRows) => setSelectedRows?.(selectedRows)}
+                  onSelection={(selectedRows: IProperty[]) => setSelectedRows?.(selectedRows)}
                 />
                 {!users?.length ? (
                   <Box sx={{ p: 3 }}>

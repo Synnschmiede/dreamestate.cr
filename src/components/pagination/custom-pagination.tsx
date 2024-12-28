@@ -1,17 +1,17 @@
 'use client';
 
+import TablePagination, { TablePaginationProps } from '@mui/material/TablePagination';
 import * as React from 'react';
-import TablePagination from '@mui/material/TablePagination';
-import PropTypes from 'prop-types';
 
 interface ICustomPaginationProps {
   pageNo: number;
-  rowsPerPageOptions: number[];
+  rowsPerPageOptions: number;
   paginationList: number[];
   totalRecords: number;
   onRowsPerPageChange?: (page: number, rowsPerPage: number) => void;
   onPageChange?: (page: number) => void;
 }
+
 export const CustomPagination: React.FC<ICustomPaginationProps> = ({
   pageNo,
   rowsPerPageOptions,
@@ -20,22 +20,24 @@ export const CustomPagination: React.FC<ICustomPaginationProps> = ({
   onRowsPerPageChange,
   onPageChange,
 }) => {
-  const [page, setPage] = React.useState(pageNo - 1);
-  const [rowsPerPage, setRowsPerPage] = React.useState(rowsPerPageOptions);
+  const [page, setPage] = React.useState<number>(pageNo - 1);
+  const [rowsPerPage, setRowsPerPage] = React.useState<number>(rowsPerPageOptions);
 
-  const handlePageChange = (event, newPage) => {
+  const handlePageChange: TablePaginationProps['onPageChange'] = (_, newPage) => {
     if (onPageChange) {
       onPageChange(newPage + 1);
     }
     setPage(newPage);
   };
 
-  const handleRowsPerPageChange = (event) => {
-    const rowsPerPage = parseInt(event.target.value, 10);
+  const handleRowsPerPageChange: React.ChangeEventHandler<
+    HTMLTextAreaElement | HTMLInputElement
+  > = (event) => {
+    const newRowsPerPage = parseInt(event.target.value, 10);
     if (onRowsPerPageChange) {
-      onRowsPerPageChange(1, rowsPerPage === -1 ? totalRecords : rowsPerPage);
+      onRowsPerPageChange(1, newRowsPerPage === -1 ? totalRecords : newRowsPerPage);
     }
-    setRowsPerPage(rowsPerPage);
+    setRowsPerPage(newRowsPerPage);
     setPage(0);
   };
 

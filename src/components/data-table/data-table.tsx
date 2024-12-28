@@ -14,7 +14,7 @@ interface IDataTableProps {
   columns: any[];
   hideHead?: boolean;
   hover?: boolean;
-  onClick?: (row: any) => void;
+  onClick?: (event: any, row: any) => void;
   rows: any[];
   uniqueRowId?: string;
   selectionMode?: 'none' | 'single' | 'multiple';
@@ -27,8 +27,8 @@ interface IDataTableProps {
   totalRecords: number;
   rowsPerPage?: number;
   paginationList?: number[];
-  rowsPerPageOptions?: number[];
-  onRowsPerPageChange?: (rowsPerPage: number) => void;
+  rowsPerPageOptions?: number;
+  onRowsPerPageChange?: (rowsPerPage: number, pageNo: number) => void;
   onPageChange?: (pageNo: number) => void;
   onSelection?: (rows: any[]) => void;
 }
@@ -49,14 +49,14 @@ export const DataTable: React.FC<IDataTableProps> = ({
   totalRecords,
   rowsPerPage,
   paginationList = [5, 10, 25, 50, 100, 200],
-  rowsPerPageOptions = [5],
+  rowsPerPageOptions = 5,
   onRowsPerPageChange,
   onPageChange,
   onSelection,
 
   ...props
 }) => {
-  const [selectedRows, setSelectedRows] = React.useState([]);
+  const [selectedRows, setSelectedRows] = React.useState< any>([]);
 
   // handle single/multiple row selection
   const handleRowSelection = (rowId: string, row: any, isSelected: boolean) => {
@@ -64,7 +64,7 @@ export const DataTable: React.FC<IDataTableProps> = ({
       setSelectedRows(isSelected ? [] : [row]);
       onSelection?.(isSelected ? [] : [row]);
     } else if (selectionMode === 'multiple') {
-      setSelectedRows((prevSelected) => {
+      setSelectedRows((prevSelected: any[]) => {
         const newSelected = isSelected
           ? prevSelected.filter((selectedRow) => selectedRow.id !== rowId)
           : [...prevSelected, row];
@@ -85,7 +85,7 @@ export const DataTable: React.FC<IDataTableProps> = ({
     }
   };
 
-  const isRowSelected = (rowId: string) => selectedRows.some((row) => row.id === rowId);
+  const isRowSelected = (rowId: string) => selectedRows.some((row: any) => row.id === rowId);
   const selectedSome = selectedRows.length > 0 && selectedRows.length < rows.length;
   const selectedAll = rows.length > 0 && selectedRows.length === rows.length;
 
@@ -120,8 +120,8 @@ export const DataTable: React.FC<IDataTableProps> = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => {
-            const rowId = row.id || uniqueRowId?.(row);
+          {rows.map((row: any, index: number) => {
+            const rowId = row.id || uniqueRowId;
             const isSelected = isRowSelected(rowId);
 
             return (
