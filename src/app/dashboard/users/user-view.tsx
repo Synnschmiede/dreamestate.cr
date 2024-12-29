@@ -13,18 +13,20 @@ import dayjs from 'dayjs';
 import PageLoader from 'src/components/PageLoader/PageLoader';
 import { CustomFilterPopover } from 'src/components/core/custom-filter-popover';
 import { DataTable } from 'src/components/data-table/data-table';
+import { ConfirmationDialog } from 'src/components/dialog/confirmation-dialog';
 import { Iconify } from 'src/components/iconify';
 import { RefreshPlugin } from 'src/components/plugins/RefreshPlugin';
 import { DashboardContent } from 'src/layouts/dashboard';
-import { getUsersAsync } from './_lib/user.actions';
-import { defaultUser, IUser } from './_lib/user.types';
 import { UserDialog } from './_components/user-dialog';
+import { getUsersAsync, updateUserAsync } from './_lib/user.actions';
+import { defaultUser, IUser } from './_lib/user.types';
 
 export const UserView = () => {
   const [list, setList] = React.useState<IUser[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [openModal, setOpenModal] = React.useState(false);
   const [modalData, setModalData] = React.useState<IUser | null>(null);
+  const [deleteModalData, setDeleteModalData] = React.useState<IUser | null>(null);
   const [pagination, setPagination] = React.useState({ pageNo: 1, limit: 10 });
   const [totalRecords, setTotalRecords] = React.useState(0);
   const [selectedRows, setSelectedRows] = React.useState<IUser[]>([]);
@@ -59,6 +61,24 @@ export const UserView = () => {
     }
   }
 
+  const handleDelete = async () => {
+    if (deleteModalData) {
+      const res = await updateUserAsync({
+        id: deleteModalData.id as string,
+        role: deleteModalData.role,
+        is_deleted: true,
+        status: deleteModalData.status,
+        contact_number: deleteModalData.contact_number,
+      });
+      if (res.success) {
+        setDeleteModalData(null);
+        fetchList();
+      } else {
+        setDeleteModalData(null);
+      }
+    }
+  };
+
   React.useEffect(() => {
     fetchList();
   }, [pagination, status]);
@@ -66,9 +86,14 @@ export const UserView = () => {
   const columns = [
     {
       formatter: (row: IUser) => (
-        <IconButton title="Edit" onClick={() => handleOpenModal(row)}>
-          <Iconify width={18} icon="material-symbols:edit-rounded" />
-        </IconButton>
+        <Stack direction="row">
+          <IconButton title="Delete" onClick={() => setDeleteModalData(row)} color="error">
+            <Iconify width={18} icon="proicons:delete" />
+          </IconButton>
+          <IconButton title="Edit" onClick={() => handleOpenModal(row)}>
+            <Iconify width={18} icon="material-symbols:edit-rounded" />
+          </IconButton>
+        </Stack>
       ),
       name: 'Actions',
     },
@@ -76,7 +101,7 @@ export const UserView = () => {
       formatter: (row: IUser) => (
         <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
           <div>
-            <Typography color="text.secondary" variant="body2">
+            <Typography color="text.secondary" variant="body2" fontWeight={'bold'}>
               {row.first_name} {row.last_name}
             </Typography>
             <Typography color="text.secondary" variant="body2">
@@ -101,7 +126,7 @@ export const UserView = () => {
           {row.role}
         </Typography>
       ),
-      name: 'Phone',
+      name: 'Role',
     },
     {
       formatter(row: IUser) {
@@ -187,6 +212,14 @@ export const UserView = () => {
           onClose={() => setOpenModal(false)}
           onConfirm={handleConfirm}
           data={modalData}
+        />
+      )}
+      {deleteModalData && (
+        <ConfirmationDialog
+          open={true}
+          onClose={() => setDeleteModalData(null)}
+          onConfirm={handleDelete}
+          message="Are you sure you want to delete this user?"
         />
       )}
     </DashboardContent>
