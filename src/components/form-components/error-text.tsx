@@ -1,6 +1,6 @@
 import Typography from '@mui/material/Typography';
 
-export const ErrorText = ({ error }: { error: string | null }) => {
+export const ErrorText = ({ error }: { error: any  }) => {
   if (!error) return null;
 
   return (
