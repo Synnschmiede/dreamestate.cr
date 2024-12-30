@@ -41,7 +41,7 @@ export const TeamMemberCard: React.FC = () => {
                 minHeight="110px"
                 sx={{
                     paddingX: 3,
-                    background: "#A4B5BA",
+                    background: theme.palette.custom.darker_bg,
                 }}
 
             >

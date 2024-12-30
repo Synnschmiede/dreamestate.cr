@@ -36,7 +36,7 @@ export const Testimonials = () => {
     };
     return (
         <Box sx={{
-            background: "#A4B5BA",
+            background: (theme) => theme.palette.custom.darker_bg,
         }}>
             <Container maxWidth="xl" sx={{
                 minHeight: pxToRem(300),

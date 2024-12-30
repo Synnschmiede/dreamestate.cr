@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Grid, Avatar, Container, Typography, AvatarGroup } from '@mui/material';
+import { Box, Grid, Avatar, Container, Typography, AvatarGroup, useTheme } from '@mui/material';
 
 import { pxToRem } from 'src/theme/styles';
 
@@ -17,7 +17,7 @@ export const AboutUs = () => {
   return (
     <Box
       sx={{
-        background: '#A4B5BA',
+        background: (theme) => theme.palette.custom.darker_bg,
         minHeight: pxToRem(300),
         pt: { xs: pxToRem(100), md: pxToRem(200) },
         pb: { xs: pxToRem(40), md: pxToRem(80) },
