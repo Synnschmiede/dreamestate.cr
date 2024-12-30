@@ -68,7 +68,7 @@ export const UserView = () => {
         role: deleteModalData.role,
         is_deleted: true,
         status: deleteModalData.status,
-        contact_number: deleteModalData.contact_number,
+        contact_number: "",
       });
       if (res.success) {
         setDeleteModalData(null);
