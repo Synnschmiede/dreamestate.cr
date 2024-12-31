@@ -70,7 +70,6 @@ const NavItem = ({
   title: string;
 }) => {
   const active = isNavItemActive({ disabled, external, href, pathname });
-  console.log(active, 'active.....');
 
   return (
     <Box component="li" sx={{ userSelect: 'none' }}>

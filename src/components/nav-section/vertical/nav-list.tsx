@@ -14,8 +14,7 @@ import type { NavListProps, NavSubListProps } from '../types';
 
 export function NavList({ data, render, depth, slotProps, enabledRootRedirect }: NavListProps) {
   const pathname = usePathname();
-
-  const active = useActiveLink(data.path, !!data.children);
+  const active = useActiveLink(data.path, data.children ? true : false);
 
   const [openMenu, setOpenMenu] = useState(active);
 

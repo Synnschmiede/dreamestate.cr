@@ -3,9 +3,7 @@ import { hasParams, removeParams, isExternalLink, removeLastSlash } from '../uti
 
 // ----------------------------------------------------------------------
 
-export function useActiveLink(itemPath: string, deep: boolean = true): boolean {
-  console.log(itemPath, 'itemPath');
-  console.log(deep, 'deep');
+export function useActiveLink(itemPath: string, deep: boolean = false): boolean {
   const pathname = removeLastSlash(usePathname());
 
   const pathHasParams = hasParams(itemPath);
@@ -23,8 +21,6 @@ export function useActiveLink(itemPath: string, deep: boolean = true): boolean {
    */
   const isDeep = deep || pathHasParams;
 
-  // console.info(isDeep ? '[deep]   :' : '[normal] :', itemPath, '-?-', pathname);
-
   if (isDeep) {
     /**
      * [1] Deep: default
@@ -33,7 +29,7 @@ export function useActiveLink(itemPath: string, deep: boolean = true): boolean {
      * @match pathname = '/dashboard/user/list'
      * @match pathname = '/dashboard/user/e99f09a7-dd88-49d5-b1c8-1daf80c2d7b15/edit'
      */
-    const defaultActive = pathname.includes(itemPath);
+    const defaultActive = pathname.startsWith(itemPath);
 
     /**
      * [1] Deep: has params

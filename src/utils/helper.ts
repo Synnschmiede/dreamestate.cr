@@ -154,9 +154,6 @@ export const isNavItemActive = ({
   };
   pathname: string;
 }) => {
-  console.log(pathname, 'pathname....');
-  console.log(matcher, 'matcher....');
-  console.log(href, 'href....');
   if (disabled || !href || external) {
     return false;
   }
