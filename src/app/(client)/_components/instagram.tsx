@@ -26,7 +26,7 @@ export const InstagramSection = () => {
 
     return (
         <Box sx={{
-            background: "#A4B5BA",
+            background: (theme) => theme.palette.custom.darker_bg,
             paddingY: { xs: pxToRem(40), md: pxToRem(120) }, 
             paddingX: { xs: pxToRem(15), md: pxToRem(0) },
         }}>

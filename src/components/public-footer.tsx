@@ -32,7 +32,7 @@ export const PublicFooter = () => {
             <Typography
               variant="body2"
               color="grey.500"
-              sx={{ fontSize: { xs: pxToRem(16), md: pxToRem(18) }, mt: 1 }}
+              sx={{ fontSize: { xs: pxToRem(15) }, mt: 1 }}
             >
               We are a company dedicated to providing innovative solutions for our customers. Our
               mission is to make technology accessible and beneficial for everyone.
@@ -45,7 +45,7 @@ export const PublicFooter = () => {
               Quick Links
             </Typography>
             <List sx={{ fontSize: pxToRem(18), mt: 1 }}>
-              {['Home', 'Services', 'Products', 'Contact'].map((item) => (
+              {['Home', 'About', 'Contact'].map((item) => (
                 <ListItem key={item} disablePadding sx={{ py: 0.5 }}>
                   <ListItemText
                     primary={
@@ -59,7 +59,7 @@ export const PublicFooter = () => {
                           sx={{
                             '&:hover': { color: 'text.white' },
                             transition: 'color 0.3s',
-                            fontSize: { xs: pxToRem(16), md: pxToRem(17) },
+                            fontSize: { xs: pxToRem(15) },
                           }}
                         >
                           {item}
@@ -80,28 +80,28 @@ export const PublicFooter = () => {
             <Typography
               variant="body2"
               color="grey.500"
-              sx={{ fontSize: { xs: pxToRem(16), md: pxToRem(18) }, mt: 1 }}
+              sx={{ fontSize: { xs: pxToRem(15) }, mt: 1 }}
             >
               123 Tech Street
             </Typography>
             <Typography
               variant="body2"
               color="grey.500"
-              sx={{ fontSize: { xs: pxToRem(16), md: pxToRem(18) }, mt: 1 }}
+              sx={{ fontSize: { xs: pxToRem(15) }, mt: 1 }}
             >
               San Francisco, CA 94107
             </Typography>
             <Typography
               variant="body2"
               color="grey.500"
-              sx={{ fontSize: { xs: pxToRem(16), md: pxToRem(18) }, mt: 1 }}
+              sx={{ fontSize: { xs: pxToRem(15) }, mt: 1 }}
             >
               Phone: (123) 456-7890
             </Typography>
             <Typography
               variant="body2"
               color="grey.500"
-              sx={{ fontSize: { xs: pxToRem(16), md: pxToRem(18) }, mt: 1 }}
+              sx={{ fontSize: { xs: pxToRem(15) }, mt: 1 }}
             >
               Email: info@example.com
             </Typography>
@@ -129,7 +129,9 @@ export const PublicFooter = () => {
 
         <Typography variant="body2" align="center" sx={{ color: 'grey.500', mt: 1 }}>
           &copy; {new Date().getFullYear()} Dreamestate Inc. All rights reserved. | Admin?{' '}
-          <Link href="/auth/sign-in" style={{  color: 'inherit' }}>login to your account</Link>
+          <Link href="/auth/sign-in" style={{ color: 'inherit' }}>
+            login to your account
+          </Link>
         </Typography>
       </Container>
     </Box>
