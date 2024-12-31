@@ -4,14 +4,15 @@ import type { NavSectionProps } from 'src/components/nav-section';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 
-import { varAlpha, hideScrollY } from 'src/theme/styles';
+import { hideScrollY, varAlpha } from 'src/theme/styles';
 
 import { Logo } from 'src/components/logo';
-import { Scrollbar } from 'src/components/scrollbar';
 import { NavSectionMini, NavSectionVertical } from 'src/components/nav-section';
+import { Scrollbar } from 'src/components/scrollbar';
 
-import { NavUpgrade } from '../components/nav-upgrade';
+import React from 'react';
 import { NavToggleButton } from '../components/nav-toggle-button';
+import { NavUpgrade } from '../components/nav-upgrade';
 
 // ----------------------------------------------------------------------
 
@@ -36,6 +37,10 @@ export function NavVertical({
 }: NavVerticalProps) {
   const theme = useTheme();
 
+  const navItemRemovingEmptySectionName = React.useMemo(() => {
+    return (data || []).filter((section) => section.items.length > 0);
+  }, [data]);
+
   const renderNavVertical = (
     <>
       {slots?.topArea ?? (
@@ -45,7 +50,11 @@ export function NavVertical({
       )}
 
       <Scrollbar fillContent>
-        <NavSectionVertical data={data} sx={{ px: 2, flex: '1 1 auto' }} {...other} />
+        <NavSectionVertical
+          data={navItemRemovingEmptySectionName}
+          sx={{ px: 2, flex: '1 1 auto' }}
+          {...other}
+        />
 
         {slots?.bottomArea ?? <NavUpgrade />}
       </Scrollbar>
@@ -65,7 +74,6 @@ export function NavVertical({
         sx={{ pb: 2, px: 0.5, ...hideScrollY, flex: '1 1 auto', overflowY: 'auto' }}
         {...other}
       />
-
       {slots?.bottomArea}
     </>
   );
