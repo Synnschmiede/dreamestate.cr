@@ -94,7 +94,6 @@ export const UserDialog = (props: IUserModalProps) => {
     },
   });
 
-  console.log(errors, 'errors');
 
   return (
     <Dialog

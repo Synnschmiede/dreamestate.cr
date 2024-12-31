@@ -173,7 +173,6 @@ export const isNavItemActive = ({
   return pathname === href;
 };
 
-
 export interface IQueryParamsProps {
   page: number;
   rowsPerPage: number;
@@ -181,11 +180,10 @@ export interface IQueryParamsProps {
 }
 
 export const getSearchQuery = (queryParams: IQueryParamsProps) => {
-  const { page, rowsPerPage, status } =
-      queryParams; // value, columns, fromDate, toDate 
-  let query = "?";
-  if (status && status !== "") {
-      query += `status=${status}&`;
+  const { page, rowsPerPage, status } = queryParams; // value, columns, fromDate, toDate
+  let query = '?';
+  if (status && status !== '') {
+    query += `status=${status}&`;
   }
   // if (columns.length > 0 && value.length > 0) {
   //     query += `columns=${columns}&`;

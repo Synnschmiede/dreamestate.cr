@@ -16,7 +16,7 @@ import { Main } from 'src/layouts/main';
 import { Footer } from 'src/layouts/main/footer';
 import { NavDesktop } from 'src/layouts/main/nav/desktop';
 import { NavMobile } from 'src/layouts/main/nav/mobile';
-import { navData } from 'src/router';
+import { navData } from 'src/routes/router';
 
 import { Iconify } from 'src/components/iconify';
 import { Logo } from 'src/components/logo';
