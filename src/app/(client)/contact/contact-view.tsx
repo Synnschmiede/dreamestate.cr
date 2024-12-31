@@ -3,6 +3,7 @@ import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs/custom-brea
 import { SectionDescription } from 'src/components/section-description';
 import { pxToRem } from 'src/theme/styles';
 import { QuickContact } from './_components/quick-contact';
+import { ScheduleVisit } from '../_components/schedul-visit';
 
 export const ContactView = () => {
   return (
@@ -26,6 +27,7 @@ export const ContactView = () => {
       </Box>
       <Container maxWidth="xl">
         <QuickContact />
+        <ScheduleVisit />
       </Container>
     </>
   );

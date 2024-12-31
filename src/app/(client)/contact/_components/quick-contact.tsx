@@ -5,7 +5,7 @@ import { pxToRem } from 'src/theme/styles';
 export const QuickContact = () => {
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} md={4} mt={-6}>
+      <Grid item xs={12} md={4} mt={{ md: -6, xs: 1 }}>
         <Paper
           elevation={2}
           sx={{
@@ -33,7 +33,7 @@ export const QuickContact = () => {
           </Typography>
         </Paper>
       </Grid>
-      <Grid item xs={12} md={4} mt={-6}>
+      <Grid item xs={12} md={4} mt={{ md: -6, xs: 1 }}>
         <Paper
           elevation={2}
           sx={{
@@ -57,7 +57,7 @@ export const QuickContact = () => {
           </Typography>
         </Paper>
       </Grid>
-      <Grid item xs={12} md={4} mt={-6}>
+      <Grid item xs={12} md={4} mt={{ md: -6, xs: 1 }}>
         <Paper
           elevation={2}
           sx={{
