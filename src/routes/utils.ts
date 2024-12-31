@@ -1,7 +1,8 @@
 // ----------------------------------------------------------------------
 
 export const hasParams = (url: string): boolean => {
-  const queryString = url.split('?')[1];
+  console.log(url, 'url......');
+  const queryString = url?.includes('?') ? url.split('?')[1] : url;
   return queryString ? new URLSearchParams(queryString).toString().length > 0 : false;
 };
 

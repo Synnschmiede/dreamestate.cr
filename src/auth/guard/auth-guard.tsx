@@ -1,31 +1,26 @@
 'use client';
 
-import { useState, useEffect, useCallback, useContext } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
+import { usePathname, useRouter, useSearchParams } from 'src/routes/hooks';
 import { paths } from 'src/routes/paths';
-import { useRouter, usePathname, useSearchParams } from 'src/routes/hooks';
 
 import { SplashScreen } from 'src/components/loading-screen';
-import { AuthContext } from 'src/contexts/AuthContext';
-
-// import { useAuthContext } from '../hooks';
+import useAuth from 'src/hooks/useAuth';
+import { dashboardNavData } from 'src/routes/router';
 
 // ----------------------------------------------------------------------
 
-type Props = {
+interface IAuthGuardProps {
   children: React.ReactNode;
-};
+}
 
-export function AuthGuard({ children }: Props) {
+export function AuthGuard({ children }: IAuthGuardProps) {
   const router = useRouter();
-
   const pathname = usePathname();
-
   const searchParams = useSearchParams();
-
-  const { isLogin, loading } = useContext(AuthContext);
-
-  const [isChecking, setIsChecking] = useState<boolean>(true);
+  const { isLogin, loading, userInfo } = useAuth();
+  const [isChecking, setIsChecking] = React.useState<boolean>(true);
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -41,12 +36,17 @@ export function AuthGuard({ children }: Props) {
     if (loading) {
       return;
     }
-
+    //redirecting to login if the user is not logged in
     if (!isLogin) {
       const signInPath = paths.auth.signIn;
       const href = `${signInPath}?${createQueryString('returnTo', pathname)}`;
       router.replace(href);
       return;
+    }
+
+    // redirecting to not-authorized page if the user is loggedin but not authorized to access this route
+    if (userInfo?.role && !isUserAuthorizedToAccessThisRoute(userInfo.role, pathname)) {
+      router.replace(paths.notAuthorized);
     }
 
     setIsChecking(false);
@@ -55,7 +55,7 @@ export function AuthGuard({ children }: Props) {
   useEffect(() => {
     checkPermissions();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLogin, loading]);
+  }, [isLogin, loading, pathname]);
 
   if (isChecking) {
     return <SplashScreen />;
@@ -63,3 +63,14 @@ export function AuthGuard({ children }: Props) {
 
   return <>{children}</>;
 }
+
+const isUserAuthorizedToAccessThisRoute = (role: string, pathname: string) => {
+  return dashboardNavData.some((section) => {
+    return section.items.some((item) => {
+      if (item.path === pathname) {
+        return item.allowedRoles.includes(role.toLowerCase());
+      }
+      return false;
+    });
+  });
+};

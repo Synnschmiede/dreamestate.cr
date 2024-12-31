@@ -20,7 +20,6 @@ import { layoutClasses } from '../classes';
 import { LanguagePopover } from '../components/language-popover';
 import { MenuButton } from '../components/menu-button';
 import { SettingsButton } from '../components/settings-button';
-import { navData as dashboardNavData } from '../config-nav-dashboard';
 import { HeaderSection } from '../core/header-section';
 import { LayoutSection } from '../core/layout-section';
 import { Main } from './main';
@@ -28,6 +27,7 @@ import { NavHorizontal } from './nav-horizontal';
 import { NavMobile } from './nav-mobile';
 import { NavVertical } from './nav-vertical';
 import { StyledDivider, useNavColorVars } from './styles';
+import { dashboardNavData } from 'src/routes/router';
 
 // ----------------------------------------------------------------------
 

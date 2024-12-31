@@ -10,7 +10,8 @@ const ROOTS = {
 export const paths = {
   home: '/',
   faqs: '/faqs',
-  minimalStore: 'https://mui.com/store/items/minimal-dashboard/',
+  contact: '/contact',
+  notAuthorized: '/not-authorized',
   // AUTH
   auth: {
     signIn: `${ROOTS.AUTH}/sign-in`,
@@ -73,4 +74,5 @@ export const paths = {
       six: `${ROOTS.DASHBOARD}/group/six`,
     },
   },
+  minimalStore: 'https://mui.com/store/items/minimal-dashboard/',
 };
