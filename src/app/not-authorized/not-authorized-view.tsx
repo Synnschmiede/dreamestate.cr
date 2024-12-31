@@ -32,7 +32,12 @@ export const NotAuthorizedView = () => {
           <ForbiddenIllustration sx={{ my: { xs: 5, sm: 10 } }} />
         </m.div>
 
-        <Button component={RouterLink} href={paths.dashboard.root} size="large" variant="contained">
+        <Button
+          component={RouterLink}
+          href={paths.dashboard.analytics}
+          size="large"
+          variant="contained"
+        >
           Return dashboard
         </Button>
       </Container>

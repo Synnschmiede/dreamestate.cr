@@ -52,6 +52,8 @@ export const paths = {
   dashboard: {
     root: ROOTS.DASHBOARD,
 
+    analytics: `${ROOTS.DASHBOARD}/analytics`,
+
     profile: `${ROOTS.DASHBOARD}/profile`,
     myAccount: `${ROOTS.DASHBOARD}/profile/my-account`,
 

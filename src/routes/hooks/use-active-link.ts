@@ -4,6 +4,8 @@ import { hasParams, removeParams, isExternalLink, removeLastSlash } from '../uti
 // ----------------------------------------------------------------------
 
 export function useActiveLink(itemPath: string, deep: boolean = true): boolean {
+  console.log(itemPath, 'itemPath');
+  console.log(deep, 'deep');
   const pathname = removeLastSlash(usePathname());
 
   const pathHasParams = hasParams(itemPath);
