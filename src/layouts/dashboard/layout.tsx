@@ -28,6 +28,8 @@ import { NavMobile } from './nav-mobile';
 import { NavVertical } from './nav-vertical';
 import { StyledDivider, useNavColorVars } from './styles';
 import { dashboardNavData } from 'src/routes/router';
+import React from 'react';
+import useAuth from 'src/hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
@@ -44,16 +46,20 @@ export type DashboardLayoutProps = {
 
 export function DashboardLayout({ sx, children, header, data }: DashboardLayoutProps) {
   const theme = useTheme();
-
+  const { userInfo } = useAuth();
   const mobileNavOpen = useBoolean();
-
   const settings = useSettingsContext();
-
   const navColorVars = useNavColorVars(theme, settings);
-
   const layoutQuery: Breakpoint = 'lg';
 
-  const navData = data?.nav ?? dashboardNavData;
+  const navData = React.useMemo(() => {
+    return dashboardNavData.map((section) => ({
+      ...section,
+      items: section.items.filter((item) => {
+        return item.allowedRoles.some((role) => role === userInfo.role?.toLocaleLowerCase());
+      }),
+    }));
+  }, [userInfo.role]);
 
   const isNavMini = settings.navLayout === 'mini';
   const isNavHorizontal = settings.navLayout === 'horizontal';
