@@ -21,8 +21,6 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { Iconify } from 'src/components/iconify';
 import { Form, Field } from 'src/components/hook-form';
 
-import { signUp } from '../../context/jwt';
-import { useAuthContext } from '../../hooks';
 import { FormHead } from '../../components/form-head';
 import { SignUpTerms } from '../../components/sign-up-terms';
 
@@ -46,7 +44,6 @@ export const SignUpSchema = zod.object({
 // ----------------------------------------------------------------------
 
 export function JwtSignUpView() {
-  const { checkUserSession } = useAuthContext();
 
   const router = useRouter();
 
@@ -71,22 +68,22 @@ export function JwtSignUpView() {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = handleSubmit(async (data) => {
-    try {
-      await signUp({
-        email: data.email,
-        password: data.password,
-        firstName: data.firstName,
-        lastName: data.lastName,
-      });
-      await checkUserSession?.();
+  // const onSubmit = handleSubmit(async (data) => {
+  //   try {
+  //     await signUp({
+  //       email: data.email,
+  //       password: data.password,
+  //       firstName: data.firstName,
+  //       lastName: data.lastName,
+  //     });
+  //     await checkUserSession?.();
 
-      router.refresh();
-    } catch (error) {
-      console.error(error);
-      setErrorMsg(typeof error === 'string' ? error : error.message);
-    }
-  });
+  //     router.refresh();
+  //   } catch (error) {
+  //     console.error(error);
+  //     setErrorMsg(typeof error === 'string' ? error : error.message);
+  //   }
+  // });
 
   const renderForm = (
     <Box gap={3} display="flex" flexDirection="column">
@@ -149,7 +146,7 @@ export function JwtSignUpView() {
         </Alert>
       )}
 
-      <Form methods={methods} onSubmit={onSubmit}>
+      <Form methods={methods} >
         {renderForm}
       </Form>
 
