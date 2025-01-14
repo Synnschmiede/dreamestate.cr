@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { CircularProgress, FormHelperText } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -12,7 +12,8 @@ import { useFormik } from 'formik';
 import React from 'react';
 import { resetPasswordAsync } from '../_lib/actions';
 import { defaultResetPassword } from '../_lib/types';
-
+import { CustomPasswordInput } from 'src/components/form-fields/custom-password-fields';
+import { Password } from '@mui/icons-material';
 
 export function ResetPasswordForm() {
   const [loading, setLoading] = React.useState(false);
@@ -29,23 +30,39 @@ export function ResetPasswordForm() {
     resetForm,
   } = useFormik({
     initialValues: defaultResetPassword,
-    validationSchema,
+    validate: (values) => {
+      const errors = {} as any;
+
+      if (!values.oldPassword) {
+        errors.oldPassword = 'Old Password is required!';
+      }
+      if (!values.newPassword) {
+        errors.newPassword = 'New Password is required!';
+      }
+      if (!values.confirmPassword) {
+        errors.confirmPassword = 'Confirm Password is required!';
+      }
+      if (values.newPassword !== values.confirmPassword) {
+        errors.confirmPassword = 'Password does not match!';
+      }
+      return errors;
+    },
     onSubmit: async (values) => {
       setLoading(true);
-      const res = await resetPasswordAsync(values);
+      const res: any = await resetPasswordAsync(values);
       if (res.success) {
         resetForm();
       }
       setLoading(false);
-    }
-  })
+    },
+  });
 
   return (
     <Card>
       <CardHeader
         avatar={
           <Avatar>
-            <PasswordIcon fontSize="var(--Icon-fontSize)" />
+            <Password />
           </Avatar>
         }
         title="Change password"
@@ -78,7 +95,9 @@ export function ResetPasswordForm() {
                 value={values.confirmPassword}
                 onChange={handleChange}
               />
-              {errors.confirmPassword ? <FormHelperText>{errors.confirmPassword}</FormHelperText> : null}
+              {errors.confirmPassword ? (
+                <FormHelperText>{errors.confirmPassword}</FormHelperText>
+              ) : null}
             </FormControl>
             <Button
               type={loading ? 'button' : 'submit'}

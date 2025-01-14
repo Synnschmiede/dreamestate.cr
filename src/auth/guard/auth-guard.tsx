@@ -70,7 +70,30 @@ const isUserAuthorizedToAccessThisRoute = (role: string, pathname: string) => {
       if (item.path === pathname) {
         return item.allowedRoles.includes(role.toLowerCase());
       }
+
+      // Handle dynamic route match (create/edit)
+    const baseHref = pathname.split('/').slice(0, 3).join('/');
+    if (item.path.startsWith(baseHref)) {
+      return item.allowedRoles.includes(role);
+    }
       return false;
     });
   });
 };
+
+// const isAuthorizedInDashboardItems = dashboardItems.some((section) => {
+//   return section.items.some((item) => {
+//     // Handle static route match
+//     if (item.href === pathname) {
+//       return item.allowedRoles.includes(role);
+//     }
+
+//     // Handle dynamic route match (create/edit)
+//     const baseHref = pathname.split('/').slice(0, 3).join('/');
+//     if (item.href.startsWith(baseHref)) {
+//       return item.allowedRoles.includes(role);
+//     }
+
+//     return false;
+//   });
+// });
