@@ -97,3 +97,10 @@ export const dashboardNavData = [
     ],
   },
 ];
+
+export const additionalRoutes = [
+  {
+    path: paths.dashboard.security,
+    allowedRoles: ['admin', 'user'],
+  }
+];

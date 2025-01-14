@@ -2,12 +2,13 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { usePathname, useRouter, useSearchParams } from 'src/routes/hooks';
 import { paths } from 'src/routes/paths';
+import { additionalRoutes, dashboardNavData } from 'src/routes/router';
+import { useRouter, usePathname, useSearchParams } from 'src/routes/hooks';
+
+import useAuth from 'src/hooks/useAuth';
 
 import { SplashScreen } from 'src/components/loading-screen';
-import useAuth from 'src/hooks/useAuth';
-import { dashboardNavData } from 'src/routes/router';
 
 // ----------------------------------------------------------------------
 
@@ -36,7 +37,7 @@ export function AuthGuard({ children }: IAuthGuardProps) {
     if (loading) {
       return;
     }
-    //redirecting to login if the user is not logged in
+    // redirecting to login if the user is not logged in
     if (!isLogin) {
       const signInPath = paths.auth.signIn;
       const href = `${signInPath}?${createQueryString('returnTo', pathname)}`;
@@ -65,35 +66,36 @@ export function AuthGuard({ children }: IAuthGuardProps) {
 }
 
 const isUserAuthorizedToAccessThisRoute = (role: string, pathname: string) => {
-  return dashboardNavData.some((section) => {
+  // Check the dashboardItems collection
+  const isAuthorizedInDashboardItems = dashboardNavData.some((section) => {
     return section.items.some((item) => {
+      // Handle static route match
       if (item.path === pathname) {
-        return item.allowedRoles.includes(role.toLowerCase());
+        return item.allowedRoles.includes(role);
       }
 
       // Handle dynamic route match (create/edit)
-    const baseHref = pathname.split('/').slice(0, 3).join('/');
-    if (item.path.startsWith(baseHref)) {
-      return item.allowedRoles.includes(role);
-    }
+      const baseHref = pathname.split('/').slice(0, 3).join('/');
+      if (item.path.startsWith(baseHref)) {
+        return item.allowedRoles.includes(role);
+      }
+
       return false;
     });
   });
+
+  // Check the additionalRoutes collection
+  const isAuthorizedInAdditionalRoutes = additionalRoutes.some((route) => {
+    if (route.path === pathname) {
+      return route.allowedRoles.includes(role);
+    }
+    const baseHref = pathname.split('/').slice(0, 3).join('/');
+    if (route.path.startsWith(baseHref)) {
+      return route.allowedRoles.includes(role);
+    }
+
+    return false;
+  });
+
+  return isAuthorizedInDashboardItems || isAuthorizedInAdditionalRoutes;
 };
-
-// const isAuthorizedInDashboardItems = dashboardItems.some((section) => {
-//   return section.items.some((item) => {
-//     // Handle static route match
-//     if (item.href === pathname) {
-//       return item.allowedRoles.includes(role);
-//     }
-
-//     // Handle dynamic route match (create/edit)
-//     const baseHref = pathname.split('/').slice(0, 3).join('/');
-//     if (item.href.startsWith(baseHref)) {
-//       return item.allowedRoles.includes(role);
-//     }
-
-//     return false;
-//   });
-// });

@@ -1,35 +1,37 @@
 'use client';
 
-import type { Breakpoint, SxProps, Theme } from '@mui/material/styles';
 import type { NavSectionProps } from 'src/components/nav-section';
+import type { Breakpoint, SxProps, Theme } from '@mui/material/styles';
 
-import Alert from '@mui/material/Alert';
+import React from 'react';
+
 import Box from '@mui/material/Box';
-import { iconButtonClasses } from '@mui/material/IconButton';
+import Alert from '@mui/material/Alert';
+import { Avatar, Badge } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { iconButtonClasses } from '@mui/material/IconButton';
 
+import { dashboardNavData } from 'src/routes/router';
+
+import useAuth from 'src/hooks/useAuth';
+import { usePopup } from 'src/hooks/use-popup';
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Logo } from 'src/components/logo';
 import { useSettingsContext } from 'src/components/settings';
-
-import { Avatar, Badge } from '@mui/material';
 import { UserPopover } from 'src/components/popovers/user-popover';
-import { usePopup } from 'src/hooks/use-popup';
+
+import { Main } from './main';
+import { NavMobile } from './nav-mobile';
 import { layoutClasses } from '../classes';
-import { LanguagePopover } from '../components/language-popover';
+import { NavVertical } from './nav-vertical';
+import { NavHorizontal } from './nav-horizontal';
 import { MenuButton } from '../components/menu-button';
-import { SettingsButton } from '../components/settings-button';
 import { HeaderSection } from '../core/header-section';
 import { LayoutSection } from '../core/layout-section';
-import { Main } from './main';
-import { NavHorizontal } from './nav-horizontal';
-import { NavMobile } from './nav-mobile';
-import { NavVertical } from './nav-vertical';
 import { StyledDivider, useNavColorVars } from './styles';
-import { dashboardNavData } from 'src/routes/router';
-import React from 'react';
-import useAuth from 'src/hooks/useAuth';
+import { SettingsButton } from '../components/settings-button';
+import { LanguagePopover } from '../components/language-popover';
 
 // ----------------------------------------------------------------------
 
