@@ -22,6 +22,7 @@ export function AuthGuard({ children }: IAuthGuardProps) {
   const searchParams = useSearchParams();
   const { isLogin, loading, userInfo } = useAuth();
   const [isChecking, setIsChecking] = React.useState<boolean>(true);
+  const role = userInfo.role && userInfo?.role.toLowerCase();
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -46,7 +47,7 @@ export function AuthGuard({ children }: IAuthGuardProps) {
     }
 
     // redirecting to not-authorized page if the user is loggedin but not authorized to access this route
-    if (userInfo?.role && !isUserAuthorizedToAccessThisRoute(userInfo.role, pathname)) {
+    if (role && !isUserAuthorizedToAccessThisRoute(role, pathname)) {
       router.replace(paths.notAuthorized);
     }
 

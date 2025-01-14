@@ -34,7 +34,7 @@ export const NotAuthorizedView = () => {
 
         <Button
           component={RouterLink}
-          href={paths.dashboard.analytics}
+          href={paths.dashboard.root}
           size="large"
           variant="contained"
         >
