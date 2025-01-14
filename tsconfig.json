@@ -36,8 +36,13 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
+    // Ensured this includes all relevant files, no change here
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "**/*.test.ts", // Added to exclude test files
+    "**/*.test.tsx", // Added to exclude test files
+    "**/*.spec.ts", // Added to exclude test files
+    "**/*.spec.tsx" // Added to exclude test files
   ]
 }

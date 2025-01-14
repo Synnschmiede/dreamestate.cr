@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { clearUserSessionFromLocalStore, getTokenFromCookies } from './axios-api.helpers';
 
-export const apiBaseurl = process.env['NEXT_PUBLIC_SERVER_URL'] || [
+export const apiBaseurl = process.env.NEXT_PUBLIC_SERVER_URL || [
   'https://localhost:5000/api/v1',
 ];
 
@@ -12,7 +12,7 @@ api.interceptors.request.use(
   (config) => {
     const token = getTokenFromCookies();
     if (token) {
-      config.headers['Authorization'] = `${token}`;
+      config.headers.Authorization = `${token}`;
     }
     return config;
   },
@@ -27,15 +27,15 @@ export const publicApi = axios.create({
   baseURL: `${apiBaseurl}`,
 });
 
-//################################ server_base_api ##########################################
+// ################################ server_base_api ##########################################
 export const server_base_api = axios.create({
-  baseURL: process.env['NEXT_PUBLIC_SERVER_URL'] || 'https://localhost:5000/api/v1',
+  baseURL: process.env.NEXT_PUBLIC_SERVER_URL || 'https://localhost:5000/api/v1',
 });
 
 server_base_api.interceptors.request.use((config) => {
   const accessToken = getTokenFromCookies();
   if (accessToken && config.headers) {
-    config.headers['Authorization'] = accessToken;
+    config.headers.Authorization = accessToken;
   }
   return config;
 });

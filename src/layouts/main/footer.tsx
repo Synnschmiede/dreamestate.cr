@@ -1,20 +1,16 @@
-import type { Theme, SxProps, Breakpoint } from '@mui/material/styles';
+import type { Breakpoint, SxProps, Theme } from '@mui/material/styles';
 
 import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Divider from '@mui/material/Divider';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
 import { useTheme } from '@mui/material/styles';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Unstable_Grid2';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Unstable_Grid2';
 
-import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
-
-import { _socials } from 'src/_mock';
-import { TwitterIcon, FacebookIcon, LinkedinIcon, InstagramIcon } from 'src/assets/icons';
+import { paths } from 'src/routes/paths';
 
 import { Logo } from 'src/components/logo';
 
@@ -93,14 +89,7 @@ export function Footer({ layoutQuery, sx }: FooterProps) {
                 [theme.breakpoints.up(layoutQuery)]: { mb: 0, justifyContent: 'flex-start' },
               }}
             >
-              {_socials.map((social) => (
-                <IconButton key={social.label} color="inherit">
-                  {social.value === 'twitter' && <TwitterIcon />}
-                  {social.value === 'facebook' && <FacebookIcon />}
-                  {social.value === 'instagram' && <InstagramIcon />}
-                  {social.value === 'linkedin' && <LinkedinIcon />}
-                </IconButton>
-              ))}
+              social links
             </Stack>
           </Grid>
 

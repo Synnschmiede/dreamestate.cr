@@ -132,6 +132,7 @@ export const merge = (target: any, ...sources: any[]): any => {
 export const validateEmail = (email: string) => {
   return (
     email !== '' &&
+// eslint-disable-next-line no-useless-escape    
     !/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
       email
     )
