@@ -71,7 +71,7 @@ export const dashboardNavData = [
         title: 'Properties',
         path: paths.dashboard.property,
         icon: ICONS.booking,
-        allowedRoles: ['admin', 'user'],
+        allowedRoles: ["admin", 'user'],
       },
     ],
   },
