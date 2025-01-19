@@ -181,7 +181,8 @@ const HeroSearchForm = () => {
                 gap: 2,
                 mb: 4,
                 mt: { xs: 2, md: 0 },
-                background: theme.palette.custom.light_bg,
+                // background: theme.palette.custom.light_bg,
+                backgroundColor: "#F1F4F5",
                 borderRadius: { xs: 0, md: '8px 0 0 8px' },
             }}
         >

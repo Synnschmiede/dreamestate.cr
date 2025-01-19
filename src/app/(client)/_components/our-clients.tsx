@@ -25,7 +25,8 @@ export const OurClients = () => {
     return (
         <Box
             sx={{
-                background: theme.palette.custom.dark_bg,
+                // background: theme.palette.custom.dark_bg,
+                backgroundColor: "#1C2D37",
                 width: '100%',
                 paddingY: { xs: pxToRem(40), md: pxToRem(120) },
             }}

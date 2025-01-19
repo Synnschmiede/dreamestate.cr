@@ -21,7 +21,16 @@ import { Iconify } from './iconify';
 export const PublicFooter = () => {
   const theme = useTheme();
   return (
-    <Box sx={{ background: theme.palette.custom.dark_bg, color: 'grey.300', pt: 8, pb: 4 }}>
+    <Box
+      sx={{
+        // background: theme.palette.custom.dark_bg,
+        backgroundColor: '#1C2D37',
+        backgroundSize: 'cover',
+        color: 'grey.300',
+        pt: 8,
+        pb: 4,
+      }}
+    >
       <Container maxWidth="xl">
         <Grid container spacing={4}>
           {/* About Us */}
