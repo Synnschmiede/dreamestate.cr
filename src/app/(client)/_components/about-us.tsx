@@ -17,7 +17,8 @@ export const AboutUs = () => {
   return (
     <Box
       sx={{
-        background: (theme) => theme.palette.custom.darker_bg,
+        // background: (theme) => theme.palette.custom.darker_bg,
+        backgroundColor: '#F1F4F5',
         minHeight: pxToRem(300),
         pt: { xs: pxToRem(100), md: pxToRem(200) },
         pb: { xs: pxToRem(40), md: pxToRem(80) },

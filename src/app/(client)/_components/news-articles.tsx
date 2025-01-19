@@ -21,7 +21,8 @@ export const NewsArticles = () => {
   return (
     <Box
       sx={{
-        background: theme.palette.custom.dark_bg,
+        // background: theme.palette.custom.dark_bg,
+        backgroundColor: "#1C2D37",
       }}
     >
       <Container

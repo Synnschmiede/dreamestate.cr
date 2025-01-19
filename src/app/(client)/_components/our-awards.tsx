@@ -25,7 +25,8 @@ export const OurAwards = () => {
   return (
     <Box
       sx={{
-        background: theme.palette.custom.dark_bg,
+        // background: theme.palette.custom.dark_bg,
+        backgroundColor: "#1C2D37",
         backgroundImage: "url('/assets/home/award_bg.png')",
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',

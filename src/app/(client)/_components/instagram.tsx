@@ -12,7 +12,6 @@ import { pxToRem } from 'src/theme/styles';
 
 import { SliderWrapper } from 'src/components/slider/slider-wrapper';
 
-import { TestimonialCard } from './testimonial-card';
 import { InstagramCard } from './instagram-card';
 
 export const InstagramSection = () => {
@@ -25,7 +24,8 @@ export const InstagramSection = () => {
   return (
     <Box
       sx={{
-        background: (theme) => theme.palette.custom.darker_bg,
+        // background: (theme) => theme.palette.custom.darker_bg,
+        backgroundColor: "#A4B5BA",
         paddingY: { xs: pxToRem(40), md: pxToRem(120) },
         paddingX: { xs: pxToRem(15), md: pxToRem(0) },
       }}
