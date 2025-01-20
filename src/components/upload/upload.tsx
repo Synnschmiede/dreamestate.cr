@@ -9,9 +9,9 @@ import { varAlpha } from 'src/theme/styles';
 import { Iconify } from '../iconify';
 import { uploadClasses } from './classes';
 import { UploadPlaceholder } from './components/placeholder';
-import { RejectionFiles } from './components/rejection-files';
 import { MultiFilePreview } from './components/preview-multi-file';
 import { DeleteButton, SingleFilePreview } from './components/preview-single-file';
+import { RejectionFiles } from './components/rejection-files';
 
 import type { UploadProps } from './types';
 
@@ -30,6 +30,8 @@ export function Upload({
   onRemoveAll,
   className,
   multiple = false,
+  previewMultiFile = true,
+  showSubHeading = true,
   ...other
 }: UploadProps) {
   const { getRootProps, getInputProps, isDragActive, isDragReject, fileRejections } = useDropzone({
@@ -48,7 +50,9 @@ export function Upload({
 
   const renderMultiPreview = hasFiles && (
     <>
-      <MultiFilePreview files={value} thumbnail={thumbnail} onRemove={onRemove} sx={{ my: 3 }} />
+      {previewMultiFile && (
+        <MultiFilePreview files={value} thumbnail={thumbnail} onRemove={onRemove} sx={{ my: 3 }} />
+      )}
 
       {(onRemoveAll || onUpload) && (
         <Box gap={1.5} display="flex" justifyContent="flex-end">
@@ -104,7 +108,7 @@ export function Upload({
         <input {...getInputProps()} />
 
         {/* Single file */}
-        {hasFile ? <SingleFilePreview file={value as File} /> : <UploadPlaceholder />}
+        {hasFile ? <SingleFilePreview file={value as File} /> : <UploadPlaceholder showSubHeading={showSubHeading} />}
       </Box>
 
       {/* Single file */}
