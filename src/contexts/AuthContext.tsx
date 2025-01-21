@@ -9,7 +9,7 @@ import { removeTokenFromCookies, setTokenInCookies } from 'src/utils/axios-api.h
 export interface IAuth {
   loading: boolean;
   userInfo: {
-    token: string | null;
+    token: string;
     name: string | null;
     email: string | null;
     contact_number: string | null;
@@ -109,7 +109,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = (props) => 
       value={{
         loading,
         userInfo,
-        isLogin: !!userInfo.token,
+        isLogin: isValidToken(userInfo.token || ''),
         login: handleLogin,
         logout: handleLogout,
       }}

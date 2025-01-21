@@ -70,10 +70,13 @@ export const NavItem = forwardRef<HTMLButtonElement, NavItemProps>(
         {...navItem.baseProps}
         {...other}
       >
-        {icon && (
+        {/* {icon && (
           <Box component="span" className={navSectionClasses.item.icon}>
             {navItem.renderIcon}
           </Box>
+        )} */}
+        {icon && (
+          <Iconify icon={icon} className={navSectionClasses.item.icon} />
         )}
 
         {title && (

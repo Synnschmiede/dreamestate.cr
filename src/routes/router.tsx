@@ -43,16 +43,16 @@ export const navData = [
   {
     title: 'Home',
     path: '/',
-    icon: <Iconify width={22} icon="solar:home-2-bold-duotone" />,
+    icon: 'material-symbols-light:dashboard-outline-rounded',
   },
   {
     title: 'Properties',
-    icon: <Iconify width={22} icon="solar:notebook-bold-duotone" />,
+    icon: 'material-symbols-light:dashboard-outline-rounded',
     path: '/properties',
   },
   {
     title: 'Blog',
-    icon: <Iconify width={22} icon="solar:notebook-bold-duotone" />,
+    icon: 'material-symbols-light:dashboard-outline-rounded',
     path: '/blog',
   },
 ];
@@ -64,13 +64,19 @@ export const dashboardNavData = [
       {
         title: 'Dashboard',
         path: paths.dashboard.root,
-        icon: ICONS.dashboard,
+        icon: 'material-symbols-light:dashboard-outline-rounded',
         allowedRoles: ['admin', 'user'],
       },
       {
         title: 'Properties',
         path: paths.dashboard.property,
-        icon: ICONS.booking,
+        icon: 'teenyicons:search-property-outline',
+        allowedRoles: ['admin', 'user'],
+      },
+      {
+        title: 'Blog',
+        path: paths.dashboard.blog,
+        icon: 'material-symbols-light:article-outline',
         allowedRoles: ['admin', 'user'],
       },
     ],
@@ -91,7 +97,7 @@ export const dashboardNavData = [
       {
         title: 'Users',
         path: paths.dashboard.users,
-        icon: ICONS.user,
+        icon: 'prime:users',
         allowedRoles: ['admin'],
       },
     ],
@@ -102,5 +108,5 @@ export const additionalRoutes = [
   {
     path: paths.dashboard.security,
     allowedRoles: ['admin', 'user'],
-  }
+  },
 ];

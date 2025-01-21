@@ -1,6 +1,6 @@
 import type { BoxProps } from '@mui/material/Box';
+import type { SxProps, Theme } from '@mui/material/styles';
 import type { DropzoneOptions } from 'react-dropzone';
-import type { Theme, SxProps } from '@mui/material/styles';
 
 import type { FileThumbnailProps } from '../file-thumbnail';
 
@@ -37,4 +37,6 @@ export type UploadProps = DropzoneOptions & {
   placeholder?: React.ReactNode;
   value?: FileUploadType | FilesUploadType;
   onRemove?: (file: File | string) => void;
+  previewMultiFile?: boolean;
+  showSubHeading?: boolean;
 };

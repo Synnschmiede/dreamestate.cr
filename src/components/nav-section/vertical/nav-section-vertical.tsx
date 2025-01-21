@@ -1,13 +1,13 @@
-import { useState, useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
-import Stack from '@mui/material/Stack';
 import Collapse from '@mui/material/Collapse';
+import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
 
-import { NavList } from './nav-list';
 import { navSectionClasses } from '../classes';
 import { navSectionCssVars } from '../css-vars';
-import { NavUl, NavLi, Subheader } from '../styles';
+import { NavLi, NavUl, Subheader } from '../styles';
+import { NavList } from './nav-list';
 
 import type { NavGroupProps, NavSectionProps } from '../types';
 
@@ -27,6 +27,8 @@ export function NavSectionVertical({
     ...navSectionCssVars.vertical(theme),
     ...overridesVars,
   };
+
+  console.log("data: ", data)
 
   return (
     <Stack component="nav" className={navSectionClasses.vertical.root} sx={{ ...cssVars, ...sx }}>

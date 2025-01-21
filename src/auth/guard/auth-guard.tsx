@@ -1,14 +1,16 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
+import { usePathname, useRouter, useSearchParams } from 'src/routes/hooks';
 import { paths } from 'src/routes/paths';
-import { additionalRoutes, dashboardNavData } from 'src/routes/router';
-import { useRouter, usePathname, useSearchParams } from 'src/routes/hooks';
+import { dashboardNavData } from 'src/routes/router';
 
 import useAuth from 'src/hooks/useAuth';
 
 import { SplashScreen } from 'src/components/loading-screen';
+import { isValidToken } from 'src/contexts/AuthContext';
+import { clearUserSessionFromLocalStore } from 'src/utils/axios-api.helpers';
 
 // ----------------------------------------------------------------------
 
@@ -20,7 +22,7 @@ export function AuthGuard({ children }: IAuthGuardProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { isLogin, loading, userInfo } = useAuth();
+  const { isLogin, loading, userInfo, logout } = useAuth();
   const [isChecking, setIsChecking] = React.useState<boolean>(true);
   const role = userInfo.role && userInfo?.role.toLowerCase();
 
@@ -38,6 +40,13 @@ export function AuthGuard({ children }: IAuthGuardProps) {
     if (loading) {
       return;
     }
+
+    //if the token is not valid call logout
+    if (!isValidToken(userInfo?.token)) {
+      clearUserSessionFromLocalStore();
+      return;
+    }
+
     // redirecting to login if the user is not logged in
     if (!isLogin) {
       const signInPath = paths.auth.signIn;
@@ -66,81 +75,62 @@ export function AuthGuard({ children }: IAuthGuardProps) {
   return <>{children}</>;
 }
 
-// const isUserAuthorizedToAccessThisRoute = (role: string, pathname: string) => {
-//   // Check the dashboardItems collection
-//   const isAuthorizedInDashboardItems = dashboardNavData.some((section) => {
-//     return section.items.some((item) => {
-//       // Handle static route match
-//       if (item.path === pathname) {
-//         return item.allowedRoles.includes(role);
-//       }
-
-//       // Handle dynamic route match (create/edit)
-//       const baseHref = pathname.split('/').slice(0, 3).join('/');
-//       if (item.path.startsWith(baseHref)) {
-//         return item.allowedRoles.includes(role);
-//       }
-
-//       return false;
-//     });
-//   });
-
-//   // Check the additionalRoutes collection
-//   const isAuthorizedInAdditionalRoutes = additionalRoutes.some((route) => {
-//     if (route.path === pathname) {
-//       return route.allowedRoles.includes(role);
-//     }
-//     const baseHref = pathname.split('/').slice(0, 3).join('/');
-//     if (route.path.startsWith(baseHref)) {
-//       return route.allowedRoles.includes(role);
-//     }
-
-//     return false;
-//   });
-
-//   return isAuthorizedInDashboardItems || isAuthorizedInAdditionalRoutes;
-// };
-
-
-const isUserAuthorizedToAccessThisRoute = (role: string, pathname: string ) => {
-  const isAuthorizedInDashboardItems = dashboardNavData.some((section) => {
-    return section.items.some((item: any) => {
-      // check only those items that have allowedRoles
-      if (!item.allowedRoles) {
+const isUserAuthorizedToAccessThisRoute = (role: string | null, pathname: string) => {
+  // Check if the pathname exists in nav item
+  const isPathDefinedInNavData = dashboardNavData.some((section) =>
+    section.items.some((item: any) => {
+      if (item.path === pathname) {
         return true;
       }
-      // check if it has nested items
-      if (item.items) {
+
+      const baseHref = pathname.split('/').slice(0, 3).join('/');
+      if (item.path.startsWith(baseHref)) {
+        return true;
+      }
+
+      if (item.children) {
         return item.children.some((nestedItem: any) => {
-          // check only those nested items that have allowedRoles
-          if (!nestedItem.allowedRoles) {
+          if (nestedItem.path === pathname) {
             return true;
           }
-          if (nestedItem.href === pathname) {
-            return nestedItem.allowedRoles.includes(role);
+          if (nestedItem.path.startsWith(baseHref)) {
+            return true;
           }
-          const baseHref = pathname.split('/').slice(0, 3).join('/');
-          if (nestedItem.href.startsWith(baseHref)) {
+          return false;
+        });
+      }
+
+      return false;
+    })
+  );
+
+  // If the path is not found in the nav items, allow access
+  if (!isPathDefinedInNavData) {
+    return true;
+  }
+
+  // if path is defined then check allowed roles
+  return dashboardNavData.some((section) =>
+    section.items.some((item: any) => {
+      if (
+        item.path === pathname ||
+        item.path.startsWith(pathname.split('/').slice(0, 3).join('/'))
+      ) {
+        return item.allowedRoles.includes(role);
+      }
+      if (item.children) {
+        return item.children.some((nestedItem: any) => {
+          if (
+            nestedItem.path === pathname ||
+            nestedItem.path.startsWith(pathname.split('/').slice(0, 3).join('/'))
+          ) {
             return nestedItem.allowedRoles.includes(role);
           }
           return false;
         });
       }
 
-      // Handle static route match
-      if (item.path === pathname) {
-        return item.allowedRoles.includes(role);
-      }
-
-      // Handle dynamic route match (create/edit)
-      const baseHref = pathname.split('/').slice(0, 3).join('/');
-      if (item.path.startsWith(baseHref)) {
-        return item.allowedRoles.includes(role);
-      }
-
       return false;
-    });
-  });
-
-  return isAuthorizedInDashboardItems;
+    })
+  );
 };

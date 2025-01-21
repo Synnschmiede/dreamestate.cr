@@ -61,6 +61,9 @@ export const paths = {
     add_property: `${ROOTS.DASHBOARD}/property/add`,
     edit_property: (customerId: string) => `${ROOTS.DASHBOARD}/property/${customerId}`,
 
+    blog: `${ROOTS.DASHBOARD}/blog`,
+    add_blog: `${ROOTS.DASHBOARD}/blog/add`,
+
     user: `${ROOTS.DASHBOARD}/user`,
 
     security: `${ROOTS.DASHBOARD}/profile/security`,
