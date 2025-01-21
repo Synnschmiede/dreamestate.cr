@@ -1,5 +1,6 @@
 
 import Cookies from 'js-cookie';
+import { paths } from 'src/routes/paths';
 
 export const setTokenInCookies = (access_token: string | null) => {
   if (!access_token) return
@@ -25,12 +26,11 @@ export const getAuthTokenFromLocalStore = (): string | null => {
 
 
 export const clearUserSessionFromLocalStore = () => {
-  removeTokenFromCookies()
-  // Perform any necessary cleanup tasks, e.g., clearing local storage
+  // Cleaning the local storage
+  removeTokenFromCookies();
   localStorage.clear();
+  
   // Redirect to the login page or perform any other required action
-  // window.alert(
-  //   "Attention: Your session has expired. Please log in again to continue accessing the system. Thank you!",
-  // );
-  // window.location.href = "/login"; // Replace with your desired logout destination
+  window.alert('Attention: Your session has expired. Please log in again to continue. Thank you!');
+  window.location.href = paths.auth.signIn;
 };

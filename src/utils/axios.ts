@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { clearUserSessionFromLocalStore, getTokenFromCookies } from './axios-api.helpers';
+import { isValidToken } from 'src/contexts/AuthContext';
 
 export const apiBaseurl = process.env.NEXT_PUBLIC_SERVER_URL || [
   'https://localhost:5000/api/v1',
@@ -12,6 +13,10 @@ api.interceptors.request.use(
   (config) => {
     const token = getTokenFromCookies();
     if (token) {
+      const isTokenValid = isValidToken(token);
+      if (!isTokenValid) {
+        clearUserSessionFromLocalStore()
+      }
       config.headers.Authorization = `${token}`;
     }
     return config;

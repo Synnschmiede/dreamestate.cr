@@ -9,6 +9,7 @@ import { dashboardNavData } from 'src/routes/router';
 import useAuth from 'src/hooks/useAuth';
 
 import { SplashScreen } from 'src/components/loading-screen';
+import { isValidToken } from 'src/contexts/AuthContext';
 
 // ----------------------------------------------------------------------
 
@@ -20,7 +21,7 @@ export function AuthGuard({ children }: IAuthGuardProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { isLogin, loading, userInfo } = useAuth();
+  const { isLogin, loading, userInfo, logout } = useAuth();
   const [isChecking, setIsChecking] = React.useState<boolean>(true);
   const role = userInfo.role && userInfo?.role.toLowerCase();
 
@@ -38,6 +39,13 @@ export function AuthGuard({ children }: IAuthGuardProps) {
     if (loading) {
       return;
     }
+
+    //if the token is not valid call logout
+    if (!isValidToken(userInfo?.token)) {
+      logout();
+      return;
+    }
+
     // redirecting to login if the user is not logged in
     if (!isLogin) {
       const signInPath = paths.auth.signIn;
@@ -65,42 +73,6 @@ export function AuthGuard({ children }: IAuthGuardProps) {
 
   return <>{children}</>;
 }
-
-// const isUserAuthorizedToAccessThisRoute = (role: string | null, pathname: string) => {
-//   const isAuthorizedInDashboardItems = dashboardNavData.some((section) => {
-//     return section.items.some((item: any) => {
-
-//       // Handle static route match
-//       if (item.path === pathname) {
-//         return item.allowedRoles.includes(role);
-//       }
-
-//       // Handle dynamic route match (create/edit)
-//       const baseHref = pathname.split('/').slice(0, 3).join('/');
-//       if (item.path.startsWith(baseHref)) {
-//         return item.allowedRoles.includes(role);
-//       }
-
-//       // check if it has nested items
-//       if (item.items) {
-//         return item.children.some((nestedItem: any) => {
-
-//           if (nestedItem.href === pathname) {
-//             return nestedItem.allowedRoles.includes(role);
-//           }
-//           const baseHref = pathname.split('/').slice(0, 3).join('/');
-//           if (nestedItem.href.startsWith(baseHref)) {
-//             return nestedItem.allowedRoles.includes(role);
-//           }
-//           return false;
-//         });
-//       }
-//       return true;
-//     });
-//   });
-
-//   return isAuthorizedInDashboardItems;
-// };
 
 const isUserAuthorizedToAccessThisRoute = (role: string | null, pathname: string) => {
   // Check if the pathname exists in nav item
