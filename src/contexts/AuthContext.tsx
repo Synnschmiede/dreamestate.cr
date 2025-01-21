@@ -59,7 +59,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = (props) => 
     if (auth) {
       const data = JSON.parse(auth);
       setUserInfo(data);
-      api.defaults.headers.common['auth-Token'] = `${data.token}`;
+      api.defaults.headers.common['Authorization'] = `${data.token}`;
     }
     setLoading(false);
   }, []);
