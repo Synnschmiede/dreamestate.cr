@@ -24,14 +24,13 @@ import {
   ILocationResponsePayload,
   LocationAutoComplete,
 } from 'src/components/form-fields/location-auto-complete';
-import { Upload } from 'src/components/upload';
+import { UploadByModal } from 'src/components/modal/image-select-modal/upload-by-modal';
 import { AuthContext } from 'src/contexts/AuthContext';
 import { paths } from 'src/routes/paths';
 import { createPropertyAsync } from '../_lib/property.actions';
 import { propertyTypeOptions } from '../_lib/property.constants';
 import { propertyValidationSchema } from '../_lib/property.schema';
 import { defaultProperty, IProperty } from '../_lib/property.types';
-import { ErrorText } from 'src/components/form-components/error-text';
 
 export default function PropertyForm({ value }: { value?: IProperty }) {
   const { userInfo } = useContext(AuthContext);
@@ -546,24 +545,20 @@ export default function PropertyForm({ value }: { value?: IProperty }) {
           <Card>
             <CardHeader title="Media Information" />
             <Grid item xs={12} sm={6} sx={{ p: 3 }}>
-              <Upload
-                value={values.feature_image}
-                onDrop={(files) => setFieldValue('feature_image', files[0])}
-                onDelete={() => setFieldValue('feature_image', null)}
+              <UploadByModal
+                values={[values.feature_image]}
+                onSelectValues={(paths) => setFieldValue("feature_image", paths[0])}
+                errorMessage={touched.feature_image && errors.feature_image ? errors.feature_image : ''}
+                modalTitle='Select feature image'
+                placeholderHeading='Select feature image'
               />
-              {errors.feature_image && <ErrorText error={errors.feature_image } />}
             </Grid>
             <Grid item xs={12} sm={6} sx={{ p: 3 }}>
-              <Upload
-                value={values.images}
-                onDrop={(files) => setFieldValue('images', files)}
-                onRemove={(file) =>
-                  setFieldValue(
-                    'images',
-                    values.images.filter((f) => f !== file)
-                  )
-                }
-                multiple
+              <UploadByModal
+                values={values.images}
+                onSelectValues={(paths) => setFieldValue("images", paths)}
+                modalTitle='Select additional image'
+                placeholderHeading='Select additional image'
               />
             </Grid>
           </Card>
