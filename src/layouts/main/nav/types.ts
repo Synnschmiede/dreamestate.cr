@@ -15,7 +15,7 @@ export type NavItemStateProps = {
 export type NavItemBaseProps = {
   title: string;
   path: string;
-  icon?: string | React.ReactNode;
+  icon?: string;
   children?: {
     subheader: string;
     items: {
