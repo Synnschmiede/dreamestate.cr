@@ -9,7 +9,7 @@ export const getUsersAsync = async (queryParams: IQueryParamsProps) => {
     const res = await api.get(`/user${searchQuery}`);
     return { success: true, data: res.data.data, totalRecords: res.data.meta.total };
   } catch (error) {
-    toast.error(error.message);
+    toast.error(error.response.data.message);
     return {
       success: false,
       error: error.response ? error.response.data : 'An unknown error occurred',

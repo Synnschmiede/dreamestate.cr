@@ -10,6 +10,7 @@ import useAuth from 'src/hooks/useAuth';
 
 import { SplashScreen } from 'src/components/loading-screen';
 import { isValidToken } from 'src/contexts/AuthContext';
+import { clearUserSessionFromLocalStore } from 'src/utils/axios-api.helpers';
 
 // ----------------------------------------------------------------------
 
@@ -42,7 +43,7 @@ export function AuthGuard({ children }: IAuthGuardProps) {
 
     //if the token is not valid call logout
     if (!isValidToken(userInfo?.token)) {
-      logout();
+      clearUserSessionFromLocalStore();
       return;
     }
 
