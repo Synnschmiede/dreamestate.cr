@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, FormHelperText, Grid, IconButton, Stack, Typography } from '@mui/material';
+import { Box, FormHelperText, Grid, IconButton, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 
 import { useBoolean } from 'src/hooks/use-boolean';
@@ -8,6 +8,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { Iconify } from 'src/components/iconify';
 import { CONFIG } from 'src/config-global';
 import { varAlpha } from 'src/theme/styles';
+import { ImageSelectPlaceholder } from './components/placeholder';
 import { ImageSelectModal } from './image-select-modal';
 
 // ----------------------------------------------------------------------
@@ -24,7 +25,7 @@ type Props = {
     imageReset?: () => void;
 };
 
-export function UploadByModal({
+export function UploadByModalTwo({
     values,
     onSelectValues,
     errorMessage,
@@ -39,8 +40,9 @@ export function UploadByModal({
 
     return (
         <>
-            {multiple ? (
+            {values[0]?.length && multiple ? (
                 <>
+                    <Typography>{multipleImageHeader}:</Typography>
                     <Box
                         onClick={openImageModal.onTrue}
                         sx={{
@@ -55,14 +57,12 @@ export function UploadByModal({
                                 borderColor: 'error.main',
                                 bgcolor: (theme) => varAlpha(theme.vars.palette.error.mainChannel, 0.08),
                             }),
-                            px: 4,
-                            py: 1,
-                            textAlign: 'center',
-                            mt: 1,
-                            cursor: 'pointer'
                         }}
                     >
-                        <Typography>{placeholderHeading}</Typography>
+                        <ImageSelectPlaceholder
+                            heading={placeholderHeading}
+                            subHeading={placeholderSubHeading}
+                        />
                     </Box>
                     <Grid container spacing={2} sx={{ mt: 1 }}>
                         {values.map((path: string) => (
@@ -109,64 +109,36 @@ export function UploadByModal({
                     </Grid>
                 </>
             ) : (
-                <>
-                    {values[0]?.length > 0 ? (
+                <Box
+                    onClick={openImageModal.onTrue}
+                    sx={{
+                        bgcolor: (theme) => varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
+                        border: (theme) =>
+                            `1px dashed ${varAlpha(theme.vars.palette.grey['500Channel'], 0.2)}`,
+                        transition: (theme) => theme.transitions.create(['opacity', 'padding']),
+                        borderRadius: 1,
+                        ...(!!errorMessage &&
+                            !values[0]?.length && {
+                            color: 'error.main',
+                            borderColor: 'error.main',
+                            bgcolor: (theme) => varAlpha(theme.vars.palette.error.mainChannel, 0.08),
+                        }),
+                    }}
+                >
+                    {values[0]?.length > 0 && !multiple ? (
                         <Box
-                            sx={{
-                                bgcolor: (theme) => varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
-                                border: (theme) =>
-                                    `1px dashed ${varAlpha(theme.vars.palette.grey['500Channel'], 0.2)}`,
-                                transition: (theme) => theme.transitions.create(['opacity', 'padding']),
-                                borderRadius: 1,
-                                ...(!!errorMessage &&
-                                    !values[0]?.length && {
-                                    color: 'error.main',
-                                    borderColor: 'error.main',
-                                    bgcolor: (theme) => varAlpha(theme.vars.palette.error.mainChannel, 0.08),
-                                }),
-                                px: 4,
-                                py: 1,
-                                textAlign: 'center'
-                            }}
-                        >
-                            <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography>{values[0]?.split('-')?.slice(1)?.join('-')}</Typography>
-                                <Stack direction='row' alignItems='center' gap={1}>
-                                    <Stack component='a' href={`${CONFIG.bucketUrl}/${values[0]}`} target='_blank'>
-                                        <Iconify icon='mdi:eye-outline' sx={{ color: grey[700], '&:hover': { color: grey[900] } }} />
-                                    </Stack>
-                                    <Iconify icon='ic:round-close' sx={{ cursor: 'pointer', color: grey[700], '&:hover': { color: grey[900] } }} onClick={() => onSelectValues(
-                                        values.filter((item: string) => item !== values[0])
-                                    )} />
-                                </Stack>
-                            </Stack>
-                        </Box>
-                    ) : (
-                        <Box
-                            onClick={openImageModal.onTrue}
-                            sx={{
-                                bgcolor: (theme) => varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
-                                border: (theme) =>
-                                    `1px dashed ${varAlpha(theme.vars.palette.grey['500Channel'], 0.2)}`,
-                                transition: (theme) => theme.transitions.create(['opacity', 'padding']),
-                                borderRadius: 1,
-                                ...(!!errorMessage &&
-                                    !values[0]?.length && {
-                                    color: 'error.main',
-                                    borderColor: 'error.main',
-                                    bgcolor: (theme) => varAlpha(theme.vars.palette.error.mainChannel, 0.08),
-                                }),
-                                px: 4,
-                                py: 1,
-                                textAlign: 'center',
-                                cursor: 'pointer'
-                            }}
-                        >
-                            {placeholderHeading}
-                        </Box>
-                    )}
+                            component="img"
+                            src={`${CONFIG.bucketUrl}/${values[0]}`}
+                            sx={{ width: 1, height: '500px', borderRadius: 1, objectFit: 'cover' }}
+                        />
 
-                </>
+                    ) : (
+                        <ImageSelectPlaceholder
+                            heading={placeholderHeading}
+                            subHeading={placeholderSubHeading}
+                        />
+                    )}
+                </Box>
             )}
             {errorMessage && !values[0]?.length && (
                 <FormHelperText error={!!errorMessage} sx={{ px: 2 }}>
