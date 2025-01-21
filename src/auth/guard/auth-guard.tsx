@@ -103,7 +103,7 @@ export function AuthGuard({ children }: IAuthGuardProps) {
 // };
 
 const isUserAuthorizedToAccessThisRoute = (role: string | null, pathname: string) => {
-  // Check if the pathname exists in any nav data item
+  // Check if the pathname exists in nav item
   const isPathDefinedInNavData = dashboardNavData.some((section) =>
     section.items.some((item: any) => {
       if (item.path === pathname) {
@@ -131,19 +131,26 @@ const isUserAuthorizedToAccessThisRoute = (role: string | null, pathname: string
     })
   );
 
-  // If the path is not found in the nav data, allow access
+  // If the path is not found in the nav items, allow access
   if (!isPathDefinedInNavData) {
     return true;
   }
 
+  // if path is defined then check allowed roles
   return dashboardNavData.some((section) =>
     section.items.some((item: any) => {
-      if (item.path === pathname || item.path.startsWith(pathname.split('/').slice(0, 3).join('/'))) {
+      if (
+        item.path === pathname ||
+        item.path.startsWith(pathname.split('/').slice(0, 3).join('/'))
+      ) {
         return item.allowedRoles.includes(role);
       }
       if (item.children) {
         return item.children.some((nestedItem: any) => {
-          if (nestedItem.path === pathname || nestedItem.path.startsWith(pathname.split('/').slice(0, 3).join('/'))) {
+          if (
+            nestedItem.path === pathname ||
+            nestedItem.path.startsWith(pathname.split('/').slice(0, 3).join('/'))
+          ) {
             return nestedItem.allowedRoles.includes(role);
           }
           return false;

@@ -77,7 +77,7 @@ export const dashboardNavData = [
         title: 'Blog',
         path: paths.dashboard.blog,
         icon: 'material-symbols-light:article-outline',
-        allowedRoles: ['admin'],
+        allowedRoles: ['admin', 'user'],
       },
     ],
   },
