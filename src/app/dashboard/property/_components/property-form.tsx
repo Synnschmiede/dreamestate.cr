@@ -559,6 +559,7 @@ export default function PropertyForm({ value }: { value?: IProperty }) {
                 onSelectValues={(paths) => setFieldValue("images", paths)}
                 modalTitle='Select additional image'
                 placeholderHeading='Select additional image'
+                multiple
               />
             </Grid>
           </Card>
