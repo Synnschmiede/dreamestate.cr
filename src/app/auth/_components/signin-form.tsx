@@ -63,6 +63,7 @@ export const SignInForm = () => {
     setFieldValue,
     isValid,
     resetForm,
+    touched,
   } = useFormik({
     initialValues: defaultSignInUser,
     validate: (values) => {
@@ -120,7 +121,7 @@ export const SignInForm = () => {
               value={values.email}
               onChange={handleChange}
             />
-            {errors.email ? <FormHelperText>{errors.email}</FormHelperText> : null}
+            {touched.email && errors.email ? <FormHelperText>{errors.email}</FormHelperText> : null}
           </FormControl>
           <FormControl error={Boolean(errors.password)}>
             <CustomPasswordInput
@@ -129,7 +130,9 @@ export const SignInForm = () => {
               value={values.password}
               onChange={handleChange}
             />
-            {errors.password ? <FormHelperText>{errors.password}</FormHelperText> : null}
+            {touched.password && errors.password ? (
+              <FormHelperText>{errors.password}</FormHelperText>
+            ) : null}
           </FormControl>
           <Button
             type={loading ? 'button' : 'submit'}

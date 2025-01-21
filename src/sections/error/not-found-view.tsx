@@ -6,16 +6,27 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import { RouterLink } from 'src/routes/components';
 
-import { SimpleLayout } from 'src/layouts/simple';
 import { PageNotFoundIllustration } from 'src/assets/illustrations';
+import { SimpleLayout } from 'src/layouts/simple';
 
-import { varBounce, MotionContainer } from 'src/components/animate';
+import { usePathname, useRouter } from 'next/navigation';
+import { MotionContainer, varBounce } from 'src/components/animate';
+import { paths } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
 
-export function NotFoundView() {
+export function NotFoundView({ returnTo = '/' }: { returnTo?: string }) {
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const handleGoBack = () => {
+    if (pathname && pathname.includes('dashboard')) {
+      router.push(paths.dashboard.root);
+    } else {
+      router.push(paths.home);
+    }
+  };
   return (
     <SimpleLayout content={{ compact: true }}>
       <Container component={MotionContainer}>
@@ -36,8 +47,8 @@ export function NotFoundView() {
           <PageNotFoundIllustration sx={{ my: { xs: 5, sm: 10 } }} />
         </m.div>
 
-        <Button component={RouterLink} href="/" size="large" variant="contained">
-          Go to home
+        <Button onClick={handleGoBack} size="large" variant="contained">
+          Go back
         </Button>
       </Container>
     </SimpleLayout>
