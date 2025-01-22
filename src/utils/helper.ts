@@ -3,6 +3,8 @@
  * https://github.com/you-dont-need-x/you-dont-need-lodash
  */
 
+import { TQueryParams } from "src/types/common";
+
 // ----------------------------------------------------------------------
 
 export function flattenArray<T>(list: T[], key = 'children'): T[] {
@@ -132,7 +134,7 @@ export const merge = (target: any, ...sources: any[]): any => {
 export const validateEmail = (email: string) => {
   return (
     email !== '' &&
-// eslint-disable-next-line no-useless-escape    
+    // eslint-disable-next-line no-useless-escape    
     !/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
       email
     )
@@ -201,3 +203,13 @@ export const getSearchQuery = (queryParams: IQueryParamsProps) => {
   query += `page=${page}&limit=${rowsPerPage}`;
   return query;
 };
+
+
+export const queryParamsFormatter = (queryParams: TQueryParams) => {
+  const queryString = queryParams
+    .map(({ name, value }) => `${encodeURIComponent(name)}=${encodeURIComponent(value)}`)
+    .join("&");
+
+  return queryString;
+}
+

@@ -63,6 +63,7 @@ export const paths = {
 
     blog: `${ROOTS.DASHBOARD}/blog`,
     add_blog: `${ROOTS.DASHBOARD}/blog/add`,
+    edit_blog: (blogId: string) => `${ROOTS.DASHBOARD}/blog/${blogId}`,
 
     user: `${ROOTS.DASHBOARD}/user`,
 
