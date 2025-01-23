@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from 'react';
 
-import { Box, Stack, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { Stack, ToggleButton, ToggleButtonGroup } from '@mui/material';
 
-import { CustomFilterPopover } from 'src/components/core/custom-filter-popover';
-import { ValuesSelector } from './filter-by-values';
-import { Iconify } from 'src/components/iconify';
 import { usePathname, useRouter } from 'next/navigation';
+import { CustomFilterPopover } from 'src/components/core/custom-filter-popover';
+import { FilterByValues } from 'src/components/core/filter-by-values';
+import { Iconify } from 'src/components/iconify';
 
 interface IFilterToolbarProps {
   view: string;
@@ -137,7 +137,7 @@ export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) =
       <CustomFilterPopover
         title="Search by Category"
         popoverComponent={
-          <ValuesSelector
+          <FilterByValues
             options={categoriesOptions}
             selectedOptions={categories}
             onApply={(newCategories) => {
@@ -151,7 +151,7 @@ export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) =
       <CustomFilterPopover
         title="Search by Cities"
         popoverComponent={
-          <ValuesSelector
+          <FilterByValues
             options={cityOptions}
             selectedOptions={cities}
             onApply={(newCities) => {
@@ -165,7 +165,7 @@ export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) =
       <CustomFilterPopover
         title={sortBy.length > 0 ? sortByTitle(sortBy) : 'Sort by'}
         popoverComponent={
-          <ValuesSelector
+          <FilterByValues
             options={sortOptions}
             onApply={(value) => {
               handleSort(value);
@@ -174,60 +174,6 @@ export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) =
           />
         }
       />
-      {/* <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={categories}
-        onChange={(e) => setCategories(e.target.value)}
-        size="small"
-        sx={{
-          '& .MuiOutlinedInput-notchedOutline': {
-            border: 'none',
-          },
-        }}
-      >
-        <MenuItem value="ALL">{categories === 'ALL' ? 'Categories' : 'All Categories'}</MenuItem>
-        <MenuItem value="APARTMENT">Apartment</MenuItem>
-        <MenuItem value="HOUSE">House</MenuItem>
-        <MenuItem value="VILLA">Villa</MenuItem>
-        <MenuItem value="LAND">Land</MenuItem>
-      </Select>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-        size="small"
-        sx={{
-          '& .MuiOutlinedInput-notchedOutline': {
-            border: 'none',
-          },
-        }}
-      >
-        <MenuItem value="ALL">{city === 'ALL' ? 'City' : 'All Cities'}</MenuItem>
-        <MenuItem value="dhaka">Dhaka</MenuItem>
-        <MenuItem value="chittagong">Chittagong</MenuItem>
-        <MenuItem value="rajshahi">Rajshahi</MenuItem>
-        <MenuItem value="khulna">Khulna</MenuItem>
-      </Select>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={sortBy}
-        onChange={(e) => setSortBy(e.target.value)}
-        size="small"
-        sx={{
-          '& .MuiOutlinedInput-notchedOutline': {
-            border: 'none',
-          },
-        }}
-      >
-        <MenuItem value="DEFAULT">Default</MenuItem>
-        <MenuItem value="price-high-to-low">Price (High to Low)</MenuItem>
-        <MenuItem value="price-low-to-high">Price (Low to High)</MenuItem>
-        <MenuItem value="newest-first">Newest first</MenuItem>
-        <MenuItem value="oldest-first">Oldest first</MenuItem>
-      </Select> */}
       <ToggleButtonGroup
         size="small"
         value={view}

@@ -23,7 +23,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { useDebounce } from 'src/hooks/use-debounce';
 import { DashboardContent } from 'src/layouts/dashboard';
 import { paths } from 'src/routes/paths';
-import { getBlogs, updateBlogAsync } from './_lib/blog.actions';
+import { deleteBlogAsync, getBlogs, updateBlogAsync } from './_lib/blog.actions';
 import { IBlog } from './_lib/blog.types';
 
 export const BlogView = () => {
@@ -34,8 +34,6 @@ export const BlogView = () => {
   const [selectedRows, setSelectedRows] = React.useState<IBlog[]>([]);
   const [selectedRow, setSelectedRow] = React.useState<IBlog | null>(null);
   const [searchText, setSearchText] = React.useState('');
-
-  console.log(selectedRows, 'selectedRows');
 
   const searchTerm = useDebounce(searchText);
   const router = useRouter();
@@ -83,12 +81,14 @@ export const BlogView = () => {
   };
 
   const handleDelete = async () => {
-    console.log(
-      'selected row id',
-      selectedRows.map((row) => row.id)
-    );
+    console.log("inside of the handle delete");
+    setLoading(true)
+    const ids = selectedRows.map((row) => row.id)
+    await deleteBlogAsync(ids);
+    await fetchList();
+    setSelectedRows([])
     deleteConfirm.onFalse();
-    setSelectedRows([]);
+    setLoading(false)
   };
 
   React.useEffect(() => {

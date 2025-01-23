@@ -267,3 +267,13 @@ export function fSub({
 
   return result;
 }
+
+/** output: boolean
+ */
+export function isDate24HoursPast(dateToCheck: Date): boolean {
+  const currentTime = new Date();
+  const timeDifference = currentTime.getTime() - dateToCheck.getTime();
+  const twentyFourHoursInMs = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
+  return timeDifference > twentyFourHoursInMs;
+}

@@ -58,3 +58,20 @@ export const updateBlogAsync = async (id: string, data: IBlogDefaultValue | Reco
         };
     }
 };
+
+export const deleteBlogAsync = async (ids: string[]) => {
+    try {
+        let res = await api.delete(`/blog/delete-posts`, {
+            data: { ids }
+        });
+        if (!res.data.success) return;
+        toast.success(res.data.message);
+        return { success: true, data: res.data.data };
+    } catch (error) {
+        toast.error(error.response?.data?.message || error.message);
+        return {
+            success: false,
+            error: error.response ? error.response.data : 'An unknown error occurred',
+        };
+    }
+};
