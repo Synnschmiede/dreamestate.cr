@@ -16,7 +16,7 @@ import { Editor } from 'src/components/editor';
 import ListItemField from 'src/components/form-fields/list-item-field';
 import { UploadByModal } from 'src/components/modal/image-select-modal/upload-by-modal';
 import { paths } from 'src/routes/paths';
-import { createBlogAsync } from '../_lib/blog.actions';
+import { createBlogAsync, updateBlogAsync } from '../_lib/blog.actions';
 import { blogValidationSchema } from '../_lib/blog.schema';
 import { defaultBlog, IBlog } from '../_lib/blog.types';
 
@@ -43,9 +43,14 @@ export default function BlogForm({ value }: { value?: IBlog }) {
             },
             onSubmit: async (values) => {
                 setLoading(true);
-                const res = await createBlogAsync(values);
+                let res;
+                if (value && value.id) {
+                    res = await updateBlogAsync(value.id, values);
+                } else {
+                    res = await createBlogAsync(values);
+                }
                 if (res?.success) {
-                    router.push(paths.dashboard.property);
+                    router.push(paths.dashboard.blog);
                     return;
                 }
                 setLoading(false);
@@ -55,6 +60,7 @@ export default function BlogForm({ value }: { value?: IBlog }) {
 
     React.useEffect(() => {
         if (value) {
+            console.log("value content: ", value.content);
             const previousValues = {
                 title: value.title,
                 content: value.content,
@@ -98,6 +104,7 @@ export default function BlogForm({ value }: { value?: IBlog }) {
                         </Grid>
                         <Grid item xs={12}>
                             <Editor
+                                value={values.content}
                                 onChange={(value: any) => setFieldValue('content', value)}
                                 error={touched.content && Boolean(errors.content)}
                                 helperText={touched.content && errors.content}

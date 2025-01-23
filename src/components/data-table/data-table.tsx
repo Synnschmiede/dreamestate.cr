@@ -31,6 +31,7 @@ interface IDataTableProps {
   onRowsPerPageChange?: (rowsPerPage: number, pageNo: number) => void;
   onPageChange?: (pageNo: number) => void;
   onSelection?: (rows: any[]) => void;
+  selectedRows?: any[];
 }
 export const DataTable: React.FC<IDataTableProps> = ({
   columns,
@@ -53,41 +54,37 @@ export const DataTable: React.FC<IDataTableProps> = ({
   onRowsPerPageChange,
   onPageChange,
   onSelection,
-
+  selectedRows,
   ...props
 }) => {
-  const [selectedRows, setSelectedRows] = React.useState< any>([]);
-
   // handle single/multiple row selection
   const handleRowSelection = (rowId: string, row: any, isSelected: boolean) => {
+    let newSelected: any[] = [];
+
     if (selectionMode === 'single') {
-      setSelectedRows(isSelected ? [] : [row]);
-      onSelection?.(isSelected ? [] : [row]);
-    } else if (selectionMode === 'multiple') {
-      setSelectedRows((prevSelected: any[]) => {
-        const newSelected = isSelected
-          ? prevSelected.filter((selectedRow) => selectedRow.id !== rowId)
-          : [...prevSelected, row];
-        onSelection?.(newSelected);
-        return newSelected;
-      });
+      newSelected = isSelected ? [] : [row];
+    } else if (selectionMode === 'multiple' && selectedRows) {
+      newSelected = isSelected
+        ? selectedRows.filter((selectedRow) => selectedRow.id !== rowId)
+        : [...selectedRows, row];
     }
+
+    onSelection?.(newSelected);
   };
 
   // Handle Select all
   const handleSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      setSelectedRows(rows);
       onSelection?.(rows);
     } else {
-      setSelectedRows([]);
       onSelection?.([]);
     }
   };
 
-  const isRowSelected = (rowId: string) => selectedRows.some((row: any) => row.id === rowId);
-  const selectedSome = selectedRows.length > 0 && selectedRows.length < rows.length;
-  const selectedAll = rows.length > 0 && selectedRows.length === rows.length;
+  const isRowSelected = (rowId: string) =>
+    selectedRows ? selectedRows.some((row: any) => row.id === rowId) : false;
+  const selectedSome = selectedRows && selectedRows.length > 0 && selectedRows.length < rows.length;
+  const selectedAll = rows.length > 0 && selectedRows && selectedRows.length === rows.length;
 
   return (
     <TableContainer>
