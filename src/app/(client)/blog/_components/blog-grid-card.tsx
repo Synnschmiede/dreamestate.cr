@@ -88,7 +88,7 @@ export const BlogGridCard = ({ data }: { data: IBlog }) => {
                     {isDate24HoursPast(new Date(updated_at)) ? fDateTime(updated_at) : `${fToNow(updated_at)} ago`}
                 </Typography>
                 <Markdown
-                    children={content.length > 50 ? `${content.substring(0, 200)}` : content}
+                    children={content.length > 50 ? `${content.substring(0, 200)}...` : content}
                     sx={{
                         color: 'text.disabled',
                         fontSize: 16,
