@@ -1,20 +1,20 @@
 "use client";
 
-import { SwiperSlide } from 'swiper/react';
 import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper/modules';
+import { SwiperSlide } from 'swiper/react';
 
 import { Box } from "@mui/material";
 
 import { pxToRem } from "src/theme/styles";
 
-import { Iconify } from 'src/components/iconify';
-import { SectionTitle } from "src/components/section-title";
 import { AnimatedShape } from 'src/components/animated-shape';
-import { RoundedButton } from 'src/components/rounded-button';
+import { Iconify } from 'src/components/iconify';
+import { SectionDescription } from "src/components/section-description";
+import { SectionTitle } from "src/components/section-title";
 import { SectionTopText } from "src/components/section-toptext";
 import { SliderWrapper } from "src/components/slider/slider-wrapper";
-import { SectionDescription } from "src/components/section-description";
 
+import { RoundedButton } from 'src/components/button/rounded-button';
 import { OngoingProjectCard } from './ongoing-project-card';
 
 export const OngoingProjects = () => {
@@ -82,6 +82,7 @@ export const OngoingProjects = () => {
                     endIcon={<Iconify width={22} icon="guidance:left-2-short-arrow" />}
                     variant='contained'
                     sx={{ mt: 4 }}
+                    handleClick={() => console.log('clicked')}
                 >
                     Browse All Project
                 </RoundedButton>

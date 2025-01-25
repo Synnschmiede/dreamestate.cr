@@ -76,7 +76,7 @@ export const PropertyDetailsImageCarousel = ({ images }: { images: string[] }) =
           <SwiperSlide key={index}>
             <Box
               component="img"
-              src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${process.env.NEXT_PUBLIC_BUCKET_NAME}/${image}`}
+              src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${image}`}
               alt={image}
               borderRadius={0.5}
               sx={{

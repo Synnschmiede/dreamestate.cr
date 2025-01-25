@@ -5,7 +5,8 @@ import { Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 interface RoundedButtonProps extends ButtonProps {
-    children: React.ReactNode
+    children: React.ReactNode;
+    handleClick: () => void
 }
 
 const StyledButton = styled(Button)(({ theme }) => ({
@@ -21,6 +22,6 @@ const StyledButton = styled(Button)(({ theme }) => ({
 }))
 
 
-export const RoundedButton = ({ children, ...props }: RoundedButtonProps) => {
-    return <StyledButton {...props} endIcon={props.endIcon}>{children}</StyledButton>
+export const RoundedButton = ({ children, handleClick, ...props }: RoundedButtonProps) => {
+    return <StyledButton onClick={handleClick} {...props} endIcon={props.endIcon}>{children}</StyledButton>
 }

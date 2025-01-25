@@ -3,17 +3,17 @@
 import React from 'react';
 
 import { Search } from '@mui/icons-material';
+import { Box, Button, Container, Grid, MenuItem, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { Box, Grid, Button, MenuItem, Container, Typography } from '@mui/material';
 
 import { pxToRem } from 'src/theme/styles';
 
-import { Iconify } from 'src/components/iconify';
-import { SectionTitle } from 'src/components/section-title';
-import { RoundedButton } from 'src/components/rounded-button';
-import { SectionDescription } from 'src/components/section-description';
+import { RoundedButton } from 'src/components/button/rounded-button';
 import { CustomSelect } from 'src/components/form-components/custom-select';
 import { CustomTextField } from 'src/components/form-components/custom-textfield';
+import { Iconify } from 'src/components/iconify';
+import { SectionDescription } from 'src/components/section-description';
+import { SectionTitle } from 'src/components/section-title';
 
 
 export const HeroSection = () => {
@@ -154,6 +154,7 @@ export const HeroSection = () => {
                             endIcon={<Iconify width={22} icon="guidance:left-2-short-arrow" />}
                             variant='contained'
                             sx={{ mt: 2 }}
+                            handleClick={() => console.log('clicked')}
                         >
                             Request a Visit
                         </RoundedButton>

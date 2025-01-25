@@ -13,15 +13,14 @@ import { MenuButton } from 'src/layouts/components/menu-button';
 import { HeaderSection } from 'src/layouts/core/header-section';
 import { LayoutSection } from 'src/layouts/core/layout-section';
 import { Main } from 'src/layouts/main';
-import { Footer } from 'src/layouts/main/footer';
 import { NavDesktop } from 'src/layouts/main/nav/desktop';
 import { NavMobile } from 'src/layouts/main/nav/mobile';
 import { navData } from 'src/routes/router';
 
+import { RoundedButton } from 'src/components/button/rounded-button';
 import { Iconify } from 'src/components/iconify';
 import { Logo } from 'src/components/logo';
 import { PublicFooter } from 'src/components/public-footer';
-import { RoundedButton } from 'src/components/rounded-button';
 
 // ----------------------------------------------------------------------
 
@@ -88,9 +87,8 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
                   sx={{
                     display: { xs: 'none', sm: 'flex' },
                   }}
-                >
-                  Request a Visit
-                </RoundedButton>
+                  handleClick={() => console.log("click request a visist button")}
+                >Request a visit</RoundedButton>
               </>
             ),
           }}

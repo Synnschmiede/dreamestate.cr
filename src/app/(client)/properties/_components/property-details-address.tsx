@@ -9,19 +9,19 @@ export const PropertyDetailsAddress = ({ data }: { data: IPropertyLocation }) =>
       <PropertyDetailsAccordion pannelId="address" title="Address" expanded isLight>
         <Grid container spacing={2}>
           <Grid item xs={12} md={4}>
-            <PropertyDetailsAddressFieldView label="Address:" value={data.street || '-'} />
+            <PropertyDetailsAddressFieldView label="Address:" value={data?.street || '-'} />
           </Grid>
           <Grid item xs={12} md={4}>
-            <PropertyDetailsAddressFieldView label="City:" value={data.city || '-'} />
+            <PropertyDetailsAddressFieldView label="City:" value={data?.city || '-'} />
           </Grid>
           <Grid item xs={12} md={4}>
-            <PropertyDetailsAddressFieldView label="State:" value={data.state || '-'} />
+            <PropertyDetailsAddressFieldView label="State:" value={data?.state || '-'} />
           </Grid>
           <Grid item xs={12} md={4}>
-            <PropertyDetailsAddressFieldView label="Postal:" value={data.postal_code || '-'} />
+            <PropertyDetailsAddressFieldView label="Postal:" value={data?.postal_code || '-'} />
           </Grid>
           <Grid item xs={12} md={4}>
-            <PropertyDetailsAddressFieldView label="Country:" value={data.country || '-'} />
+            <PropertyDetailsAddressFieldView label="Country:" value={data?.country || '-'} />
           </Grid>
         </Grid>
       </PropertyDetailsAccordion>

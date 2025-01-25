@@ -4,11 +4,12 @@ import { useEffect, useState } from 'react';
 
 import { Stack, TextField, ToggleButton, ToggleButtonGroup } from '@mui/material';
 
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { CustomFilterPopover } from 'src/components/core/custom-filter-popover';
 import { FilterByValues } from 'src/components/core/filter-by-values';
 import { Iconify } from 'src/components/iconify';
 import { useDebounce } from 'src/hooks/use-debounce';
+import { showOptions, sortByTitle, sortOptions } from '../_lib/utils';
 
 interface IFilterToolbarProps {
     view: string;
@@ -16,24 +17,16 @@ interface IFilterToolbarProps {
 }
 
 export const BlogFilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) => {
-    const [sortBy, setSortBy] = useState('');
-    const [searchText, setSearchText] = useState('');
+    const searchParams = useSearchParams();
+    const sortOrderLabel = searchParams.get('sortOrder') ? searchParams.get('sortOrder') === 'desc' ? 'NEWEST' : 'OLDEST' : '';
 
-    const searchTerm = useDebounce(searchText);
+    const [sortBy, setSortBy] = useState(sortOrderLabel);
+    const [show, setShow] = useState(searchParams.get('limit') || '');
+    const [searchText, setSearchText] = useState('');
 
     const pathname = usePathname();
     const router = useRouter();
-
-    const handleFilter = (key: string, value: string) => {
-        const params = new URLSearchParams(window.location.search);
-
-        if (key && value) {
-            params.set(key, value);
-        } else {
-            params.delete(key);
-        }
-        router.push(`${pathname}?${params.toString()}`);
-    };
+    const searchTerm = useDebounce(searchText);
 
     const handleSort = (value: string) => {
         const params = new URLSearchParams(window.location.search);
@@ -56,29 +49,15 @@ export const BlogFilterToolbar = ({ view, handleChangeView }: IFilterToolbarProp
         }
     };
 
-    const sortOptions = [
-        {
-            label: 'Sort by',
-            value: 'DEFAULT',
-        },
-        {
-            label: 'Newest → Oldedst',
-            value: 'NEWEST',
-        },
-        {
-            label: 'Oldest → Newest',
-            value: 'OLDEST',
-        }
-    ];
-
-    const sortByTitle = (value: string) => {
-        switch (value) {
-            case 'NEWEST':
-                return 'Newest → Oldedst';
-            case 'OLDEST':
-                return 'Oldest → Newest';
-            default:
-                return 'Sort by';
+    const handleShow = (value: string) => {
+        const params = new URLSearchParams(window.location.search);
+        if (value.length) {
+            params.set('limit', value);
+            router.push(`${pathname}?${params.toString()}`);
+        } else {
+            params.delete('limit');
+            params.delete('page')
+            router.push(`${pathname}?${params.toString()}`);
         }
     };
 
@@ -113,6 +92,18 @@ export const BlogFilterToolbar = ({ view, handleChangeView }: IFilterToolbarProp
         >
             <TextField placeholder="Search..." value={searchText} onChange={(e) => setSearchText(e.target.value)} sx={{ width: '30%' }} />
             <Stack direction='row' gap={2}>
+                <CustomFilterPopover
+                    title={show.length > 0 ? show : 'Show'}
+                    popoverComponent={
+                        <FilterByValues
+                            options={showOptions}
+                            onApply={(value) => {
+                                handleShow(value);
+                                setShow(value);
+                            }}
+                        />
+                    }
+                />
                 <CustomFilterPopover
                     title={sortBy.length > 0 ? sortByTitle(sortBy) : 'Sort by'}
                     popoverComponent={

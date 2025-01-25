@@ -1,13 +1,18 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Chip, Stack, Typography } from "@mui/material";
 
-import { Iconify } from "src/components/iconify";
-import { RoundedButton } from "src/components/rounded-button";
 
+import { IBlog } from "src/app/dashboard/blog/_lib/blog.types";
+import { RedirectButton } from "src/components/button/redirect-button";
+import { CONFIG } from "src/config-global";
+import { fDateTime, fToNow, isDate24HoursPast } from "src/utils/format-time";
 import { IconWithText } from "./icon-with-text";
 
+type Props = {
+    blog: IBlog
+}
 
-export const NewsArticleCard = () => {
-
+export const NewsArticleCard = ({ blog }: Props) => {
+    const { title, slug, thumbnail, tags, updated_at } = blog;
 
     return (
         <Box
@@ -18,61 +23,44 @@ export const NewsArticleCard = () => {
                 boxShadow: 2,
                 overflow: 'hidden',
                 height: '100%',
-                marginBottom: 1,
-                mx: 1
+                width: '50%',
+                marginBottom: 1
             }}
         >
             <Box
                 component="img"
                 height="250"
-                src="/assets/home/card_1.png"
-                alt="Property image"
-                sx={{ objectFit: 'cover' }}
+                src={`${CONFIG.bucketUrl}/${thumbnail}`}
+                alt={title}
+                sx={{ objectFit: 'cover', width: '100%', height: '400px' }}
             />
             <Box sx={{
                 px: 4
             }}>
-                <Box
-                    sx={{
-                        marginY: 2,
-                        mx: "auto",
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        gap: 2
-                    }}
-                >
+                <Stack direction='row' justifyContent='space-between' alignItems='center' gap={2} sx={{ mt: 2, mb: 1 }}>
                     <IconWithText
                         icon="clarity:date-line"
-                        text="Apr 17, 2024"
+                        text={(isDate24HoursPast(new Date(updated_at)) ? fDateTime(updated_at) : `${fToNow(updated_at)} ago`) || ''}
                         sx={{ color: "white" }}
                         iconColor="white"
                     />
-                    <IconWithText
-                        icon="lets-icons:time-light"
-                        text="3 min read"
-                        sx={{ color: "white" }}
-                        iconColor="white"
-                    />
-                </Box>
+                    <Stack direction='row' gap={1}>
+                        {
+                            tags && tags.split(",").map((t) => (
+                                <Chip size="small" color="primary" variant="outlined" key={t} label={t} sx={{ textTransform: 'capitalize', borderRadius: '20px' }} />
+                            ))
+                        }
+                    </Stack>
+                </Stack>
                 <Typography
                     variant="h4"
                     color="text.white"
 
                 >
-                    University class starting soon while the lovely valley team work
+                    {title}
                 </Typography>
-                
-                <RoundedButton
-                    size="small"
-                    variant="outlined"
-                    sx={{
-                        borderColor: 'text.white',
-                        marginY: 2,
-                        color: 'text.white'
-                    }}
-                    endIcon={<Iconify width={18} icon="guidance:left-2-short-arrow" />}
-                > Book Now</RoundedButton>
+
+                <RedirectButton path={`/blog/${slug}`} title='Read more' />
             </Box>
         </Box>
     )

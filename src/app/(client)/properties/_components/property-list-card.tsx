@@ -2,11 +2,10 @@ import { Box, Button, ButtonGroup, Divider, Grid, Stack, Typography } from '@mui
 
 import { CustomChip } from 'src/components/custom-chip';
 import { Iconify } from 'src/components/iconify';
-import { SectionDescription } from 'src/components/section-description';
 import { TitledAvatar } from 'src/components/titled-avatar';
+import { currencyFormatter } from 'src/utils/currency-view';
 import { IconWithText } from '../../_components/icon-with-text';
 import { IProperty } from '../_lib/property.interface';
-import { currencyFormatter } from 'src/utils/currency-view';
 
 export const PropertyListCard = ({ data }: { data: IProperty }) => {
   const {
@@ -23,6 +22,7 @@ export const PropertyListCard = ({ data }: { data: IProperty }) => {
     <Grid
       container
       sx={{
+        height: '270px',
         borderRadius: '4px',
         '&:hover': {
           boxShadow: (theme) => theme.customShadows.card,
@@ -45,7 +45,7 @@ export const PropertyListCard = ({ data }: { data: IProperty }) => {
           component="img"
           height="100%"
           width="100%"
-          src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${process.env.NEXT_PUBLIC_BUCKET_NAME}/${feature_image}`}
+          src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${feature_image}`}
           alt="Property image"
           sx={{ objectFit: 'cover', borderRadius: { xs: '4px 4px 0 0', md: '4px 0 0 4px' } }}
         />
@@ -93,80 +93,81 @@ export const PropertyListCard = ({ data }: { data: IProperty }) => {
           borderRadius: { xs: '0 0 4px 4px', md: '0 4px 4px 0' },
         }}
       >
-        <Typography variant="h6" fontWeight="bold" gutterBottom>
-          {title}
-        </Typography>
-
-        <Typography variant="h6" color="primary" gutterBottom>
-          {currencyFormatter(price)}
-        </Typography>
-
-        <SectionDescription
-          sx={{
-            color: 'text.secondary',
-            fontSize: 14,
-            marginTop: 1,
-          }}
-        >
-          {description || ''}
-        </SectionDescription>
-
-        {/* Icons Row */}
-        {property_details && (
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: { xs: 'space-between', md: 'start' },
-              gap: 4,
-            }}
-          >
-            {property_details?.bedroom && (
-              <IconWithText
-                icon="fluent:bed-16-regular"
-                text={`Bed ${property_details?.bedroom}`}
-              />
-            )}
-            {property_details?.bathroom && (
-              <IconWithText icon="tabler:bath" text={`Bath ${property_details?.bathroom}`} />
-            )}
-            {property_details?.area_size && (
-              <IconWithText
-                icon="hugeicons:square-arrow-expand-02"
-                text={`${property_details?.area_size} sqft`}
-              />
+        <Stack direction='column' justifyContent='space-between' sx={{ height: '100%' }}>
+          <Box>
+            <Typography variant="h6" fontWeight="bold" gutterBottom>
+              {title}
+            </Typography>
+            <Typography variant="h6" color="primary" gutterBottom>
+              {currencyFormatter(price)}
+            </Typography>
+            {location && (
+              <Stack direction='row' gap={1}>
+                <Iconify icon="carbon:location" width={20} height={20} sx={{ color: 'text.secondary' }} />
+                <Typography sx={{ color: 'text.secondary', mt: '-4px' }}>{`${location.street}`}</Typography>
+              </Stack>
             )}
           </Box>
-        )}
 
-        <Divider sx={{ mx: 'auto', width: '90%', my: 2 }} />
+          {/* Icons Row */}
+          <Box>
+            {property_details && (
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: { xs: 'space-between', md: 'start' },
+                  gap: 4,
+                }}
+              >
+                {property_details?.bedroom > 0 && (
+                  <IconWithText
+                    icon="fluent:bed-16-regular"
+                    text={`Bed ${property_details?.bedroom}`}
+                  />
+                )}
+                {property_details?.bathroom > 0 && (
+                  <IconWithText icon="tabler:bath" text={`Bath ${property_details?.bathroom}`} />
+                )}
+                {property_details?.area_size > 0 && (
+                  <IconWithText
+                    icon="hugeicons:square-arrow-expand-02"
+                    text={`${property_details?.area_size} sqft`}
+                  />
+                )}
+              </Box>
+            )}
 
-        {/* FOOTER SECTION */}
-        <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ pb: 2 }}>
-          <TitledAvatar
-            path={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${process.env.NEXT_PUBLIC_BUCKET_NAME}/${uploaded_by.profile_pic}`}
-            title={`${uploaded_by.first_name} ${uploaded_by.last_name}`}
-          />
+            <Divider sx={{ mx: 'auto', width: '100%', mb: 1, mt: 2 }} />
 
-          {/* Buttons */}
-          <ButtonGroup
-            sx={{
-              '& .MuiButton-root': {
-                borderColor: '#DDDDDD',
-                color: '#333',
-              },
-            }}
-            size="small"
-          >
-            <Button>
-              <Iconify icon="material-symbols:share" />
-            </Button>
-            <Button>
-              <Iconify icon="carbon:favorite" />
-            </Button>
-            <Button>
-              <Iconify icon="ic:baseline-plus" />
-            </Button>
-          </ButtonGroup>
+            {/* FOOTER SECTION */}
+            <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ pb: 2 }}>
+              <TitledAvatar
+                path={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${process.env.NEXT_PUBLIC_BUCKET_NAME}/${uploaded_by.profile_pic}`}
+                title={`${uploaded_by.first_name} ${uploaded_by.last_name}`}
+              />
+
+              {/* Buttons */}
+              <ButtonGroup
+                sx={{
+                  '& .MuiButton-root': {
+                    borderColor: '#DDDDDD',
+                    color: '#333',
+                  },
+                }}
+                size="small"
+              >
+                <Button>
+                  <Iconify icon="material-symbols:share" />
+                </Button>
+                <Button>
+                  <Iconify icon="carbon:favorite" />
+                </Button>
+                <Button>
+                  <Iconify icon="ic:baseline-plus" />
+                </Button>
+              </ButtonGroup>
+            </Stack>
+          </Box>
         </Stack>
       </Grid>
     </Grid>
