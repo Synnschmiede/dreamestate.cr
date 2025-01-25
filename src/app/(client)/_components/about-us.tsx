@@ -1,16 +1,16 @@
 'use client';
 
-import { Box, Grid, Avatar, Container, Typography, AvatarGroup, useTheme } from '@mui/material';
+import { Avatar, AvatarGroup, Box, Container, Grid, Typography } from '@mui/material';
 
 import { pxToRem } from 'src/theme/styles';
 
-import { Iconify } from 'src/components/iconify';
-import { SectionTitle } from 'src/components/section-title';
-import { RoundedButton } from 'src/components/rounded-button';
 import { AnimatedShape } from 'src/components/animated-shape';
-import { SectionTopText } from 'src/components/section-toptext';
+import { Iconify } from 'src/components/iconify';
 import { SectionDescription } from 'src/components/section-description';
+import { SectionTitle } from 'src/components/section-title';
+import { SectionTopText } from 'src/components/section-toptext';
 
+import { RoundedButton } from 'src/components/button/rounded-button';
 import { IconWithText } from './icon-with-text';
 
 export const AboutUs = () => {
@@ -86,6 +86,7 @@ export const AboutUs = () => {
                   endIcon={<Iconify width={22} icon="guidance:left-2-short-arrow" />}
                   variant="contained"
                   sx={{ mt: 4 }}
+                  handleClick={() => console.log('clicked')}
                 >
                   More About Dreamesate
                 </RoundedButton>

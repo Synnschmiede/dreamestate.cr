@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 
 import { pxToRem } from "src/theme/styles";
 
-export const SectionDescription = ({ children, sx }: { children: string , sx?: object}) => {
+export const SectionDescription = ({ children, sx }: { children: string, sx?: object }) => {
     return (
         <Typography variant="inherit"
             sx={{

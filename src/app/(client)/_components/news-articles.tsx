@@ -1,23 +1,22 @@
-'use client';
-
-import { SwiperSlide } from 'swiper/react';
-import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper/modules';
-
-import { Box, Container, Grid, useTheme } from '@mui/material';
+import { Box, Container, Grid, Stack } from '@mui/material';
 
 import { pxToRem } from 'src/theme/styles';
 
-import { Iconify } from 'src/components/iconify';
-import { SectionTitle } from 'src/components/section-title';
 import { AnimatedShape } from 'src/components/animated-shape';
-import { RoundedButton } from 'src/components/rounded-button';
-import { SliderWrapper } from 'src/components/slider/slider-wrapper';
 import { SectionDescription } from 'src/components/section-description';
+import { SectionTitle } from 'src/components/section-title';
 
+import { IBlog } from 'src/app/dashboard/blog/_lib/blog.types';
+import { RedirectButton } from 'src/components/button/redirect-button';
 import { NewsArticleCard } from './news-article-card';
 
-export const NewsArticles = () => {
-  const theme = useTheme();
+export const NewsArticles = async () => {
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/blog/posts?featured=true`, {
+    cache: 'no-cache',
+  });
+  const blog_response = await res.json();
+
   return (
     <Box
       sx={{
@@ -93,44 +92,17 @@ export const NewsArticles = () => {
               alignItems: 'center',
             }}
           >
-            <RoundedButton
-              endIcon={<Iconify width={22} icon="guidance:left-2-short-arrow" />}
-              variant="outlined"
-              sx={{
-                borderColor: 'text.white',
-                marginY: 2,
-                color: 'text.white',
-              }}
-            >
-              Browse All Project
-            </RoundedButton>
+            <RedirectButton path='/blog' title='Browse all post' />
           </Grid>
         </Grid>
         {/* sliders */}
-        <Box>
-          <SliderWrapper
-            modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-            autoplay={{ delay: 5000, disableOnInteraction: true }}
-            breakpoints={{
-              0: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-            }}
-            speed={2000}
-          >
-            <SwiperSlide>
-              <NewsArticleCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <NewsArticleCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <NewsArticleCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <NewsArticleCard />
-            </SwiperSlide>
-          </SliderWrapper>
-        </Box>
+        <Stack direction='row' gap={2}>
+          {
+            blog_response?.data && blog_response?.data?.slice(0, 2).map((item: IBlog) => (
+              <NewsArticleCard key={item.id} blog={item} />
+            ))
+          }
+        </Stack>
         <AnimatedShape
           animationType="spin"
           size={{ width: 150, height: 150 }}

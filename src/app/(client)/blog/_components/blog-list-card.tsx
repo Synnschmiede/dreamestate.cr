@@ -1,19 +1,25 @@
 import { Box, Button, ButtonGroup, Divider, Grid, Stack, Typography } from '@mui/material';
 
 import { IBlog } from 'src/app/dashboard/blog/_lib/blog.types';
+import { RedirectButton } from 'src/components/button/redirect-button';
 import { CustomChip } from 'src/components/custom-chip';
 import { Iconify } from 'src/components/iconify';
-import { SectionDescription } from 'src/components/section-description';
+import { Markdown } from 'src/components/markdown';
 import { TitledAvatar } from 'src/components/titled-avatar';
+import { fDateTime, fToNow, isDate24HoursPast } from 'src/utils/format-time';
 
 export const BlogListCard = ({ data }: { data: IBlog }) => {
     const {
         title,
+        slug,
         thumbnail,
         tags,
         content,
-        author
+        featured,
+        author,
+        updated_at
     } = data;
+
     return (
         <Grid
             container
@@ -33,12 +39,12 @@ export const BlogListCard = ({ data }: { data: IBlog }) => {
                 item
                 xs={12}
                 md={5}
-                sx={{ position: 'relative', overflow: 'hidden', cursor: 'pointer' }}
+                sx={{ position: 'relative', overflow: 'hidden' }}
             >
                 <Box
                     className="property-image"
                     component="img"
-                    height="100%"
+                    height="310px"
                     width="100%"
                     src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${thumbnail}`}
                     alt="Property image"
@@ -56,24 +62,11 @@ export const BlogListCard = ({ data }: { data: IBlog }) => {
                     }}
                 />
 
-                <Box sx={{ position: 'absolute', top: 10, right: 10, display: 'flex', gap: 1 }}>
-                    <CustomChip label={tags[0]} color="info" size="small" />
-                </Box>
-
-                <Box
-                    sx={{
-                        position: 'absolute',
-                        bottom: 10,
-                        right: 10,
-                        display: 'flex',
-                        alignItems: 'center',
-                        color: 'common.white',
-                        zIndex: 2,
-                        gap: 0.5,
-                    }}
-                >
-                    <Iconify icon="mdi:camera" width={18} height={18} /> {6}
-                </Box>
+                {featured && (
+                    <Box sx={{ position: 'absolute', top: 10, right: 10, display: 'flex', gap: 1 }}>
+                        <CustomChip label='FEATURED' color="info" size="small" />
+                    </Box>
+                )}
             </Grid>
 
             {/* CONTENT SECTION */}
@@ -88,49 +81,54 @@ export const BlogListCard = ({ data }: { data: IBlog }) => {
                     borderRadius: { xs: '0 0 4px 4px', md: '0 4px 4px 0' },
                 }}
             >
-                <Typography variant="h6" fontWeight="bold" gutterBottom>
-                    {title}
-                </Typography>
+                <Stack direction='column' justifyContent='space-between' sx={{ height: '100%' }}>
+                    <Stack direction='column' alignItems='flex-start'>
+                        <Typography variant="h6" fontWeight="bold" gutterBottom>
+                            {title}
+                        </Typography>
+                        <Stack direction='row' alignItems='center' gap={1}>
+                            <Iconify icon="clarity:date-line" sx={{ color: 'primary.main' }} />
+                            <Typography variant="caption" color="primary.main">
+                                {isDate24HoursPast(new Date(updated_at)) ? fDateTime(updated_at) : `${fToNow(updated_at)} ago`}
+                            </Typography>
+                        </Stack>
 
-                <SectionDescription
-                    sx={{
-                        color: 'text.secondary',
-                        fontSize: 14,
-                        marginTop: 1,
-                    }}
-                >
-                    {content || ''}
-                </SectionDescription>
+                        <Markdown
+                            children={content.length > 50 ? `${content.substring(0, 174)}...` : content}
+                            sx={{
+                                color: 'text.disabled',
+                                fontSize: 16,
+                            }}
+                        />
+                        <RedirectButton path={`/blog/${slug}`} title="Read more" sx={{ borderColor: 'divider', color: 'text.primary' }} />
+                    </Stack>
 
-                <Divider sx={{ mx: 'auto', width: '90%', my: 2 }} />
+                    <Stack>
+                        <Divider sx={{ mx: 'auto', width: '100%', my: 2 }} />
 
-                {/* FOOTER SECTION */}
-                <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ pb: 2 }}>
-                    <TitledAvatar
-                        path={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${author.profile_pic}`}
-                        title={`${author.first_name} ${author.last_name}`}
-                    />
+                        {/* FOOTER SECTION */}
+                        <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ pb: 2 }}>
+                            <TitledAvatar
+                                path={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${author.profile_pic}`}
+                                title={`${author.first_name} ${author.last_name}`}
+                            />
 
-                    {/* Buttons */}
-                    <ButtonGroup
-                        sx={{
-                            '& .MuiButton-root': {
-                                borderColor: '#DDDDDD',
-                                color: '#333',
-                            },
-                        }}
-                        size="small"
-                    >
-                        <Button>
-                            <Iconify icon="material-symbols:share" />
-                        </Button>
-                        <Button>
-                            <Iconify icon="carbon:favorite" />
-                        </Button>
-                        <Button>
-                            <Iconify icon="ic:baseline-plus" />
-                        </Button>
-                    </ButtonGroup>
+                            {/* Buttons */}
+                            <ButtonGroup
+                                sx={{
+                                    '& .MuiButton-root': {
+                                        borderColor: '#DDDDDD',
+                                        color: '#333',
+                                    },
+                                }}
+                                size="small"
+                            >
+                                <Button>
+                                    <Iconify icon="material-symbols:share" />
+                                </Button>
+                            </ButtonGroup>
+                        </Stack>
+                    </Stack>
                 </Stack>
             </Grid>
         </Grid>

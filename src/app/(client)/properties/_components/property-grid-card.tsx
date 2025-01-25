@@ -12,11 +12,10 @@ import {
 
 import { CustomChip } from 'src/components/custom-chip';
 import { Iconify } from 'src/components/iconify';
-import { SectionDescription } from 'src/components/section-description';
 import { TitledAvatar } from 'src/components/titled-avatar';
+import { currencyFormatter } from 'src/utils/currency-view';
 import { IconWithText } from '../../_components/icon-with-text';
 import { IProperty } from '../_lib/property.interface';
-import { currencyFormatter } from 'src/utils/currency-view';
 
 export const PropertyGridCard = ({ data }: { data: IProperty }) => {
   const {
@@ -51,7 +50,7 @@ export const PropertyGridCard = ({ data }: { data: IProperty }) => {
         <CardMedia
           component="img"
           height="250"
-          image={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${process.env.NEXT_PUBLIC_BUCKET_NAME}/${feature_image}`}
+          image={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${feature_image}`}
           alt={title}
           sx={{ objectFit: 'cover' }}
         />
@@ -97,24 +96,15 @@ export const PropertyGridCard = ({ data }: { data: IProperty }) => {
         <Typography variant="h5" color="text.secondary">
           {title}
         </Typography>
-        <Typography variant="h6" color="primary" sx={{ mt: 1 }}>
+        <Typography variant="h6" color="primary" sx={{ my: 1 }}>
           {currencyFormatter(data?.price)}
         </Typography>
         {location && (
-          <IconWithText
-            icon="carbon:location"
-            text={`${location.street}, ${location?.postal_code}, ${location.city}, ${location.state}, ${location.country}`}
-          />
+          <Stack direction='row' gap={1}>
+            <Iconify icon="carbon:location" width={20} height={20} sx={{ color: 'text.secondary' }} />
+            <Typography sx={{ color: 'text.secondary', mt: '-4px' }}>{`${location.street}`}</Typography>
+          </Stack>
         )}
-        <SectionDescription
-          sx={{
-            color: 'text.disabled',
-            fontSize: 16,
-            marginTop: 2,
-          }}
-        >
-          {description || ''}
-        </SectionDescription>
         {property_details && (
           <Box
             sx={{
@@ -126,16 +116,16 @@ export const PropertyGridCard = ({ data }: { data: IProperty }) => {
               alignItems: 'center',
             }}
           >
-            {property_details?.bedroom && (
+            {property_details?.bedroom > 0 && (
               <IconWithText
                 icon="fluent:bed-16-regular"
                 text={`Bed ${property_details?.bedroom}`}
               />
             )}
-            {property_details?.bathroom && (
+            {property_details?.bathroom > 0 && (
               <IconWithText icon="tabler:bath" text={`Bath ${property_details?.bathroom}`} />
             )}
-            {property_details?.area_size && (
+            {property_details?.area_size > 0 && (
               <IconWithText
                 icon="hugeicons:square-arrow-expand-02"
                 text={`${property_details?.area_size} sqft`}

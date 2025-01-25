@@ -1,7 +1,7 @@
 import { Grid, Stack, Typography } from '@mui/material';
+import { Iconify } from 'src/components/iconify';
 import { PropertyDetailsAccordion } from './property-details-accordion';
 import { PropertyDetailsContainer } from './property-details-container';
-import { Iconify } from 'src/components/iconify';
 
 export const PropertyDetailsFeature = ({
   data,
@@ -22,7 +22,7 @@ export const PropertyDetailsFeature = ({
               Interior Details
             </Typography>
           </Grid>
-          {data.interior_details.length > 0 &&
+          {data?.interior_details?.length > 0 &&
             data.interior_details.map((item: string) => (
               <Grid item xs={12} md={4} key={item}>
                 <PropertyDetailsCheckbox value={item || '-'} />
@@ -33,7 +33,7 @@ export const PropertyDetailsFeature = ({
               Outdoor Details
             </Typography>
           </Grid>
-          {data.outdoor_details.length > 0 &&
+          {data?.outdoor_details?.length > 0 &&
             data.outdoor_details.map((item: string) => (
               <Grid item xs={12} md={4} key={item}>
                 <PropertyDetailsCheckbox value={item || '-'} />
@@ -44,7 +44,7 @@ export const PropertyDetailsFeature = ({
               utilities Details
             </Typography>
           </Grid>
-          {data.utilities.length > 0 &&
+          {data?.utilities?.length > 0 &&
             data.utilities.map((item: string) => (
               <Grid item xs={12} md={4} key={item}>
                 <PropertyDetailsCheckbox value={item || '-'} />
@@ -55,7 +55,7 @@ export const PropertyDetailsFeature = ({
               Other Features
             </Typography>
           </Grid>
-          {data.other_features.length > 0 &&
+          {data?.other_features?.length > 0 &&
             data.other_features.map((item: string) => (
               <Grid item xs={12} md={4} key={item}>
                 <PropertyDetailsCheckbox value={item || '-'} />

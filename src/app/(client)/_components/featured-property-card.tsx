@@ -1,10 +1,10 @@
-import { Card, Grid, Stack, Divider, CardMedia, Typography, CardContent, Box } from "@mui/material";
+import { Box, Card, CardContent, CardMedia, Divider, Stack, Typography } from "@mui/material";
 
 import { Iconify } from "src/components/iconify";
-import { TitledAvatar } from "src/components/titled-avatar";
-import { RoundedButton } from "src/components/rounded-button";
 import { SectionDescription } from "src/components/section-description";
+import { TitledAvatar } from "src/components/titled-avatar";
 
+import { RoundedButton } from "src/components/button/rounded-button";
 import { IconWithText } from "./icon-with-text";
 
 
@@ -20,7 +20,7 @@ export const FeaturedPropertyCard = () => {
                 boxShadow: 3,
                 overflow: 'hidden',
                 height: '100%',
-                marginBottom: 1 
+                marginBottom: 1
             }}
         >
             <CardMedia
@@ -77,6 +77,7 @@ export const FeaturedPropertyCard = () => {
                         borderColor: 'text.primary',
                     }}
                     endIcon={<Iconify width={18} icon="guidance:left-2-short-arrow" />}
+                    handleClick={() => console.log('clicked')}
                 > Book Now</RoundedButton>
             </Stack>
         </Card>

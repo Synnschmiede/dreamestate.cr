@@ -1,19 +1,19 @@
 "use client"
 
+import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper/modules';
 import { SwiperSlide } from 'swiper/react';
-import { A11y, Autoplay, Scrollbar, Navigation, Pagination } from 'swiper/modules';
 
-import { Box, Grid, Container } from '@mui/material';
+import { Box, Container, Grid } from '@mui/material';
 
 import { pxToRem } from 'src/theme/styles';
 
 import { Iconify } from 'src/components/iconify';
+import { SectionDescription } from 'src/components/section-description';
 import { SectionTitle } from 'src/components/section-title';
-import { RoundedButton } from 'src/components/rounded-button';
 import { SectionTopText } from 'src/components/section-toptext';
 import { SliderWrapper } from 'src/components/slider/slider-wrapper';
-import { SectionDescription } from 'src/components/section-description';
 
+import { RoundedButton } from 'src/components/button/rounded-button';
 import { FeaturedPropertyCard } from './featured-property-card';
 
 export const FeaturedListings = () => {
@@ -96,6 +96,7 @@ export const FeaturedListings = () => {
                                 endIcon={<Iconify width={22} icon="guidance:left-2-short-arrow" />}
                                 variant='contained'
                                 sx={{ mt: 2, py: { xs: 1.5, md: 2.5 }, px: { xs: 3, md: 4 } }}
+                                handleClick={() => console.log('clicked')}
                             >
                                 View all properties
                             </RoundedButton>

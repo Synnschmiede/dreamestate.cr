@@ -9,8 +9,10 @@ import {
     Stack,
     Typography,
 } from '@mui/material';
+import { useRouter } from 'next/navigation';
 
 import { IBlog } from 'src/app/dashboard/blog/_lib/blog.types';
+import { RedirectButton } from 'src/components/button/redirect-button';
 import { CustomChip } from 'src/components/custom-chip';
 import { Iconify } from 'src/components/iconify';
 import { Markdown } from 'src/components/markdown';
@@ -21,12 +23,20 @@ import { fDateTime, fToNow, isDate24HoursPast } from 'src/utils/format-time';
 export const BlogGridCard = ({ data }: { data: IBlog }) => {
     const {
         title,
+        slug,
         thumbnail,
         content,
         author,
         featured,
         updated_at
     } = data;
+
+    const router = useRouter();
+
+    const handleRedirect = (slug: string) => {
+        router.push(`/blog/${slug}`);
+    };
+
     return (
         <Card
             sx={{
@@ -46,7 +56,7 @@ export const BlogGridCard = ({ data }: { data: IBlog }) => {
                 },
             }}
         >
-            <Box sx={{ position: 'relative', overflow: 'hidden', cursor: 'pointer' }}>
+            <Box sx={{ position: 'relative', overflow: 'hidden' }}>
                 <CardMedia
                     component="img"
                     height="250"
@@ -84,17 +94,20 @@ export const BlogGridCard = ({ data }: { data: IBlog }) => {
                 <Typography variant="h5" color="text.secondary">
                     {title}
                 </Typography>
-                <Typography variant="caption" color="primary.main">
-                    {isDate24HoursPast(new Date(updated_at)) ? fDateTime(updated_at) : `${fToNow(updated_at)} ago`}
-                </Typography>
+                <Stack direction='row' alignItems='center' gap={1}>
+                    <Iconify icon="clarity:date-line" sx={{ color: 'primary.main' }} />
+                    <Typography variant="caption" color="primary.main">
+                        {isDate24HoursPast(new Date(updated_at)) ? fDateTime(updated_at) : `${fToNow(updated_at)} ago`}
+                    </Typography>
+                </Stack>
                 <Markdown
-                    children={content.length > 50 ? `${content.substring(0, 200)}` : content}
+                    children={content.length > 50 ? `${content.substring(0, 200)}...` : content}
                     sx={{
                         color: 'text.disabled',
                         fontSize: 16,
                     }}
                 />
-                <Button variant='outlined' endIcon={<Iconify icon="ic:round-arrow-right-alt" />}>See more</Button>
+                <RedirectButton path={`/blog/${slug}`} title="Read more" sx={{ borderColor: 'divider', color: 'text.primary' }} />
             </CardContent>
 
             <Divider

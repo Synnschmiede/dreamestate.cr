@@ -1,3 +1,16 @@
+export type TAuthor = {
+    id: string;
+    first_name: string;
+    last_name: string;
+    email: string;
+    contact_number: string;
+    profile_pic?: string;
+    role: string;
+    status: string;
+    created_at: string;
+    updated_at: string;
+}
+
 export interface IBlog {
     id: string;
     title: string;
@@ -9,18 +22,7 @@ export interface IBlog {
     published: boolean;
     featured: boolean;
     author_id: string;
-    author: {
-        id: string;
-        first_name: string;
-        last_name: string;
-        email: string;
-        contact_number: string;
-        profile_pic?: string;
-        role: string;
-        status: string;
-        created_at: string;
-        updated_at: string;
-    }
+    author: TAuthor;
     created_at: string;
     updated_at: string;
 }

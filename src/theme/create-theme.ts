@@ -28,7 +28,7 @@ export function createTheme(settings: SettingsState): Theme {
         sm: 600,
         md: 960,
         lg: 1140,
-        xl: 1370,
+        xl: 1535,
       },
     }, 
     cssVarPrefix: '',
