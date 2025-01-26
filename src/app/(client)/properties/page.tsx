@@ -29,7 +29,7 @@ export default async function PropertiesPage({
           links={[{ name: 'Home', href: '/' }, { name: 'Properties' }]}
           sx={{ mb: 2 }}
         />
-        <PropertiesView properties={properties.data} />
+        <PropertiesView properties={properties.data} meta={properties.meta} />
       </Container>
     </Box>
   );

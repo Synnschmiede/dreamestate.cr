@@ -21,10 +21,10 @@ import {
 import { useFormik } from 'formik';
 import { FormHead } from 'src/auth/components/form-head';
 import { CustomPasswordInput } from 'src/components/form-fields/custom-password-fields';
-import useAuth from 'src/hooks/useAuth';
-import { defaultSignInUser } from '../_lib/types';
 import { formConstants } from 'src/constants/form-constants';
+import useAuth from 'src/hooks/useAuth';
 import { validateEmail } from 'src/utils/helper';
+import { defaultSignInUser } from '../_lib/types';
 
 // ----------------------------------------------------------------------
 
@@ -94,12 +94,13 @@ export const SignInForm = () => {
       <FormHead
         title="Sign in to your account"
         description={
-          <>
-            {`Don’t have an account? `}
-            <Link component={RouterLink} href={paths.auth.signUp} variant="subtitle2">
-              Sign up
-            </Link>
-          </>
+          // <>
+          //   {`Don’t have an account? `}
+          //   <Link component={RouterLink} href={paths.auth.signUp} variant="subtitle2">
+          //     Sign up
+          //   </Link>
+          // </>
+          ''
         }
         sx={{ textAlign: { xs: 'center', md: 'left' } }}
       />

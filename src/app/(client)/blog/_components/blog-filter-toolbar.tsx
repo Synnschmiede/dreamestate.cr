@@ -1,15 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import { Stack, TextField, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { Stack, ToggleButton, ToggleButtonGroup } from '@mui/material';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { CustomFilterPopover } from 'src/components/core/custom-filter-popover';
 import { FilterByValues } from 'src/components/core/filter-by-values';
+import SearchBox from 'src/components/form-fields/search-box';
 import { Iconify } from 'src/components/iconify';
-import { useDebounce } from 'src/hooks/use-debounce';
-import { showOptions, sortByTitle, sortOptions } from '../_lib/utils';
+import { showOptions } from 'src/utils/common';
+import { sortByTitle, sortOptions } from '../_lib/utils';
 
 interface IFilterToolbarProps {
     view: string;
@@ -22,11 +23,9 @@ export const BlogFilterToolbar = ({ view, handleChangeView }: IFilterToolbarProp
 
     const [sortBy, setSortBy] = useState(sortOrderLabel);
     const [show, setShow] = useState(searchParams.get('limit') || '');
-    const [searchText, setSearchText] = useState('');
 
     const pathname = usePathname();
     const router = useRouter();
-    const searchTerm = useDebounce(searchText);
 
     const handleSort = (value: string) => {
         const params = new URLSearchParams(window.location.search);
@@ -61,22 +60,6 @@ export const BlogFilterToolbar = ({ view, handleChangeView }: IFilterToolbarProp
         }
     };
 
-    useEffect(() => {
-        router.replace(`${pathname}`);
-    }, [pathname, router]);
-
-    useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        if (searchTerm.length) {
-            params.set('searchTerm', searchTerm);
-            router.push(`${pathname}?${params.toString()}`);
-        } else {
-            params.delete('searchTerm');
-            router.push(`${pathname}?${params.toString()}`);
-        }
-
-    }, [searchTerm]);
-
     return (
         <Stack
             direction="row"
@@ -90,20 +73,8 @@ export const BlogFilterToolbar = ({ view, handleChangeView }: IFilterToolbarProp
                 width: '100%',
             }}
         >
-            <TextField placeholder="Search..." value={searchText} onChange={(e) => setSearchText(e.target.value)} sx={{ width: '30%' }} />
+            <SearchBox />
             <Stack direction='row' gap={2}>
-                <CustomFilterPopover
-                    title={show.length > 0 ? show : 'Show'}
-                    popoverComponent={
-                        <FilterByValues
-                            options={showOptions}
-                            onApply={(value) => {
-                                handleShow(value);
-                                setShow(value);
-                            }}
-                        />
-                    }
-                />
                 <CustomFilterPopover
                     title={sortBy.length > 0 ? sortByTitle(sortBy) : 'Sort by'}
                     popoverComponent={
@@ -112,6 +83,18 @@ export const BlogFilterToolbar = ({ view, handleChangeView }: IFilterToolbarProp
                             onApply={(value) => {
                                 handleSort(value);
                                 setSortBy(value);
+                            }}
+                        />
+                    }
+                />
+                <CustomFilterPopover
+                    title={show.length > 0 ? show : 'Show'}
+                    popoverComponent={
+                        <FilterByValues
+                            options={showOptions}
+                            onApply={(value) => {
+                                handleShow(value);
+                                setShow(value);
                             }}
                         />
                     }
