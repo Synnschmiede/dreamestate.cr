@@ -1,14 +1,20 @@
 'use client';
-import { Grid, Pagination } from '@mui/material';
+import { Grid } from '@mui/material';
 import React from 'react';
+import PagePagination from 'src/components/pagination/page-pagination';
+import { TMeta } from 'src/types/common';
 import { FilterToolbar } from './_components/filter-toolbar';
 import { PropertyCountByCategory } from './_components/property-count-by-category';
 import { PropertyGridView } from './_components/property-grid-view';
 import { PropertyListView } from './_components/property-list-view';
 import { IProperty } from './_lib/property.interface';
 
-export const PropertiesView = ({ properties }: { properties: IProperty[] }) => {
+type Props =
+  { properties: IProperty[]; meta: TMeta }
+
+export const PropertiesView = ({ properties, meta }: Props) => {
   const [propertyView, setPropertyView] = React.useState<string>('grid');
+
   const handleChangeView = React.useCallback(
     (event: React.MouseEvent<HTMLElement>, newView: string | null) => {
       if (newView !== null) {
@@ -37,7 +43,11 @@ export const PropertiesView = ({ properties }: { properties: IProperty[] }) => {
           ) : (
             <PropertyGridView data={properties} />
           )}
-          <Pagination sx={{ mt: 2 }} count={5} variant="outlined" shape="rounded" />
+          {
+            meta && meta.total > meta.limit && (
+              <PagePagination meta={meta} />
+            )
+          }
         </Grid>
 
         {/* right panel widgets */}

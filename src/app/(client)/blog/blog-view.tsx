@@ -1,9 +1,10 @@
 'use client';
-import { Grid, Pagination } from '@mui/material';
+import { Grid } from '@mui/material';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 import { IBlog } from 'src/app/dashboard/blog/_lib/blog.types';
 import { ContactForm } from 'src/components/form-components/contact-form';
+import PagePagination from 'src/components/pagination/page-pagination';
 import { TGetResponse } from 'src/types/common';
 import { IUploader } from '../properties/_lib/property.interface';
 import { BlogFilterToolbar } from './_components/blog-filter-toolbar';
@@ -17,7 +18,7 @@ type Props = {
 export const BlogView = ({ blog_response }: Props) => {
     const searchParams = useSearchParams();
 
-    const [propertyView, setPropertyView] = React.useState<string>('grid');
+    const [blogView, setBlogView] = React.useState<string>('grid');
     const [currentPage, setCurrentPage] = React.useState<number>(Number(searchParams.get('page')) || 1);
 
     const router = useRouter();
@@ -26,8 +27,8 @@ export const BlogView = ({ blog_response }: Props) => {
     const handleChangeView = React.useCallback(
         (event: React.MouseEvent<HTMLElement>, newView: string | null) => {
             if (newView !== null) {
-                setPropertyView(newView);
-                localStorage.setItem('propertyView', newView);
+                setBlogView(newView);
+                localStorage.setItem('blogView', newView);
             }
         },
         []
@@ -43,7 +44,7 @@ export const BlogView = ({ blog_response }: Props) => {
     React.useEffect(() => {
         const view = localStorage.getItem('propertyView');
         if (view) {
-            setPropertyView(view);
+            setBlogView(view);
         }
     }, []);
 
@@ -58,18 +59,18 @@ export const BlogView = ({ blog_response }: Props) => {
 
     return (
         <>
-            <BlogFilterToolbar view={propertyView} handleChangeView={handleChangeView} />
+            <BlogFilterToolbar view={blogView} handleChangeView={handleChangeView} />
             <Grid container spacing={2} sx={{ my: { xs: 1, md: 2 } }}>
                 {/* blog list */}
                 <Grid item xs={12} md={8}>
-                    {propertyView === 'list' ? (
+                    {blogView === 'list' ? (
                         <BlogListView data={blog_response.data} />
                     ) : (
                         <BlogGridView data={blog_response.data} />
                     )}
                     {
                         blog_response?.meta && blog_response.meta.total > blog_response.meta.limit && (
-                            <Pagination sx={{ mt: 2 }} count={blog_response.meta.total / blog_response.meta.limit} page={currentPage} onChange={handleChangePage} variant="outlined" shape="rounded" />
+                            <PagePagination meta={blog_response.meta} />
                         )
                     }
                 </Grid>

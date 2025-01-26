@@ -1,19 +1,17 @@
 "use client";
 
+import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper/modules';
 import { SwiperSlide } from 'swiper/react';
-import { A11y, Autoplay, Scrollbar, Navigation, Pagination } from 'swiper/modules';
 
-import { Box, Grid, Container } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 
 import { pxToRem } from "src/theme/styles";
 
-import { Iconify } from 'src/components/iconify';
-import { SectionTitle } from "src/components/section-title";
 import { AnimatedShape } from 'src/components/animated-shape';
-import { RoundedButton } from 'src/components/rounded-button';
+import { SectionDescription } from "src/components/section-description";
+import { SectionTitle } from "src/components/section-title";
 import { SectionTopText } from "src/components/section-toptext";
 import { SliderWrapper } from "src/components/slider/slider-wrapper";
-import { SectionDescription } from "src/components/section-description";
 
 import { TeamMemberCard } from './team-member-card';
 

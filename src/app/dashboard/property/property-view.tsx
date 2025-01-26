@@ -8,19 +8,21 @@ import RouterLink from 'next/link';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 
-import { IconButton } from '@mui/material';
+import { IconButton, TextField } from '@mui/material';
 import Chip from '@mui/material/Chip';
 import Link from '@mui/material/Link';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation';
-import PageLoader from 'src/components/PageLoader/PageLoader';
 import { CustomFilterPopover } from 'src/components/core/custom-filter-popover';
 import { DataTable } from 'src/components/data-table/data-table';
 import { Iconify } from 'src/components/iconify';
 import { RefreshPlugin } from 'src/components/plugins/RefreshPlugin';
+import TableSelectedAction from 'src/components/table/table-selected-action';
+import { useBoolean } from 'src/hooks/use-boolean';
+import { useDebounce } from 'src/hooks/use-debounce';
 import { DashboardContent } from 'src/layouts/dashboard';
 import { paths } from 'src/routes/paths';
-import { getProperty } from './_lib/property.actions';
+import { deletePropertyAsync, getProperty } from './_lib/property.actions';
 import { IProperty } from './_lib/property.types';
 
 export const PropertyView = () => {
@@ -31,16 +33,21 @@ export const PropertyView = () => {
   const [totalRecords, setTotalRecords] = React.useState(0);
   const [selectedRows, setSelectedRows] = React.useState<IProperty[]>([]);
   const [status, setStatus] = React.useState('');
+  const [searchText, setSearchText] = React.useState('');
   const router = useRouter();
+
+  const searchTerm = useDebounce(searchText);
+
+  const deleteConfirm = useBoolean();
 
   async function fetchList() {
     try {
       setLoading(true);
-      const response = await getProperty({
-        page: pagination.pageNo,
-        rowsPerPage: pagination.limit,
-        status: status,
-      });
+      const response = await getProperty([
+        { name: 'page', value: pagination.pageNo },
+        { name: 'limit', value: pagination.limit },
+        { name: 'searchTerm', value: searchTerm },
+      ]);
       if (response.success) {
         setList(response.data);
         setTotalRecords(response.totalRecords);
@@ -52,6 +59,17 @@ export const PropertyView = () => {
     }
   }
 
+  const handleDelete = async () => {
+    console.log("inside of the handle delete");
+    setLoading(true)
+    const ids = selectedRows.map((row) => row.id)
+    await deletePropertyAsync(ids);
+    await fetchList();
+    setSelectedRows([])
+    deleteConfirm.onFalse();
+    setLoading(false)
+  };
+
   const handleConfirm = () => {
     setOpenModal(false);
     // fetchUsersData();
@@ -60,7 +78,7 @@ export const PropertyView = () => {
 
   React.useEffect(() => {
     fetchList();
-  }, [pagination, status]);
+  }, [pagination, searchTerm]);
 
   const columns = [
     {
@@ -148,48 +166,59 @@ export const PropertyView = () => {
             </Button>
           </Box>
         </Stack>
-        <PageLoader loading={loading} error={null}>
-          <Card>
-            <Box sx={{ overflowX: 'auto' }}>
-              <React.Fragment>
-                <DataTable
-                  isPagination={true}
-                  totalRecords={totalRecords}
-                  rowsPerPageOptions={pagination.limit}
-                  pageNo={pagination.pageNo}
-                  columns={columns}
-                  rows={list}
-                  uniqueRowId="id"
-                  selectionMode="multiple"
-                  leftItems={
-                    <>
-                      <CustomFilterPopover
-                        title="Search by Category"
-                        popoverComponent={<Box>Todo: add search by category</Box>}
-                      />
-                      <RefreshPlugin onClick={fetchList} />
-                    </>
-                  }
-                  rightItems={<></>}
-                  onRowsPerPageChange={(pageNumber: number, rowsPerPage: number) =>
-                    setPagination({ pageNo: pageNumber, limit: rowsPerPage })
-                  }
-                  onPageChange={(newPageNumber) =>
-                    setPagination({ ...pagination, pageNo: newPageNumber })
-                  }
-                  onSelection={(selectedRows: IProperty[]) => setSelectedRows?.(selectedRows)}
-                />
-                {!list?.length ? (
-                  <Box sx={{ p: 3 }}>
-                    <Typography color="text.secondary" sx={{ textAlign: 'center' }} variant="body2">
-                      No data found
-                    </Typography>
-                  </Box>
-                ) : null}
-              </React.Fragment>
-            </Box>
-          </Card>
-        </PageLoader>
+        <Card>
+          {selectedRows?.length > 0 && (
+            <TableSelectedAction
+              action={deleteConfirm}
+              onConfirm={handleDelete}
+              totalSelected={selectedRows?.length}
+            />
+          )}
+          <Box sx={{ overflowX: 'auto' }}>
+            <React.Fragment>
+              <DataTable
+                isPagination={true}
+                totalRecords={totalRecords}
+                rowsPerPageOptions={pagination.limit}
+                pageNo={pagination.pageNo}
+                columns={columns}
+                rows={list}
+                uniqueRowId="id"
+                selectionMode="multiple"
+                leftItems={
+                  <>
+                    <TextField
+                      size="small"
+                      onChange={(e) => setSearchText(e.target.value)}
+                      placeholder="Search..."
+                    />
+                    <CustomFilterPopover
+                      title="Search by Category"
+                      popoverComponent={<Box>Todo: add search by category</Box>}
+                    />
+                    <RefreshPlugin onClick={fetchList} />
+                  </>
+                }
+                rightItems={<></>}
+                onRowsPerPageChange={(pageNumber: number, rowsPerPage: number) =>
+                  setPagination({ pageNo: pageNumber, limit: rowsPerPage })
+                }
+                onPageChange={(newPageNumber) =>
+                  setPagination({ ...pagination, pageNo: newPageNumber })
+                }
+                onSelection={setSelectedRows}
+                selectedRows={selectedRows}
+              />
+              {!list?.length ? (
+                <Box sx={{ p: 3 }}>
+                  <Typography color="text.secondary" sx={{ textAlign: 'center' }} variant="body2">
+                    No data found
+                  </Typography>
+                </Box>
+              ) : null}
+            </React.Fragment>
+          </Box>
+        </Card>
       </Stack>
     </DashboardContent>
   );

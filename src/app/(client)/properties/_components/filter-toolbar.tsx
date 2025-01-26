@@ -1,13 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { Stack, ToggleButton, ToggleButtonGroup } from '@mui/material';
 
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { CustomFilterPopover } from 'src/components/core/custom-filter-popover';
 import { FilterByValues } from 'src/components/core/filter-by-values';
+import SearchBox from 'src/components/form-fields/search-box';
 import { Iconify } from 'src/components/iconify';
+import { showOptions } from 'src/utils/common';
+import { categoriesOptions, cityOptions, sortByTitle, sortOptions } from '../_lib/utils';
 
 interface IFilterToolbarProps {
   view: string;
@@ -15,9 +18,13 @@ interface IFilterToolbarProps {
 }
 
 export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) => {
-  const [categories, setCategories] = useState<string>('');
-  const [cities, setCities] = useState('');
-  const [sortBy, setSortBy] = useState('');
+  const searchParams = useSearchParams();
+  const sortOrderLabel = searchParams.get('sortOrder') ? searchParams.get('sortOrder') === 'desc' ? 'NEWEST' : 'OLDEST' : '';
+
+  const [categories, setCategories] = useState<string>(searchParams.get('city') || '');
+  const [cities, setCities] = useState(searchParams.get('city') || '');
+  const [sortBy, setSortBy] = useState(sortOrderLabel);
+  const [show, setShow] = useState(searchParams.get('limit') || '');
 
   const pathname = usePathname();
   const router = useRouter();
@@ -31,6 +38,18 @@ export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) =
       params.delete(key);
     }
     router.push(`${pathname}?${params.toString()}`);
+  };
+
+  const handleShow = (value: string) => {
+    const params = new URLSearchParams(window.location.search);
+    if (value.length) {
+      params.set('limit', value);
+      router.push(`${pathname}?${params.toString()}`);
+    } else {
+      params.delete('limit');
+      params.delete('page')
+      router.push(`${pathname}?${params.toString()}`);
+    }
   };
 
   const handleSort = (value: string) => {
@@ -64,68 +83,11 @@ export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) =
     }
   };
 
-  useEffect(() => {
-    router.replace(`${pathname}`);
-  }, [pathname, router]);
-
-  const categoriesOptions = [
-    { label: 'ALL', value: 'ALL' },
-    { label: 'Apartment', value: 'APARTMENT' },
-    { label: 'Villa', value: 'VILLA' },
-    { label: 'House', value: 'HOUSE' },
-    { label: 'Land', value: 'LAND' },
-  ];
-
-  const cityOptions = [
-    { label: 'ALL', value: 'ALL' },
-    { label: 'New York', value: 'new york' },
-    { label: 'Los Angeles', value: 'los angeles' },
-    { label: 'Chicago', value: 'chicago' },
-    { label: 'Houston', value: 'houston' },
-    { label: 'Miami', value: 'miami' },
-  ];
-
-  const sortOptions = [
-    {
-      label: 'Price (high → low)',
-      value: 'PRICE_HIGH_TO_LOW',
-    },
-    {
-      label: 'Price (low → high)',
-      value: 'PRICE_LOW_TO_HIGH',
-    },
-    {
-      label: 'Newest → Oldedst',
-      value: 'NEWEST',
-    },
-    {
-      label: 'Oldest → Newest',
-      value: 'OLDEST',
-    },
-    {
-      label: 'Default',
-      value: 'DEFAULT',
-    },
-  ];
-
-  const sortByTitle = (value: string) => {
-    switch (value) {
-      case 'PRICE_LOW_TO_HIGH':
-        return 'Price (low → high)';
-      case 'PRICE_HIGH_TO_LOW':
-        return 'Price (high → low)';
-      case 'NEWEST':
-        return 'Newest → Oldedst';
-      case 'OLDEST':
-        return 'Oldest → Newest';
-      default:
-        return 'Default';
-    }
-  };
-
   return (
     <Stack
       direction="row"
+      justifyContent="space-between"
+      alignItems='center'
       gap={2}
       sx={{
         boxShadow: (theme) => theme.customShadows.card,
@@ -134,61 +96,75 @@ export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) =
         width: '100%',
       }}
     >
-      <CustomFilterPopover
-        title="Search by Category"
-        popoverComponent={
-          <FilterByValues
-            options={categoriesOptions}
-            selectedOptions={categories}
-            onApply={(newCategories) => {
-              handleFilter('category', newCategories);
-              setCategories(newCategories);
-            }}
-            multiple
-          />
-        }
-      />
-      <CustomFilterPopover
-        title="Search by Cities"
-        popoverComponent={
-          <FilterByValues
-            options={cityOptions}
-            selectedOptions={cities}
-            onApply={(newCities) => {
-              handleFilter('city', newCities);
-              setCities(newCities);
-            }}
-            multiple
-          />
-        }
-      />
-      <CustomFilterPopover
-        title={sortBy.length > 0 ? sortByTitle(sortBy) : 'Sort by'}
-        popoverComponent={
-          <FilterByValues
-            options={sortOptions}
-            onApply={(value) => {
-              handleSort(value);
-              setSortBy(value);
-            }}
-          />
-        }
-      />
-      <ToggleButtonGroup
-        size="small"
-        value={view}
-        exclusive
-        onChange={handleChangeView}
-        sx={{ ml: 'auto' }}
-      >
-        <ToggleButton title="List View" value="list">
-          <Iconify icon="solar:list-bold" />
-        </ToggleButton>
+      <SearchBox />
+      <Stack direction='row' gap={1}>
+        <CustomFilterPopover
+          title="Search by Category"
+          popoverComponent={
+            <FilterByValues
+              options={categoriesOptions}
+              selectedOptions={categories}
+              onApply={(newCategories) => {
+                handleFilter('category', newCategories);
+                setCategories(newCategories);
+              }}
+              multiple
+            />
+          }
+        />
+        <CustomFilterPopover
+          title="Search by Cities"
+          popoverComponent={
+            <FilterByValues
+              options={cityOptions}
+              selectedOptions={cities}
+              onApply={(newCities) => {
+                handleFilter('city', newCities);
+                setCities(newCities);
+              }}
+              multiple
+            />
+          }
+        />
+        <CustomFilterPopover
+          title={sortBy.length > 0 ? sortByTitle(sortBy) : 'Sort by'}
+          popoverComponent={
+            <FilterByValues
+              options={sortOptions}
+              onApply={(value) => {
+                handleSort(value);
+                setSortBy(value);
+              }}
+            />
+          }
+        />
+        <CustomFilterPopover
+          title={show.length > 0 ? show : 'Show'}
+          popoverComponent={
+            <FilterByValues
+              options={showOptions}
+              onApply={(value) => {
+                handleShow(value);
+                setShow(value);
+              }}
+            />
+          }
+        />
+        <ToggleButtonGroup
+          size="small"
+          value={view}
+          exclusive
+          onChange={handleChangeView}
+        >
+          <ToggleButton title="List View" value="list">
+            <Iconify icon="solar:list-bold" />
+          </ToggleButton>
 
-        <ToggleButton title="Grid View" value="grid">
-          <Iconify icon="mingcute:dot-grid-fill" />
-        </ToggleButton>
-      </ToggleButtonGroup>
+          <ToggleButton title="Grid View" value="grid">
+            <Iconify icon="mingcute:dot-grid-fill" />
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </Stack>
     </Stack>
   );
 };
