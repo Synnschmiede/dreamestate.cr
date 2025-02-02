@@ -1,0 +1,14 @@
+{
+    "nav_item": {
+        "contact": "Contact",
+        "about": "About",
+        "home": "Home",
+        "properties": "Properties",
+        "blog": "Blog"
+    },
+    "button": {
+        "request_a_visit": "Request a visit"
+    },
+    "our_blogs": "Our Blogs",
+    "our_properties": "Our Properties"
+}

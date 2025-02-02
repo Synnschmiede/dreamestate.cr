@@ -1,6 +1,5 @@
 import { paths } from 'src/routes/paths';
 
-import { Iconify } from 'src/components/iconify';
 import { SvgColor } from '../components/svg-color';
 import { CONFIG } from '../config-global';
 
@@ -41,17 +40,17 @@ const ICONS = {
 
 export const navData = [
   {
-    title: 'Home',
+    title: 'home',
     path: '/',
     icon: 'material-symbols-light:dashboard-outline-rounded',
   },
   {
-    title: 'Properties',
+    title: 'properties',
     icon: 'material-symbols-light:dashboard-outline-rounded',
     path: '/properties',
   },
   {
-    title: 'Blog',
+    title: 'blog',
     icon: 'material-symbols-light:dashboard-outline-rounded',
     path: '/blog',
   },

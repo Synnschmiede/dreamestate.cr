@@ -4,10 +4,10 @@ import { m } from 'framer-motion';
 import { forwardRef } from 'react';
 
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
-import { styled } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 import CardActionArea from '@mui/material/CardActionArea';
+import Link from '@mui/material/Link';
+import { styled } from '@mui/material/styles';
 
 import { RouterLink } from 'src/routes/components';
 
@@ -16,6 +16,8 @@ import { CONFIG } from 'src/config-global';
 import { Iconify } from 'src/components/iconify';
 import { useNavItem } from 'src/components/nav-section/hooks';
 
+import { startCase } from 'lodash';
+import { useTranslations } from 'next-intl';
 import type { NavItemProps, NavItemStateProps } from '../types';
 
 // ----------------------------------------------------------------------
@@ -23,6 +25,7 @@ import type { NavItemProps, NavItemStateProps } from '../types';
 export const NavItem = forwardRef<HTMLButtonElement, NavItemProps>(
   ({ title, path, open, active, hasChild, externalLink, subItem, ...other }, ref) => {
     const navItem = useNavItem({ path, hasChild, externalLink });
+    const t = useTranslations();
 
     return (
       <StyledNavItem
@@ -35,7 +38,7 @@ export const NavItem = forwardRef<HTMLButtonElement, NavItemProps>(
         {...navItem.baseProps}
         {...other}
       >
-        {title}
+        {startCase(t(`nav_item.${title}`))}
 
         {hasChild && <Iconify width={16} icon="eva:arrow-ios-downward-fill" sx={{ ml: 0.75 }} />}
       </StyledNavItem>
@@ -69,7 +72,7 @@ const StyledNavItem = styled(ButtonBase, {
       backgroundColor: theme.vars.palette.text.disabled,
       ...(active && { opacity: 1, backgroundColor: theme.vars.palette.primary.main }),
     },
-    
+
   };
 
   return {

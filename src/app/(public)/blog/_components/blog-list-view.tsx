@@ -11,7 +11,7 @@ export const BlogListView = ({ data }: { data: IBlog[] }) => {
         <Grid container spacing={2}>
             {data?.length > 0 &&
                 data.map((item: any) => (
-                    <Grid item xs={12}>
+                    <Grid item xs={12} key={item.id}>
                         <BlogListCard data={item} />
                     </Grid>
                 ))}
