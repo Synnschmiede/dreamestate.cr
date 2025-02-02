@@ -10,5 +10,18 @@
         "request_a_visit": "Request a visit"
     },
     "our_blogs": "Our Blogs",
-    "our_properties": "Our Properties"
+    "our_properties": "Our Properties",
+    "landing_page": {
+        "top_notch_properties": "Top-Notch Real Estate Properties",
+        "find_your": "Find Your",
+        "dream_home": "Dream Home",
+        "satisfied_customers": "Satisfied Customers",
+        "verified_properties": "Verified Properties",
+        "search_property": "Search Property",
+        "category": "Category",
+        "luxury": "Luxury",
+        "commercial": "Commercial",
+        "location": "Location",
+        "listing_id_or_location": "Listing ID or Location"
+    }
 }

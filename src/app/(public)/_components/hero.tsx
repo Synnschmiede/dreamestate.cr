@@ -8,6 +8,7 @@ import { useTheme } from '@mui/material/styles';
 
 import { pxToRem } from 'src/theme/styles';
 
+import { useTranslations } from 'next-intl';
 import { RoundedButton } from 'src/components/button/rounded-button';
 import { CustomSelect } from 'src/components/form-components/custom-select';
 import { CustomTextField } from 'src/components/form-components/custom-textfield';
@@ -15,7 +16,10 @@ import { Iconify } from 'src/components/iconify';
 import { SectionDescription } from 'src/components/section-description';
 import { SectionTitle } from 'src/components/section-title';
 
+const LANDING_PAGE = 'landing_page.';
+
 export const HeroSection = () => {
+  const t = useTranslations();
   return (
     <Box
       sx={{
@@ -47,7 +51,7 @@ export const HeroSection = () => {
                 mb: { xs: 0, md: -2 },
               }}
             >
-              Top-Notch Real Estate Properties
+              {t(`${LANDING_PAGE}top_notch_properties`)}
             </Typography>
             <Typography
               variant="inherit"
@@ -58,7 +62,7 @@ export const HeroSection = () => {
                 mb: { xs: -2, md: -4 },
               }}
             >
-              Find Your
+              {t(`${LANDING_PAGE}find_your`)}
             </Typography>
             <Typography
               variant="inherit"
@@ -68,7 +72,7 @@ export const HeroSection = () => {
                 fontSize: { xs: pxToRem(40), sm: pxToRem(60), md: pxToRem(80) },
               }}
             >
-              Dream Home
+              {t(`${LANDING_PAGE}dream_home`)}
             </Typography>
             <HeroSearchForm />
             <Box sx={{ display: 'flex', gap: 4 }}>
@@ -77,7 +81,7 @@ export const HeroSection = () => {
                   65k
                 </Typography>
                 <Typography variant="body2" sx={{ fontSize: 18 }} color="text.secondary">
-                  Satisfied Customers
+                  {t(`${LANDING_PAGE}satisfied_customers`)}
                 </Typography>
               </Box>
               <Box>
@@ -85,7 +89,7 @@ export const HeroSection = () => {
                   15k
                 </Typography>
                 <Typography variant="body2" sx={{ fontSize: 18 }} color="text.secondary">
-                  Verified Properties
+                  {t(`${LANDING_PAGE}verified_properties`)}
                 </Typography>
               </Box>
             </Box>
@@ -170,6 +174,7 @@ export const HeroSection = () => {
 
 // search form component
 const HeroSearchForm = () => {
+  const t = useTranslations();
   const [value, setValue] = React.useState('');
   const handleInputChange = (event: any) => {
     setValue(event.target.value);
@@ -190,20 +195,20 @@ const HeroSearchForm = () => {
       }}
     >
       <CustomTextField
-        placeholder="Listing ID or Location"
+        placeholder={t(`${LANDING_PAGE}listing_id_or_location`)}
         value={value}
         onChange={handleInputChange}
         name="listing"
       />
       <CustomSelect value={value} onChange={handleInputChange} displayEmpty>
-        <MenuItem value="">Category</MenuItem>
-        <MenuItem value="luxury">Luxury</MenuItem>
-        <MenuItem value="commercial">Commercial</MenuItem>
+        <MenuItem value="">{t(`${LANDING_PAGE}category`)}</MenuItem>
+        <MenuItem value="luxury">{t(`${LANDING_PAGE}luxury`)}</MenuItem>
+        <MenuItem value="commercial">{t(`${LANDING_PAGE}commercial`)}</MenuItem>
       </CustomSelect>
       <CustomSelect value={value} onChange={handleInputChange} displayEmpty>
-        <MenuItem value="">Location</MenuItem>
-        <MenuItem value="luxury">Luxury</MenuItem>
-        <MenuItem value="commercial">Commercial</MenuItem>
+        <MenuItem value="">{t(`${LANDING_PAGE}location`)}</MenuItem>
+        <MenuItem value="luxury">{t(`${LANDING_PAGE}luxury`)}</MenuItem>
+        <MenuItem value="commercial">{t(`${LANDING_PAGE}commercial`)}</MenuItem>
       </CustomSelect>
       <Button
         variant="contained"
@@ -220,7 +225,7 @@ const HeroSearchForm = () => {
         }}
         startIcon={<Search />}
       >
-        Search Property
+        {t(`${LANDING_PAGE}search_property`)}
       </Button>
     </Box>
   );

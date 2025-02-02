@@ -9,6 +9,19 @@
     "button": {
         "request_a_visit": "Besichtigung anfragen"
     },
+    "landing_page": {
+        "top_notch_properties": "Erstklassige Immobilien",
+        "find_your": "Finde dein",
+        "dream_home": "Traumhaus",
+        "satisfied_customers": "Zufriedene Kunden",
+        "verified_properties": "Geprüfte Immobilien",
+        "search_property": "Immobilie suchen",
+        "category": "Kategorie",
+        "luxury": "Luxus",
+        "commercial": "Gewerbe",
+        "location": "Standort",
+        "listing_id_or_location": "Anzeigen-ID oder Standort"
+    },
     "our_blogs": "Unsere Blogs",
     "our_properties": "Unsere Immobilien"
 }
