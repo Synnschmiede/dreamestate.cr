@@ -2,7 +2,7 @@
 
 import { Avatar, Box, Button, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
-import { IUploader } from 'src/app/(client)/properties/_lib/property.interface';
+import { IUploader } from 'src/app/(public)/properties/_lib/property.interface';
 import { TAuthor } from 'src/app/dashboard/blog/_lib/blog.types';
 import { Iconify } from 'src/components/iconify';
 

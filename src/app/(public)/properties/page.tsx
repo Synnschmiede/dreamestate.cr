@@ -2,6 +2,7 @@
 import { Box, Container } from '@mui/material';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs/custom-breadcrumbs';
 import { CONFIG } from 'src/config-global';
+import { getTranslator } from 'src/locales/utils/get-translator';
 import { PropertiesView } from './properties-view';
 
 export const metadata = {
@@ -15,6 +16,7 @@ export default async function PropertiesPage({
 }: {
   searchParams: Record<string, any>;
 }) {
+  const t = await getTranslator();
   const queryString = new URLSearchParams(searchParams).toString();
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/property?${queryString}`, {
     cache: 'no-cache',
@@ -25,8 +27,8 @@ export default async function PropertiesPage({
     <Box sx={{ background: '#f8f8f8', py: { xs: 4, md: 6 } }}>
       <Container maxWidth="xl">
         <CustomBreadcrumbs
-          heading="Our Properties"
-          links={[{ name: 'Home', href: '/' }, { name: 'Properties' }]}
+          heading={t('our_properties')}
+          links={[{ name: t('nav_item.home'), href: '/' }, { name: t('nav_item.properties') }]}
           sx={{ mb: 2 }}
         />
         <PropertiesView properties={properties.data} meta={properties.meta} />

@@ -1,0 +1,14 @@
+{
+    "nav_item": {
+        "contact": "Kontakt",
+        "about": "Über uns",
+        "home": "Startseite",
+        "properties": "Immobilien",
+        "blog": "Blog"
+    },
+    "button": {
+        "request_a_visit": "Besichtigung anfragen"
+    },
+    "our_blogs": "Unsere Blogs",
+    "our_properties": "Unsere Immobilien"
+}
