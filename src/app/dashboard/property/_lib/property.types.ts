@@ -20,14 +20,13 @@ export interface IPropertyDetails {
   area_size: number;
   bedroom: number;
   bathroom: number;
-  garage: number;
+  parking_spot: number;
   available_from: string;
   property_lot_size: string;
   build_year: string;
   structure_type: string;
   price_info: string;
   room: number;
-  garage_size: string;
 }
 
 export interface IPropertyFeatures {
@@ -63,7 +62,7 @@ export interface IProperty {
   contact_info: PropertyContactInfo;
   location: IPropertyLocation;
   property_details: IPropertyDetails;
-  features: IPropertyFeatures;
+  features: string[];
 
   // read only
   created_at?: string;
@@ -98,19 +97,13 @@ export const defaultProperty: IProperty = {
     area_size: 0,
     bedroom: 0,
     bathroom: 0,
-    garage: 0,
+    parking_spot: 0,
     available_from: dayjs().format('YYYY-MM-DD'),
     property_lot_size: '',
     build_year: '',
     structure_type: '',
     price_info: '',
-    room: 0,
-    garage_size: '',
+    room: 0
   },
-  features: {
-    interior_details: [],
-    outdoor_details: [],
-    utilities: [],
-    other_features: [],
-  },
+  features: [],
 };

@@ -53,7 +53,7 @@ export const navData = [
     title: 'blog',
     icon: 'material-symbols-light:dashboard-outline-rounded',
     path: '/blog',
-  },
+  }
 ];
 
 export const dashboardNavData = [
@@ -78,6 +78,12 @@ export const dashboardNavData = [
         icon: 'material-symbols-light:article-outline',
         allowedRoles: ['admin', 'user'],
       },
+      {
+        title: 'Feature & Tag',
+        path: paths.dashboard.feature_and_tag,
+        icon: 'arcticons:device-utility',
+        allowedRoles: ['admin', 'user'],
+      }
     ],
   },
   {

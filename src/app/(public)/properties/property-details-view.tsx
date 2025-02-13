@@ -8,6 +8,7 @@ import { PropertyDetailsDetails } from './_components/property-details-details';
 import { PropertyDetailsFeature } from './_components/property-details-feature';
 import { PropertyDetailsImageCarousel } from './_components/property-details-image-carousel';
 import { PropertyDetailsOverview } from './_components/property-details-overview';
+import { PropertyDetailsTags } from './_components/property-details-tags';
 import { IProperty } from './_lib/property.interface';
 
 export const PropertyDetailsView = ({ data, slug }: { data: IProperty; slug: string }) => {
@@ -34,7 +35,7 @@ export const PropertyDetailsView = ({ data, slug }: { data: IProperty; slug: str
             {
               data?.property_details?.property_lot_size && (
                 <Typography variant="h6" color="primary">
-                  {data.property_details.property_lot_size} sqft
+                  {data.property_details.property_lot_size}
                 </Typography>
               )
             }
@@ -53,6 +54,7 @@ export const PropertyDetailsView = ({ data, slug }: { data: IProperty; slug: str
           <PropertyDetailsAddress data={data?.location} />
           <PropertyDetailsDetails data={data?.property_details} />
           <PropertyDetailsFeature data={data?.features} />
+          {data?.tags && <PropertyDetailsTags data={data.tags} />}
         </Grid>
         {/* sidebar */}
         <Grid item xs={12} md={4}>

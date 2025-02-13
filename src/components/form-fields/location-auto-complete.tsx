@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import GooglePlacesAutocomplete, { geocodeByPlaceId } from 'react-google-places-autocomplete';
 
@@ -34,11 +33,15 @@ export const LocationAutoComplete = (props: ILocationAutoCompleteProps) => (
         onChange: async (place: any) => {
           const placeId = place?.value.place_id;
 
+          console.log("place id: ", place, process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY);
+
           if (!placeId) return;
 
           try {
             // Get the detailed place information using the placeId
             const response = await geocodeByPlaceId(placeId);
+
+            console.log("response inside location: ", response);
             const { address_components, geometry } = response[0];
 
             let city = '';

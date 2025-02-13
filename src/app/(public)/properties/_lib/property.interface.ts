@@ -39,6 +39,8 @@ export interface IUploader {
   role: 'USER' | 'ADMIN' | 'SUPER_ADMIN';
 }
 
+export type TFeatureGroup = { group_name: string; features: string[] }
+
 export interface IProperty {
   id: string;
   title: string;
@@ -52,12 +54,7 @@ export interface IProperty {
   tags?: string[];
   documents?: string[];
   property_details?: IPropertyDetails;
-  features: {
-    interior_details: string[];
-    outdoor_details: string[];
-    utilities: string[];
-    other_features: string[];
-  };
+  features: TFeatureGroup[];
   contactInfo?: PropertyContactInfo;
   location: IPropertyLocation;
   created_at: string;

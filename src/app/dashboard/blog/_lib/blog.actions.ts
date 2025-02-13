@@ -23,11 +23,7 @@ export const getBlogs = async (queryParams: TQueryParams) => {
 
 export const createBlogAsync = async (data: IBlogDefaultValue) => {
     try {
-        const blogData: Record<string, any> = { ...data };
-        if (data?.tags.length) {
-            blogData.tags = data.tags.join(",");
-        }
-        let res = await api.post(`/blog/post`, blogData);
+        let res = await api.post(`/blog/post`, data);
         if (!res.data.success) return;
         toast.success(res.data.message);
         return { success: true, data: res.data.data };
@@ -42,11 +38,7 @@ export const createBlogAsync = async (data: IBlogDefaultValue) => {
 
 export const updateBlogAsync = async (id: string, data: IBlogDefaultValue | Record<string, any>) => {
     try {
-        const blogData: Record<string, any> = { ...data };
-        if (data?.tags?.length) {
-            blogData.tags = data.tags.join(",");
-        }
-        let res = await api.patch(`/blog/post/${id}`, blogData);
+        let res = await api.patch(`/blog/post/${id}`, data);
         if (!res.data.success) return;
         toast.success(res.data.message);
         return { success: true, data: res.data.data };

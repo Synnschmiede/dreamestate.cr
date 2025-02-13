@@ -13,9 +13,11 @@ import { useFormik } from 'formik';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { Editor } from 'src/components/editor';
-import ListItemField from 'src/components/form-fields/list-item-field';
+import { AutoCompleteWithAdding } from 'src/components/form-fields/auto-complete-with-adding';
 import { UploadByModal } from 'src/components/modal/image-select-modal/upload-by-modal';
 import { paths } from 'src/routes/paths';
+import { getUtilities } from '../../feature-and-tag/_lib/feature-and-tag-actions';
+import { IUtilities } from '../../feature-and-tag/_lib/feature-and-tag-types';
 import { createBlogAsync, updateBlogAsync } from '../_lib/blog.actions';
 import { blogValidationSchema } from '../_lib/blog.schema';
 import { defaultBlog, IBlog } from '../_lib/blog.types';
@@ -23,7 +25,16 @@ import { defaultBlog, IBlog } from '../_lib/blog.types';
 export default function BlogForm({ value }: { value?: IBlog }) {
     const [loading, setLoading] = useState<boolean>(false);
     const [isSubmitSuccessful, setSubmitSuccessful] = useState(false);
+    const [tagAndFeature, setTagAndFeature] = React.useState<IUtilities | null>(null);
+
     const router = useRouter();
+
+    const tagOptions = tagAndFeature?.tags.map((t) => (
+        {
+            label: t.name,
+            value: t.id
+        }
+    )) || [];
 
     const { handleChange, handleSubmit, values, setFieldValue, errors, touched, setValues } =
         useFormik({
@@ -60,17 +71,26 @@ export default function BlogForm({ value }: { value?: IBlog }) {
 
     React.useEffect(() => {
         if (value) {
-            console.log("value content: ", value.content);
             const previousValues = {
                 title: value.title,
                 content: value.content,
-                tags: value.tags.split(','),
+                tags: value.tags,
                 thumbnail: value.thumbnail || '',
                 images: value.images
             };
             setValues(previousValues);
         }
     }, [value]);
+
+    React.useEffect(() => {
+        const getUtilitiesData = async () => {
+            const res = await getUtilities();
+            if (res?.data) {
+                setTagAndFeature(res.data);
+            }
+        }
+        getUtilitiesData();
+    }, []);
 
     return (
         <form onSubmit={handleSubmit}>
@@ -93,12 +113,11 @@ export default function BlogForm({ value }: { value?: IBlog }) {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <ListItemField
-                                name="tags"
-                                label="Tags"
-                                setFieldValue={setFieldValue}
-                                values={values.tags}
-                            />
+                            {
+                                tagOptions?.length > 0 && (
+                                    <AutoCompleteWithAdding name='tags' label='Select tags' placeholder='tags' options={tagOptions} values={values.tags} setFieldValue={setFieldValue} />
+                                )
+                            }
                         </Grid>
                         <Grid item xs={12} sm={6}>
                         </Grid>

@@ -64,7 +64,7 @@ export const BlogDetailsView = ({ blog }: Props) => {
                         </Typography>
                         <Stack direction='row' gap={1}>
                             {
-                                tags && tags.split(",").map((t) => (
+                                tags && tags.map((t) => (
                                     <Chip size='small' color="primary" variant="outlined" key={t} label={t} sx={{ textTransform: 'capitalize', borderRadius: '20px' }} />
                                 ))
                             }

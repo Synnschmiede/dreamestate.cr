@@ -6,10 +6,14 @@ import {
   Button,
   Card,
   CardHeader,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
   Grid,
   InputAdornment,
   Stack,
   TextField,
+  Typography
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -19,15 +23,13 @@ import { useRouter } from 'next/navigation';
 import React, { useContext, useState } from 'react';
 import { Editor } from 'src/components/editor';
 import CustomAutocomplete from 'src/components/form-components/custom-autocomplete';
-import ListItemField from 'src/components/form-fields/list-item-field';
-import {
-  ILocationResponsePayload,
-  LocationAutoComplete,
-} from 'src/components/form-fields/location-auto-complete';
+import { AutoCompleteWithAdding } from 'src/components/form-fields/auto-complete-with-adding';
 import { UploadByModal } from 'src/components/modal/image-select-modal/upload-by-modal';
 import { AuthContext } from 'src/contexts/AuthContext';
 import { paths } from 'src/routes/paths';
-import { createPropertyAsync } from '../_lib/property.actions';
+import { getUtilities } from '../../feature-and-tag/_lib/feature-and-tag-actions';
+import { IUtilities } from '../../feature-and-tag/_lib/feature-and-tag-types';
+import { createPropertyAsync, updatePropertyAsync } from '../_lib/property.actions';
 import { propertyTypeOptions } from '../_lib/property.constants';
 import { propertyValidationSchema } from '../_lib/property.schema';
 import { defaultProperty, IProperty } from '../_lib/property.types';
@@ -36,20 +38,29 @@ export default function PropertyForm({ value }: { value?: IProperty }) {
   const { userInfo } = useContext(AuthContext);
   const [loading, setLoading] = useState<boolean>(false);
   const [isSubmitSuccessful, setSubmitSuccessful] = useState(false);
+  const [tagAndFeature, setTagAndFeature] = React.useState<IUtilities | null>(null);
+
+  const tagOptions = tagAndFeature?.tags.map((t) => (
+    {
+      label: t.name,
+      value: t.id
+    }
+  )) || [];
+
   const router = useRouter();
 
-  const handleLocationChange = (data: ILocationResponsePayload) => {
-    if (data) {
-      setFieldValue('location.address', data.address);
-      setFieldValue('location.street', data.address);
-      setFieldValue('location.postal_code', data.postalCode);
-      setFieldValue('location.city', data.city);
-      setFieldValue('location.state', data.state);
-      setFieldValue('location.country', data.country);
-      setFieldValue('location.latitude', data.latitude);
-      setFieldValue('location.longitude', data.longitude);
-    }
-  };
+  // const handleLocationChange = (data: ILocationResponsePayload) => {
+  //   if (data) {
+  //     setFieldValue('location.address', data.address);
+  //     setFieldValue('location.street', data.address);
+  //     setFieldValue('location.postal_code', data.postalCode);
+  //     setFieldValue('location.city', data.city);
+  //     setFieldValue('location.state', data.state);
+  //     setFieldValue('location.country', data.country);
+  //     setFieldValue('location.latitude', data.latitude);
+  //     setFieldValue('location.longitude', data.longitude);
+  //   }
+  // };
 
   const { handleChange, handleSubmit, values, setFieldValue, errors, touched, setValues } =
     useFormik({
@@ -69,7 +80,8 @@ export default function PropertyForm({ value }: { value?: IProperty }) {
       },
       onSubmit: async (values) => {
         setLoading(true);
-        const res = await createPropertyAsync(values);
+        const res = value ? await updatePropertyAsync(value.id, values) : await createPropertyAsync(values);
+
         if (res?.success) {
           router.push(paths.dashboard.property);
           return;
@@ -79,9 +91,17 @@ export default function PropertyForm({ value }: { value?: IProperty }) {
       },
     });
 
+  const handleAddFeature = (featureID: string) => {
+    values.features.includes(featureID)
+      ? setFieldValue('features', values.features.filter((item: string) => item !== featureID))
+      : setFieldValue('features', [...values.features, featureID]);
+  }
+
   React.useEffect(() => {
     if (value) {
+      const preSelectedFeature = value.features?.map((feature: any) => feature.id)
       setValues(value);
+      setFieldValue('features', preSelectedFeature)
     }
   }, [value]);
 
@@ -93,6 +113,16 @@ export default function PropertyForm({ value }: { value?: IProperty }) {
     }
   }, [userInfo]);
 
+  React.useEffect(() => {
+    const getUtilitiesData = async () => {
+      const res = await getUtilities();
+      if (res?.data) {
+        setTagAndFeature(res.data);
+      }
+    }
+    getUtilitiesData();
+  }, [])
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <form onSubmit={handleSubmit}>
@@ -100,6 +130,7 @@ export default function PropertyForm({ value }: { value?: IProperty }) {
           Add new property
         </Alert>
         <Stack direction="column" gap={5}>
+          {/* Basic Information */}
           <Card>
             <CardHeader title="Basic Information" />
             <Grid container spacing={2} sx={{ p: 3 }}>
@@ -149,6 +180,7 @@ export default function PropertyForm({ value }: { value?: IProperty }) {
               </Grid>
               <Grid item xs={12}>
                 <Editor
+                  value={values.description}
                   onChange={(value: any) => setFieldValue('description', value)}
                   error={touched.description && Boolean(errors.description)}
                   helperText={touched.description && errors.description}
@@ -158,6 +190,8 @@ export default function PropertyForm({ value }: { value?: IProperty }) {
               </Grid>
             </Grid>
           </Card>
+
+          {/* Property Details */}
           <Card>
             <CardHeader title="Property details" />
             <Grid container spacing={2} sx={{ p: 3 }}>
@@ -166,7 +200,7 @@ export default function PropertyForm({ value }: { value?: IProperty }) {
                   name="property_details.area_size"
                   label="Area Size"
                   type="number"
-                  value={values.property_details.area_size}
+                  value={values.property_details?.area_size}
                   onChange={handleChange}
                   error={
                     touched.property_details?.area_size &&
@@ -282,47 +316,29 @@ export default function PropertyForm({ value }: { value?: IProperty }) {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12} sm={4}>
+              <Grid item xs={12} sm={6}>
                 <TextField
-                  name="property_details.garage"
-                  label="Garage"
+                  name="property_details.parking_spot"
+                  label="Parking spot"
                   type="number"
-                  value={values.property_details.garage}
+                  value={values.property_details.parking_spot}
                   onChange={handleChange}
                   error={
-                    touched.property_details?.garage &&
-                    Boolean((errors as any)['property_details.garage'])
+                    touched.property_details?.parking_spot &&
+                    Boolean((errors as any)['property_details.parking_spot'])
                   }
                   helperText={
-                    touched.property_details?.garage && (errors as any)['property_details.garage']
+                    touched.property_details?.parking_spot && (errors as any)['property_details.parking_spot']
                   }
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12} sm={4}>
-                <TextField
-                  name="property_details.garage_size"
-                  label="Garage Size"
-                  value={values.property_details.garage_size}
-                  onChange={handleChange}
-                  error={
-                    touched.property_details?.garage_size &&
-                    Boolean((errors as any)['property_details.garage_size'])
-                  }
-                  helperText={
-                    touched.property_details?.garage_size &&
-                    (errors as any)['property_details.garage_size']
-                  }
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <ListItemField
-                  name="tags"
-                  label="Tags"
-                  setFieldValue={setFieldValue}
-                  values={values.tags}
-                />
+              <Grid item xs={12} sm={6}>
+                {
+                  tagOptions?.length > 0 && (
+                    <AutoCompleteWithAdding name='tags' label='Select tags' placeholder='Tags' options={tagOptions} values={values.tags} setFieldValue={setFieldValue} />
+                  )
+                }
               </Grid>
               <Grid item xs={12} sm={6}>
                 <DatePicker
@@ -361,10 +377,12 @@ export default function PropertyForm({ value }: { value?: IProperty }) {
               </Grid>
             </Grid>
           </Card>
+
+          {/* Location */}
           <Card>
             <CardHeader title="Location" />
             <Grid container spacing={2} sx={{ p: 3 }}>
-              <Grid item xs={12} sx={{ zIndex: 1000 }}>
+              {/* <Grid item xs={12} sx={{ zIndex: 1000 }}>
                 <LocationAutoComplete
                   id="address"
                   variant="outlined"
@@ -373,7 +391,7 @@ export default function PropertyForm({ value }: { value?: IProperty }) {
                   value={''}
                   onLocationChange={handleLocationChange}
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <TextField
                   name="location.street"
@@ -461,10 +479,54 @@ export default function PropertyForm({ value }: { value?: IProperty }) {
               </Grid>
             </Grid>
           </Card>
+
+          {/* Features */}
           <Card sx={{ overflow: 'visible', zIndex: 900 }}>
             <CardHeader title="Features" />
             <Grid container spacing={2} sx={{ p: 3 }}>
-              <Grid item xs={12} sm={6}>
+              {
+                tagAndFeature && tagAndFeature.feature_groups?.length ? (
+                  tagAndFeature.feature_groups.map((group) => (
+                    <Grid item xs={12} md={6} key={group.id}>
+                      <Typography variant='caption' sx={{ fontSize: '1.1rem' }}>{group.name}</Typography>
+                      <FormGroup sx={{ ml: 1 }}>
+                        {
+                          group.feature.map((item) => {
+                            const isChecked = values.features.includes(item.id)
+                            return <FormControlLabel key={item.id} control={<Checkbox checked={isChecked} onChange={() => handleAddFeature(item.id)} />} label={item.name} />
+                          })
+                        }
+                      </FormGroup>
+                    </Grid>
+                  ))
+                ) : (
+                  <Grid item xs={12}>
+                    <Typography variant='caption' sx={{ fontSize: '1.1rem' }}>No feature found</Typography>
+                  </Grid>
+                )
+              }
+              {/* {
+                featuresGroup.length > 0 ? (
+                  featuresGroup.map((group) => (
+                    <Grid key={group.type} item xs={12} sm={6}>
+                      <Typography variant='caption' sx={{ fontSize: '1.1rem' }}>{group.type}</Typography>
+                      <FormGroup sx={{ ml: 1 }}>
+                        {
+                          group.features.map((item) => {
+                            const isChecked = values.features.interior_details.includes(item.title) || values.features.outdoor_details.includes(item.title) || values.features.utilities.includes(item.title) || values.features.other_features.includes(item.title)
+                            return <FormControlLabel key={item.id} control={<Checkbox checked={isChecked} onChange={() => handleAddFeature(item.type, item.title)} />} label={item.title} />
+                          })
+                        }
+                      </FormGroup>
+                    </Grid>
+                  ))
+                ) : (
+                  <Grid item xs={12}>
+                    <Typography variant='caption' sx={{ fontSize: '1.1rem' }}>Interior Feature</Typography>
+                  </Grid>
+                )
+              } */}
+              {/* <Grid item xs={12} sm={6}>
                 <ListItemField
                   name="features.interior_details"
                   label="Interior features"
@@ -495,9 +557,11 @@ export default function PropertyForm({ value }: { value?: IProperty }) {
                   setFieldValue={setFieldValue}
                   values={values.features.other_features}
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
           </Card>
+
+          {/* Contact Information */}
           <Card>
             <CardHeader title="Contact Information" />
             <Grid container spacing={2} sx={{ p: 3 }}>
@@ -542,6 +606,8 @@ export default function PropertyForm({ value }: { value?: IProperty }) {
               </Grid>
             </Grid>
           </Card>
+
+          {/* Media Information */}
           <Card>
             <CardHeader title="Media Information" />
             <Grid item xs={12} sm={6} sx={{ p: 3 }}>

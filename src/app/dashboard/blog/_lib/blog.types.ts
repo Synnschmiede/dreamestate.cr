@@ -18,7 +18,7 @@ export interface IBlog {
     content: string;
     thumbnail?: string;
     images: string[];
-    tags: string;
+    tags: string[];
     published: boolean;
     featured: boolean;
     author_id: string;

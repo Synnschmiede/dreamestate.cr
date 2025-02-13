@@ -12,13 +12,9 @@ export const propertyValidationSchema = z.object({
       .min(0, 'Size cannot be negative'),
   }),
   location: z.object({
-    street: z.string({ required_error: 'Street is required' }).min(1, 'Street is required'),
-    city: z.string({ required_error: 'City is required' }).min(1, 'City is required'),
+    street: z.string({ required_error: 'Street is required' }).min(1, 'Street is required')
   }),
   contact_info: z.object({
     email: z.string().min(1, 'Email is required'),
   }),
-  // feature_image: z.instanceof(File, { message: 'Feature image is required' }).refine((file) => {
-  //   file.size > 0, { message: 'Feature image is required' };
-  // }),
 });
