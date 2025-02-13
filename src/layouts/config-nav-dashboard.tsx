@@ -56,13 +56,7 @@ export const navData = [
         path: paths.dashboard.blog,
         icon: ICONS.blog,
         allowedRoles: ['admin', 'user'],
-      },
-      {
-        title: 'Feature',
-        path: paths.dashboard.feature,
-        icon: ICONS.course,
-        allowedRoles: ['admin', 'user'],
-      },
+      }
     ],
   },
   {
