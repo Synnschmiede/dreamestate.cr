@@ -50,9 +50,9 @@ export const FeatureDialog = (props: IUserModalProps) => {
             if (mode === 'ADD' && !values.feature_group_id.length) {
                 errors.feature_group_id = formConstants.required;
             }
-            if (mode === 'EDIT' && !values.id.length) {
-                errors.id = formConstants.required;
-            }
+            // if (mode === 'EDIT' && values.id.length === 0) {
+            //     errors.id = formConstants.required;
+            // }
             if (mode === 'DELETE' && !values.id.length) {
                 errors.id = formConstants.required;
             }
@@ -163,7 +163,7 @@ export const FeatureDialog = (props: IUserModalProps) => {
                 }
 
                 {
-                    mode === 'EDIT' && featureList?.length && (
+                    mode === 'EDIT' && featureList?.length > 0 && (
                         <>
                             <Grid item xs={12}>
                                 <Autocomplete

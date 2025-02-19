@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Stack } from '@mui/material';
+import { Box, Container, Grid } from '@mui/material';
 
 import { pxToRem } from 'src/theme/styles';
 
@@ -21,15 +21,16 @@ export const NewsArticles = async () => {
     <Box
       sx={{
         // background: theme.palette.custom.dark_bg,
-        backgroundColor: "#1C2D37",
+        // backgroundColor: "#1C2D37",
+        backgroundColor: '#F1F4F5'
       }}
     >
       <Container
         maxWidth="xl"
         sx={{
           minHeight: pxToRem(300),
-          py: { xs: pxToRem(40), md: pxToRem(120) },
-          px: { xs: pxToRem(15), md: pxToRem(0) },
+          py: { xs: pxToRem(40), md: pxToRem(80) },
+          // px: { xs: pxToRem(15), md: pxToRem(0) },
           position: 'relative',
         }}
       >
@@ -64,7 +65,7 @@ export const NewsArticles = async () => {
           <Grid item xs={12} md={8}>
             <SectionTitle
               sx={{
-                color: 'text.white',
+                color: '#1C2D37',
               }}
             >
               News & Articles
@@ -72,7 +73,7 @@ export const NewsArticles = async () => {
 
             <SectionDescription
               sx={{
-                color: 'text.white',
+                color: '#1C2D37',
                 marginTop: pxToRem(10),
                 fontSize: { xs: pxToRem(16), sm: pxToRem(18), md: pxToRem(20) },
                 maxWidth: { xs: '100%', md: '70%' },
@@ -92,17 +93,17 @@ export const NewsArticles = async () => {
               alignItems: 'center',
             }}
           >
-            <RedirectButton path='/blog' title='Browse all post' />
+            <RedirectButton path='/blog' title='Browse all post' sx={{ borderColor: '#1C2D37', color: '#1C2D37' }} />
           </Grid>
         </Grid>
-        {/* sliders */}
-        <Stack direction='row' gap={2}>
+
+        <Grid container gap={2}>
           {
-            blog_response?.data && blog_response?.data?.slice(0, 2).map((item: IBlog) => (
+            blog_response?.data && blog_response?.data?.slice(0, 3).map((item: IBlog) => (
               <NewsArticleCard key={item.id} blog={item} />
             ))
           }
-        </Stack>
+        </Grid>
         <AnimatedShape
           animationType="spin"
           size={{ width: 150, height: 150 }}

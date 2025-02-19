@@ -1,4 +1,4 @@
-import { Box, Chip, Stack, Typography } from "@mui/material";
+import { Box, Chip, Grid, Stack, Typography } from "@mui/material";
 
 
 import { IBlog } from "src/app/dashboard/blog/_lib/blog.types";
@@ -15,7 +15,8 @@ export const NewsArticleCard = ({ blog }: Props) => {
     const { title, slug, thumbnail, tags, updated_at } = blog;
 
     return (
-        <Box
+        <Grid
+            xs={4}
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -23,8 +24,9 @@ export const NewsArticleCard = ({ blog }: Props) => {
                 boxShadow: 2,
                 overflow: 'hidden',
                 height: '100%',
-                width: '50%',
-                marginBottom: 1
+                marginBottom: 1,
+                backgroundColor: 'text.white',
+                zIndex: 100
             }}
         >
             <Box
@@ -35,14 +37,15 @@ export const NewsArticleCard = ({ blog }: Props) => {
                 sx={{ objectFit: 'cover', width: '100%', height: '400px' }}
             />
             <Box sx={{
-                px: 4
+                px: 4,
+                pb: 1
             }}>
                 <Stack direction='row' justifyContent='space-between' alignItems='center' gap={2} sx={{ mt: 2, mb: 1 }}>
                     <IconWithText
                         icon="clarity:date-line"
                         text={(isDate24HoursPast(new Date(updated_at)) ? fDateTime(updated_at) : `${fToNow(updated_at)} ago`) || ''}
-                        sx={{ color: "white" }}
-                        iconColor="white"
+                        sx={{ color: "#1C2D37" }}
+                        iconColor="#1C2D37"
                     />
                     <Stack direction='row' gap={1}>
                         {
@@ -54,14 +57,14 @@ export const NewsArticleCard = ({ blog }: Props) => {
                 </Stack>
                 <Typography
                     variant="h4"
-                    color="text.white"
+                    color="#1C2D37"
 
                 >
                     {title}
                 </Typography>
 
-                <RedirectButton path={`/blog/${slug}`} title='Read more' />
+                <RedirectButton path={`/blog/${slug}`} title='Read more' sx={{ borderColor: '#1C2D37', color: '#1C2D37' }} />
             </Box>
-        </Box>
+        </Grid>
     )
 };

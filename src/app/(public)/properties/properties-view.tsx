@@ -1,12 +1,14 @@
 'use client';
 import { Grid } from '@mui/material';
 import React from 'react';
+import { getUtilities } from 'src/app/dashboard/feature-and-tag/_lib/feature-and-tag-actions';
+import { IUtilities } from 'src/app/dashboard/feature-and-tag/_lib/feature-and-tag-types';
 import PagePagination from 'src/components/pagination/page-pagination';
 import { TMeta } from 'src/types/common';
 import { FilterToolbar } from './_components/filter-toolbar';
-import { PropertyCountByCategory } from './_components/property-count-by-category';
 import { PropertyGridView } from './_components/property-grid-view';
 import { PropertyListView } from './_components/property-list-view';
+import { PropertyRightPanel } from './_components/property-right-panel';
 import { IProperty } from './_lib/property.interface';
 
 type Props =
@@ -14,6 +16,18 @@ type Props =
 
 export const PropertiesView = ({ properties, meta }: Props) => {
   const [propertyView, setPropertyView] = React.useState<string>('grid');
+  const [data, setData] = React.useState<IUtilities | null>(null);
+
+  async function fetchData() {
+    try {
+      const response = await getUtilities();
+      if (response.success) {
+        setData(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const handleChangeView = React.useCallback(
     (event: React.MouseEvent<HTMLElement>, newView: string | null) => {
@@ -30,6 +44,10 @@ export const PropertiesView = ({ properties, meta }: Props) => {
     if (view) {
       setPropertyView(view);
     }
+  }, []);
+
+  React.useEffect(() => {
+    fetchData();
   }, []);
 
   return (
@@ -52,78 +70,15 @@ export const PropertiesView = ({ properties, meta }: Props) => {
 
         {/* right panel widgets */}
         <Grid item xs={12} md={4}>
-          <PropertyCountByCategory
-            title="List by Categories"
-            dataArr={[
-              {
-                key: 'Apartments',
-                value: 30,
-              },
-              {
-                key: 'Villas',
-                value: 30,
-              },
-              {
-                key: 'Retail',
-                value: 30,
-              },
-              {
-                key: 'Houses',
-                value: 10,
-              },
-              {
-                key: 'Condos',
-                value: 21,
-              },
-            ]}
-          />
-          <PropertyCountByCategory
-            title="List by Types"
-            dataArr={[
-              {
-                key: 'Sales',
-                value: 30,
-              },
-              {
-                key: 'Rentals',
-                value: 30,
-              },
-              {
-                key: 'Invest',
-                value: 30,
-              },
-            ]}
-          />
-          <PropertyCountByCategory
-            title="List by Cities"
-            dataArr={[
-              {
-                key: 'Jersey City',
-                value: 30,
-              },
-              {
-                key: 'New York',
-                value: 30,
-              },
-            ]}
-          />
-          <PropertyCountByCategory
-            title="List by Areas"
-            dataArr={[
-              {
-                key: 'Bayonne',
-                value: 30,
-              },
-              {
-                key: 'Greenwich Village',
-                value: 30,
-              },
-              {
-                key: 'Manhattan',
-                value: 30,
-              },
-            ]}
-          />
+          {
+            data && data.feature_groups?.length > 0 && (
+              data.feature_groups?.map((feature_group) => (
+                feature_group.feature?.length > 0 && (
+                  <PropertyRightPanel key={feature_group.id} feature_group={feature_group} />
+                )
+              ))
+            )
+          }
         </Grid>
       </Grid>
     </>

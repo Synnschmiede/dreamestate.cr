@@ -23,6 +23,7 @@ export const AboutUs = () => {
         pt: { xs: pxToRem(100), md: pxToRem(200) },
         pb: { xs: pxToRem(40), md: pxToRem(80) },
         position: 'relative',
+        zIndex: 8
       }}
     >
       <Container maxWidth="xl">

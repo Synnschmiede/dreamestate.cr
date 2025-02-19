@@ -5,12 +5,13 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Chip,
   Divider,
   Stack,
-  Typography,
+  Typography
 } from '@mui/material';
 
-import { CustomChip } from 'src/components/custom-chip';
+// import { TitledAvatar } from 'src/components/titled-avatar';
 import { Iconify } from 'src/components/iconify';
 import { TitledAvatar } from 'src/components/titled-avatar';
 import { currencyFormatter } from 'src/utils/currency-view';
@@ -26,6 +27,7 @@ export const PropertyGridCard = ({ data }: { data: IProperty }) => {
     uploaded_by,
     feature_image,
     property_type,
+    featured
   } = data;
   return (
     <Card
@@ -37,13 +39,13 @@ export const PropertyGridCard = ({ data }: { data: IProperty }) => {
         overflow: 'hidden',
         height: '100%',
         marginBottom: 1,
-        '&:hover': {
-          boxShadow: (theme) => theme.customShadows.card,
-          '& .MuiCardMedia-root': {
-            transform: 'scale(1.05)',
-            transition: 'transform 0.3s ease-in-out',
-          },
-        },
+        // '&:hover': {
+        //   boxShadow: (theme) => theme.customShadows.card,
+        //   '& .MuiCardMedia-root': {
+        //     transform: 'scale(1.05)',
+        //     transition: 'transform 0.3s ease-in-out',
+        //   },
+        // },
       }}
     >
       <Box sx={{ position: 'relative', overflow: 'hidden', cursor: 'pointer' }}>
@@ -65,16 +67,24 @@ export const PropertyGridCard = ({ data }: { data: IProperty }) => {
             zIndex: 1,
           }}
         />
-        <CustomChip
-          label={property_type}
-          color="primary"
-          size="small"
-          sx={{
-            position: 'absolute',
-            top: 10,
-            right: 10,
-          }}
-        />
+        <Stack direction='row' gap={1} sx={{
+          position: 'absolute',
+          top: 10,
+          right: 10,
+        }}>
+          {featured && (
+            <Chip
+              label='FEATURED'
+              color="primary"
+              size="small"
+            />
+          )}
+          <Chip
+            label={property_type}
+            color="primary"
+            size="small"
+          />
+        </Stack>
         <Box
           sx={{
             position: 'absolute',
@@ -141,7 +151,6 @@ export const PropertyGridCard = ({ data }: { data: IProperty }) => {
           width: '80%',
         }}
       />
-
       <Stack
         direction="row"
         justifyContent="space-between"
@@ -163,12 +172,6 @@ export const PropertyGridCard = ({ data }: { data: IProperty }) => {
         >
           <Button key="one">
             <Iconify icon="material-symbols:share" />
-          </Button>
-          <Button key="two">
-            <Iconify icon="carbon:favorite" />
-          </Button>
-          <Button key="three">
-            <Iconify icon="ic:baseline-plus" />
           </Button>
         </ButtonGroup>
       </Stack>

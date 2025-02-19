@@ -45,9 +45,9 @@ export const TagDialog = (props: IUserModalProps) => {
             if (mode === 'ADD' && !values.name.length) {
                 errors.name = formConstants.required;
             }
-            if (mode === 'EDIT' && !values.id.length) {
-                errors.id = formConstants.required;
-            }
+            // if (mode === 'EDIT' && !values.id.length) {
+            //     errors.id = formConstants.required;
+            // }
             if (mode === 'DELETE' && !values.id.length) {
                 errors.id = formConstants.required;
             }

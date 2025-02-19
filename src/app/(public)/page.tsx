@@ -1,14 +1,12 @@
 import { AboutUs } from "./_components/about-us";
-import { FeaturedListings } from "./_components/featured-listings";
+import { ContactSection } from "./_components/contact-section";
+import { FeaturedProperties } from "./_components/featured-properties";
 import { HeroSection } from "./_components/hero";
-import { InstagramSection } from "./_components/instagram";
 import { NewsArticles } from "./_components/news-articles";
 import { OngoingProjects } from "./_components/ongoing-projects";
 import { OurAwards } from "./_components/our-awards";
 import { OurClients } from "./_components/our-clients";
 import { OurTeam } from "./_components/our-team";
-import { ScheduleVisit } from "./_components/schedul-visit";
-import { Testimonials } from "./_components/testimonials";
 
 
 // ----------------------------------------------------------------------
@@ -22,16 +20,18 @@ export default function Page() {
   return (
     <>
       <HeroSection />
-      <FeaturedListings />
+      {/* <FeaturedListings /> */}
+      <FeaturedProperties />
       <AboutUs />
       <OngoingProjects />
       <OurClients />
       <OurTeam />
-      <Testimonials />
+      {/* <Testimonials /> */}
       <OurAwards />
-      <ScheduleVisit />
+      {/* <ScheduleVisit /> */}
+      <ContactSection />
       <NewsArticles />
-      <InstagramSection />
+      {/* <InstagramSection /> */}
     </>
   );
 }

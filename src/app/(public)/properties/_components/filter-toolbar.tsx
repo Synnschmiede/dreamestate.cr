@@ -10,7 +10,7 @@ import { FilterByValues } from 'src/components/core/filter-by-values';
 import SearchBox from 'src/components/form-fields/search-box';
 import { Iconify } from 'src/components/iconify';
 import { showOptions } from 'src/utils/common';
-import { categoriesOptions, cityOptions, sortByTitle, sortOptions } from '../_lib/utils';
+import { categoriesOptions, generalFilterOptions, sortByTitle, sortOptions } from '../_lib/utils';
 
 interface IFilterToolbarProps {
   view: string;
@@ -25,6 +25,7 @@ export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) =
   const [cities, setCities] = useState(searchParams.get('city') || '');
   const [sortBy, setSortBy] = useState(sortOrderLabel);
   const [show, setShow] = useState(searchParams.get('limit') || '');
+  const [generalFilter, setGeneralFilter] = useState(searchParams.get('featured') ? 'featured' : 'relevance');
 
   const pathname = usePathname();
   const router = useRouter();
@@ -83,6 +84,20 @@ export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) =
     }
   };
 
+  const handleGeneralFilter = (value: string) => {
+    const params = new URLSearchParams(window.location.search);
+    switch (value) {
+      case 'featured':
+        params.set('featured', 'true');
+        router.push(`${pathname}?${params.toString()}`);
+        break;
+      default:
+        params.delete('featured');
+        router.push(`${pathname}?${params.toString()}`);
+        break;
+    }
+  };
+
   return (
     <Stack
       direction="row"
@@ -99,6 +114,18 @@ export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) =
       <SearchBox />
       <Stack direction='row' gap={1}>
         <CustomFilterPopover
+          title={generalFilter.charAt(0).toUpperCase() + generalFilter.slice(1)}
+          popoverComponent={
+            <FilterByValues
+              options={generalFilterOptions}
+              onApply={(value) => {
+                handleGeneralFilter(value);
+                setGeneralFilter(value);
+              }}
+            />
+          }
+        />
+        <CustomFilterPopover
           title="Search by Category"
           popoverComponent={
             <FilterByValues
@@ -112,7 +139,7 @@ export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) =
             />
           }
         />
-        <CustomFilterPopover
+        {/* <CustomFilterPopover
           title="Search by Cities"
           popoverComponent={
             <FilterByValues
@@ -125,7 +152,7 @@ export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) =
               multiple
             />
           }
-        />
+        /> */}
         <CustomFilterPopover
           title={sortBy.length > 0 ? sortByTitle(sortBy) : 'Sort by'}
           popoverComponent={

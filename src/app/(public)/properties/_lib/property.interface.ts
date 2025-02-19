@@ -60,4 +60,5 @@ export interface IProperty {
   created_at: string;
   updated_at: string;
   uploaded_by: IUploader;
+  featured: boolean
 }

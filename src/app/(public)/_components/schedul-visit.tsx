@@ -26,7 +26,7 @@ export const ScheduleVisit = () => {
       apartment: '',
       message: '',
     },
-    validate(values) {},
+    validate(values) { },
     onSubmit: (values) => {
       console.log(values);
     },
@@ -139,7 +139,7 @@ export const ScheduleVisit = () => {
       </Box>
 
       {/* Map Section */}
-      <Box sx={{ height: '100%', bgcolor: 'grey.200' }}>
+      {/* <Box sx={{ height: '100%', bgcolor: 'grey.200' }}>
         <iframe
           title="map"
           src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d19868.687835989404!2d-0.1377869!3d51.5074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2suk!4v1701864150040!5m2!1sen!2suk"
@@ -150,7 +150,7 @@ export const ScheduleVisit = () => {
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
         />
-      </Box>
+      </Box> */}
     </Box>
   );
 };

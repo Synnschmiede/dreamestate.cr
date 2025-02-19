@@ -71,7 +71,6 @@ export const BlogView = () => {
   };
 
   const updateFeaturedStatus = async (selectedId: string, featuredStatus: boolean) => {
-    console.log('inside of update featured', selectedId, featuredStatus);
     if (!selectedId) return;
     setLoading(true);
     await updateBlogAsync(selectedId, { featured: featuredStatus });

@@ -21,6 +21,17 @@ export const sortOptions = [
     },
 ];
 
+export const generalFilterOptions = [
+    {
+        label: 'Relevance',
+        value: 'relevance',
+    },
+    {
+        label: 'Featured',
+        value: 'featured',
+    }
+];
+
 export const sortByTitle = (value: string) => {
     switch (value) {
         case 'PRICE_LOW_TO_HIGH':
