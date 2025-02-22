@@ -22,7 +22,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { useDebounce } from 'src/hooks/use-debounce';
 import { DashboardContent } from 'src/layouts/dashboard';
 import { paths } from 'src/routes/paths';
-import { deletePropertyAsync, getProperty } from './_lib/property.actions';
+import { deletePropertyAsync, getProperty, updatePropertyAsync } from './_lib/property.actions';
 import { IProperty } from './_lib/property.types';
 
 export const PropertyView = () => {
@@ -59,8 +59,15 @@ export const PropertyView = () => {
     }
   }
 
+  const updateFeaturedStatus = async (selectedId: string, featuredStatus: boolean) => {
+    if (!selectedId) return;
+    setLoading(true);
+    await updatePropertyAsync(selectedId, { featured: featuredStatus });
+    await fetchList();
+    setLoading(false);
+  };
+
   const handleDelete = async () => {
-    console.log("inside of the handle delete");
     setLoading(true)
     const ids = selectedRows.map((row) => row.id)
     await deletePropertyAsync(ids);
@@ -83,9 +90,22 @@ export const PropertyView = () => {
   const columns = [
     {
       formatter: (row: IProperty) => (
-        <IconButton title="Edit" onClick={() => router.push(paths.dashboard.edit_property(row.id))}>
-          <Iconify width={18} icon="material-symbols:edit-rounded" />
-        </IconButton>
+        <Stack direction="row" alignItems="center" gap="4px">
+          <IconButton title="Edit" onClick={() => router.push(paths.dashboard.edit_property(row.id))}>
+            <Iconify width={18} icon="material-symbols:edit-rounded" />
+          </IconButton>
+          <IconButton title="Featured" onClick={() => updateFeaturedStatus(row.id, !row.featured)}>
+            {row.featured ? (
+              <Iconify
+                width={18}
+                icon="material-symbols:star-rounded"
+                sx={{ color: 'warning.main' }}
+              />
+            ) : (
+              <Iconify width={18} icon="material-symbols:star-outline-rounded" />
+            )}
+          </IconButton>
+        </Stack>
       ),
       name: 'Actions',
     },
@@ -139,9 +159,10 @@ export const PropertyView = () => {
     },
     {
       formatter: (row: IProperty) => {
-        return <Chip label={row.status} size="small" variant="outlined" />;
+        return <Stack direction='row' justifyContent='center'><Chip label={row.status} size="small" variant="outlined" /></Stack>;
       },
       name: 'Status',
+      align: 'center',
     },
   ];
 

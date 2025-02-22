@@ -29,6 +29,10 @@ export const generalFilterOptions = [
     {
         label: 'Featured',
         value: 'featured',
+    },
+    {
+        label: 'Available',
+        value: 'available',
     }
 ];
 

@@ -12,7 +12,7 @@ import { IProperty } from '../properties/_lib/property.interface';
 
 export const FeaturedProperties = async () => {
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/property?featured=true`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/property?property=featured&limit=3`, {
         cache: 'no-cache',
     });
 
@@ -59,7 +59,7 @@ export const FeaturedProperties = async () => {
                             </SectionDescription>
                         </Grid>
                         <Grid item xs={12} md={5} sx={{ display: 'flex', justifyContent: { xs: 'start', md: 'flex-end' }, alignItems: 'center' }}>
-                            <RedirectButton path='/properties?featured=true' title='Browse all' sx={{ borderColor: '#1C2D37', color: '#1C2D37' }} />
+                            <RedirectButton path='/properties?property=featured' title='Browse all' sx={{ borderColor: '#1C2D37', color: '#1C2D37' }} />
                         </Grid>
                     </Grid>
                 </Box>

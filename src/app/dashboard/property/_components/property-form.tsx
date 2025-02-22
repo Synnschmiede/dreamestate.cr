@@ -30,7 +30,7 @@ import { paths } from 'src/routes/paths';
 import { getUtilities } from '../../feature-and-tag/_lib/feature-and-tag-actions';
 import { IUtilities } from '../../feature-and-tag/_lib/feature-and-tag-types';
 import { createPropertyAsync, updatePropertyAsync } from '../_lib/property.actions';
-import { propertyTypeOptions } from '../_lib/property.constants';
+import { propertyStatusOptions, propertyTypeOptions } from '../_lib/property.constants';
 import { propertyValidationSchema } from '../_lib/property.schema';
 import { defaultProperty, IProperty } from '../_lib/property.types';
 
@@ -316,7 +316,7 @@ export default function PropertyForm({ value }: { value?: IProperty }) {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={4}>
                 <TextField
                   name="property_details.parking_spot"
                   label="Parking spot"
@@ -333,12 +333,23 @@ export default function PropertyForm({ value }: { value?: IProperty }) {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={4}>
                 {
                   tagOptions?.length > 0 && (
                     <AutoCompleteWithAdding name='tags' label='Select tags' placeholder='Tags' options={tagOptions} values={values.tags} setFieldValue={setFieldValue} />
                   )
                 }
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <CustomAutocomplete
+                  options={propertyStatusOptions}
+                  setFieldValue={setFieldValue}
+                  value={values.status}
+                  error={errors.status}
+                  fieldName="status"
+                  label="Status"
+                  touched={touched}
+                />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <DatePicker
@@ -487,17 +498,19 @@ export default function PropertyForm({ value }: { value?: IProperty }) {
               {
                 tagAndFeature && tagAndFeature.feature_groups?.length ? (
                   tagAndFeature.feature_groups.map((group) => (
-                    <Grid item xs={12} md={6} key={group.id}>
-                      <Typography variant='caption' sx={{ fontSize: '1.1rem' }}>{group.name}</Typography>
-                      <FormGroup sx={{ ml: 1 }}>
-                        {
-                          group.feature.map((item) => {
-                            const isChecked = values.features.includes(item.id)
-                            return <FormControlLabel key={item.id} control={<Checkbox checked={isChecked} onChange={() => handleAddFeature(item.id)} />} label={item.name} />
-                          })
-                        }
-                      </FormGroup>
-                    </Grid>
+                    group.feature?.length > 0 && (
+                      <Grid item xs={12} md={6} key={group.id}>
+                        <Typography variant='caption' sx={{ fontSize: '1.1rem' }}>{group.name}</Typography>
+                        <FormGroup sx={{ ml: 1 }}>
+                          {
+                            group.feature.map((item) => {
+                              const isChecked = values.features.includes(item.id)
+                              return <FormControlLabel key={item.id} control={<Checkbox checked={isChecked} onChange={() => handleAddFeature(item.id)} />} label={item.name} />
+                            })
+                          }
+                        </FormGroup>
+                      </Grid>
+                    )
                   ))
                 ) : (
                   <Grid item xs={12}>

@@ -23,8 +23,6 @@ export default async function PropertiesPage({
   });
   const properties = await res.json();
 
-  console.log(searchParams);
-
   return (
     <Box sx={{ background: '#f8f8f8', py: { xs: 4, md: 6 } }}>
       <Container maxWidth="xl">

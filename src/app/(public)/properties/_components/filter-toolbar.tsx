@@ -25,7 +25,7 @@ export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) =
   const [cities, setCities] = useState(searchParams.get('city') || '');
   const [sortBy, setSortBy] = useState(sortOrderLabel);
   const [show, setShow] = useState(searchParams.get('limit') || '');
-  const [generalFilter, setGeneralFilter] = useState(searchParams.get('featured') ? 'featured' : 'relevance');
+  const [generalFilter, setGeneralFilter] = useState(searchParams.get('property') || 'relevance');
 
   const pathname = usePathname();
   const router = useRouter();
@@ -86,16 +86,23 @@ export const FilterToolbar = ({ view, handleChangeView }: IFilterToolbarProps) =
 
   const handleGeneralFilter = (value: string) => {
     const params = new URLSearchParams(window.location.search);
-    switch (value) {
-      case 'featured':
-        params.set('featured', 'true');
-        router.push(`${pathname}?${params.toString()}`);
-        break;
-      default:
-        params.delete('featured');
-        router.push(`${pathname}?${params.toString()}`);
-        break;
+    if (value?.length && value !== 'relevance') {
+      params.set('property', value);
+      router.push(`${pathname}?${params.toString()}`);
+    } else {
+      params.delete('property');
+      router.push(`${pathname}?${params.toString()}`);
     }
+    // switch (value) {
+    //   case 'featured':
+    //     params.set('property', 'featured');
+    //     router.push(`${pathname}?${params.toString()}`);
+    //     break;
+    //   default:
+    //     params.delete('featured');
+    //     router.push(`${pathname}?${params.toString()}`);
+    //     break;
+    // }
   };
 
   return (

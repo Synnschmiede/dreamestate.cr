@@ -5,7 +5,6 @@ export const propertyValidationSchema = z.object({
   price: z
     .number({ invalid_type_error: 'Price is required' })
     .nonnegative('Price must be a positive number'),
-  description: z.string(),
   property_details: z.object({
     area_size: z
       .number({ invalid_type_error: 'Area size must be a number' })

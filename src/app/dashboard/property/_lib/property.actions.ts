@@ -41,7 +41,7 @@ export const createPropertyAsync = async (data: IProperty) => {
     toast.success(res.data.message);
     return { success: true, data: res.data.data };
   } catch (error) {
-    toast.error(error.message);
+    toast.error(error.response?.data?.message || error.message);;
     return {
       success: false,
       error: error.response ? error.response.data : 'An unknown error occurred',

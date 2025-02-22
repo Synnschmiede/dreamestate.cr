@@ -47,7 +47,6 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
     const navConfigData = navData;
 
     const handleChangeLang = (selectedLang: 'en' | 'de') => {
-        console.log(selectedLang);
         setLang(selectedLang);
         Cookies.set('locale_lang', selectedLang);
         router.refresh();

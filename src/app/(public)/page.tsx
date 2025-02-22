@@ -1,9 +1,9 @@
 import { AboutUs } from "./_components/about-us";
+import { AvailableProperties } from "./_components/available-properties";
 import { ContactSection } from "./_components/contact-section";
 import { FeaturedProperties } from "./_components/featured-properties";
 import { HeroSection } from "./_components/hero";
 import { NewsArticles } from "./_components/news-articles";
-import { OngoingProjects } from "./_components/ongoing-projects";
 import { OurAwards } from "./_components/our-awards";
 import { OurClients } from "./_components/our-clients";
 import { OurTeam } from "./_components/our-team";
@@ -23,7 +23,8 @@ export default function Page() {
       {/* <FeaturedListings /> */}
       <FeaturedProperties />
       <AboutUs />
-      <OngoingProjects />
+      {/* <OngoingProjects /> */}
+      <AvailableProperties />
       <OurClients />
       <OurTeam />
       {/* <Testimonials /> */}

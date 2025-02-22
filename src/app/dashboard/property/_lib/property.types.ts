@@ -67,6 +67,7 @@ export interface IProperty {
   // read only
   created_at?: string;
   updated_at?: string;
+  featured: boolean;
 }
 
 export const defaultProperty: IProperty = {
@@ -106,4 +107,5 @@ export const defaultProperty: IProperty = {
     room: 0
   },
   features: [],
+  featured: false
 };
