@@ -9,6 +9,7 @@ type Props = {
     blog: IBlog
 }
 export const BlogDetailsView = ({ blog }: Props) => {
+    // CustomElementRegistry
     const { title, thumbnail, content, images, updated_at, tags, author } = blog;
 
     return (
