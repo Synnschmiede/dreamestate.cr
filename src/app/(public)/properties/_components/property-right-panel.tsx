@@ -51,6 +51,7 @@ export const PropertyRightPanel = ({ feature_group }: Props) => {
 
                     return (
                         <Typography
+                            component='button'
                             key={f.id}
                             variant="body2"
                             sx={{
@@ -60,6 +61,8 @@ export const PropertyRightPanel = ({ feature_group }: Props) => {
                                 borderRadius: 1,
                                 px: 1,
                                 py: 0.5,
+                                textAlign: 'left',
+                                border: 'none',
                                 transition: "background-color 0.3s ease, color 0.3s ease",
                                 "&:hover": {
                                     backgroundColor: "action.hover",

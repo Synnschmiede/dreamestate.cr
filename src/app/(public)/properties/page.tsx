@@ -27,7 +27,7 @@ export default async function PropertiesPage({
     <Box sx={{ background: '#f8f8f8', py: { xs: 4, md: 6 } }}>
       <Container maxWidth="xl">
         <CustomBreadcrumbs
-          heading={t(`${searchParams?.featured === 'true' ? 'featured_properties' : 'our_properties'}`)}
+          heading={t(`${searchParams?.property ? searchParams?.property + '_properties' : 'our_properties'}`)}
           links={[{ name: t('nav_item.home'), href: '/' }, { name: t('nav_item.properties') }]}
           sx={{ mb: 2 }}
         />
