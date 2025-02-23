@@ -1,4 +1,4 @@
-import { Box, Container, Grid } from '@mui/material';
+import { Box, Container, Grid, Stack } from '@mui/material';
 
 import { pxToRem } from 'src/theme/styles';
 
@@ -97,13 +97,13 @@ export const NewsArticles = async () => {
           </Grid>
         </Grid>
 
-        <Grid container gap={2}>
+        <Stack direction='row' gap={2}>
           {
             blog_response?.data && blog_response?.data?.slice(0, 3).map((item: IBlog) => (
               <NewsArticleCard key={item.id} blog={item} />
             ))
           }
-        </Grid>
+        </Stack>
         <AnimatedShape
           animationType="spin"
           size={{ width: 150, height: 150 }}

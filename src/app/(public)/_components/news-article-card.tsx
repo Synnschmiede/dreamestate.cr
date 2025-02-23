@@ -1,4 +1,4 @@
-import { Box, Chip, Grid, Stack, Typography } from "@mui/material";
+import { Box, Chip, Stack, Typography } from "@mui/material";
 
 
 import { IBlog } from "src/app/dashboard/blog/_lib/blog.types";
@@ -15,9 +15,9 @@ export const NewsArticleCard = ({ blog }: Props) => {
     const { title, slug, thumbnail, tags, updated_at } = blog;
 
     return (
-        <Grid
-            xs={4}
+        <Stack
             sx={{
+                width: '33%',
                 display: 'flex',
                 flexDirection: 'column',
                 borderRadius: 2,
@@ -31,10 +31,9 @@ export const NewsArticleCard = ({ blog }: Props) => {
         >
             <Box
                 component="img"
-                height="250"
                 src={`${CONFIG.bucketUrl}/${thumbnail}`}
                 alt={title}
-                sx={{ objectFit: 'cover', width: '100%', height: '400px' }}
+                sx={{ objectFit: 'cover', width: '100%', height: '280px' }}
             />
             <Box sx={{
                 px: 4,
@@ -65,6 +64,6 @@ export const NewsArticleCard = ({ blog }: Props) => {
 
                 <RedirectButton path={`/blog/${slug}`} title='Read more' sx={{ borderColor: '#1C2D37', color: '#1C2D37' }} />
             </Box>
-        </Grid>
+        </Stack>
     )
 };

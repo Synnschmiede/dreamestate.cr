@@ -131,7 +131,7 @@ export function ImageSelectModal({
         }
       })
       if (response.data?.success) {
-        getImages();
+        getImages([{ name: 'limit', value: limit }]);
         setFiles([]);
         setSelectedTab('library');
       }
@@ -149,7 +149,7 @@ export function ImageSelectModal({
         data: { paths: [file.path] }
       });
       if (response.data?.success) {
-        getImages();
+        getImages([{ name: 'limit', value: limit }]);
         setCurrentSelected(null);
         toast.success('Deleted successfully');
       }
@@ -331,7 +331,7 @@ export function ImageSelectModal({
                 }
                 {
                   !loading && meta && meta?.total > getFiles?.length && (
-                    <Stack>
+                    <Stack direction='row' justifyContent='center' sx={{ mt: 2 }}>
                       <Button variant='outlined' onClick={() => setLimit((prev) => prev + 50)}>
                         Show more
                       </Button>
